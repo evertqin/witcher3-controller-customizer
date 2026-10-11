@@ -1,0 +1,11 @@
+{
+  "name": "Automatic Current routing after exact-save load; no routing enable or settings cycle",
+  "steps": [
+    {"kind": "console", "command": "ccProbeRideStart()"},
+    {"kind": "gesture", "button": "A", "gesture": "hold"},
+    {"kind": "gesture", "button": "A", "gesture": "double_hold"},
+    {"kind": "console", "command": "ccProbeRideStatus()", "expected_context": "CC_PROBE_Current_Horse"},
+    {"kind": "settings_inspect"},
+    {"kind": "console", "command": "ccProbeFallback()"}
+  ]
+}

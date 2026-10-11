@@ -1,0 +1,312 @@
+{
+  "name": "Final Phase 1: brake between gestures; ten switches; exact callbacks; native diagrams",
+  "steps": [
+    {
+      "kind": "horse_stop"
+    },
+    {
+      "kind": "console",
+      "command": "ccProbeRideStart()"
+    },
+    {
+      "kind": "preset_switch",
+      "preset": "Alt1"
+    },
+    {
+      "kind": "console",
+      "command": "ccProbeRideReset()"
+    },
+    {
+      "kind": "gesture",
+      "button": "L3",
+      "gesture": "hold"
+    },
+    {
+      "kind": "horse_stop"
+    },
+    {
+      "kind": "gesture",
+      "button": "L3",
+      "gesture": "double_hold"
+    },
+    {
+      "kind": "horse_stop"
+    },
+    {
+      "kind": "console",
+      "command": "ccProbeRideStatus()",
+      "expected_context": "CC_PROBE_Alt1_Horse"
+    },
+    {
+      "kind": "settings_diagram"
+    },
+    {
+      "kind": "preset_switch",
+      "preset": "Current"
+    },
+    {
+      "kind": "console",
+      "command": "ccProbeRideReset()"
+    },
+    {
+      "kind": "gesture",
+      "button": "A",
+      "gesture": "hold"
+    },
+    {
+      "kind": "horse_stop"
+    },
+    {
+      "kind": "gesture",
+      "button": "A",
+      "gesture": "double_hold"
+    },
+    {
+      "kind": "horse_stop"
+    },
+    {
+      "kind": "console",
+      "command": "ccProbeRideStatus()",
+      "expected_context": "CC_PROBE_Current_Horse"
+    },
+    {
+      "kind": "preset_switch",
+      "preset": "Alt1"
+    },
+    {
+      "kind": "console",
+      "command": "ccProbeRideReset()"
+    },
+    {
+      "kind": "gesture",
+      "button": "L3",
+      "gesture": "hold"
+    },
+    {
+      "kind": "horse_stop"
+    },
+    {
+      "kind": "gesture",
+      "button": "L3",
+      "gesture": "double_hold"
+    },
+    {
+      "kind": "horse_stop"
+    },
+    {
+      "kind": "console",
+      "command": "ccProbeRideStatus()",
+      "expected_context": "CC_PROBE_Alt1_Horse"
+    },
+    {
+      "kind": "preset_switch",
+      "preset": "Current"
+    },
+    {
+      "kind": "console",
+      "command": "ccProbeRideReset()"
+    },
+    {
+      "kind": "gesture",
+      "button": "A",
+      "gesture": "hold"
+    },
+    {
+      "kind": "horse_stop"
+    },
+    {
+      "kind": "gesture",
+      "button": "A",
+      "gesture": "double_hold"
+    },
+    {
+      "kind": "horse_stop"
+    },
+    {
+      "kind": "console",
+      "command": "ccProbeRideStatus()",
+      "expected_context": "CC_PROBE_Current_Horse"
+    },
+    {
+      "kind": "preset_switch",
+      "preset": "Alt1"
+    },
+    {
+      "kind": "console",
+      "command": "ccProbeRideReset()"
+    },
+    {
+      "kind": "gesture",
+      "button": "L3",
+      "gesture": "hold"
+    },
+    {
+      "kind": "horse_stop"
+    },
+    {
+      "kind": "gesture",
+      "button": "L3",
+      "gesture": "double_hold"
+    },
+    {
+      "kind": "horse_stop"
+    },
+    {
+      "kind": "console",
+      "command": "ccProbeRideStatus()",
+      "expected_context": "CC_PROBE_Alt1_Horse"
+    },
+    {
+      "kind": "preset_switch",
+      "preset": "Current"
+    },
+    {
+      "kind": "console",
+      "command": "ccProbeRideReset()"
+    },
+    {
+      "kind": "gesture",
+      "button": "A",
+      "gesture": "hold"
+    },
+    {
+      "kind": "horse_stop"
+    },
+    {
+      "kind": "gesture",
+      "button": "A",
+      "gesture": "double_hold"
+    },
+    {
+      "kind": "horse_stop"
+    },
+    {
+      "kind": "console",
+      "command": "ccProbeRideStatus()",
+      "expected_context": "CC_PROBE_Current_Horse"
+    },
+    {
+      "kind": "preset_switch",
+      "preset": "Alt1"
+    },
+    {
+      "kind": "console",
+      "command": "ccProbeRideReset()"
+    },
+    {
+      "kind": "gesture",
+      "button": "L3",
+      "gesture": "hold"
+    },
+    {
+      "kind": "horse_stop"
+    },
+    {
+      "kind": "gesture",
+      "button": "L3",
+      "gesture": "double_hold"
+    },
+    {
+      "kind": "horse_stop"
+    },
+    {
+      "kind": "console",
+      "command": "ccProbeRideStatus()",
+      "expected_context": "CC_PROBE_Alt1_Horse"
+    },
+    {
+      "kind": "preset_switch",
+      "preset": "Current"
+    },
+    {
+      "kind": "console",
+      "command": "ccProbeRideReset()"
+    },
+    {
+      "kind": "gesture",
+      "button": "A",
+      "gesture": "hold"
+    },
+    {
+      "kind": "horse_stop"
+    },
+    {
+      "kind": "gesture",
+      "button": "A",
+      "gesture": "double_hold"
+    },
+    {
+      "kind": "horse_stop"
+    },
+    {
+      "kind": "console",
+      "command": "ccProbeRideStatus()",
+      "expected_context": "CC_PROBE_Current_Horse"
+    },
+    {
+      "kind": "preset_switch",
+      "preset": "Alt1"
+    },
+    {
+      "kind": "console",
+      "command": "ccProbeRideReset()"
+    },
+    {
+      "kind": "gesture",
+      "button": "L3",
+      "gesture": "hold"
+    },
+    {
+      "kind": "horse_stop"
+    },
+    {
+      "kind": "gesture",
+      "button": "L3",
+      "gesture": "double_hold"
+    },
+    {
+      "kind": "horse_stop"
+    },
+    {
+      "kind": "console",
+      "command": "ccProbeRideStatus()",
+      "expected_context": "CC_PROBE_Alt1_Horse"
+    },
+    {
+      "kind": "preset_switch",
+      "preset": "Current"
+    },
+    {
+      "kind": "console",
+      "command": "ccProbeRideReset()"
+    },
+    {
+      "kind": "gesture",
+      "button": "A",
+      "gesture": "hold"
+    },
+    {
+      "kind": "horse_stop"
+    },
+    {
+      "kind": "gesture",
+      "button": "A",
+      "gesture": "double_hold"
+    },
+    {
+      "kind": "horse_stop"
+    },
+    {
+      "kind": "console",
+      "command": "ccProbeRideStatus()",
+      "expected_context": "CC_PROBE_Current_Horse"
+    },
+    {
+      "kind": "settings_diagram"
+    },
+    {
+      "kind": "console",
+      "command": "ccProbeFallback()"
+    }
+  ]
+}

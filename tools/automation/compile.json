@@ -1,0 +1,27 @@
+{
+  "configured": false,
+  "note": "Known local startup stall: disabled. Prefer canonical tools/Build-Mod.ps1 after resolving startup; output is a directory containing blob.rsblob.",
+  "scope": "build",
+  "source_roots": [
+    "F:\\projects\\TheWitcher3\\customizecontrollerscheme\\workspace\\scripts"
+  ],
+  "stages": [
+    {
+      "name": "Compile controller mod blob",
+      "kind": "command",
+      "argv": [
+        "H:\\SteamLibrary\\steamapps\\common\\The Witcher 3 REDkit\\bin\\x64_RedKit\\wcc_lite.exe",
+        "compilescripts",
+        "H:\\SteamLibrary\\steamapps\\common\\The Witcher 3 REDkit\\r4data\\scripts",
+        "-patch=F:\\projects\\TheWitcher3\\customizecontrollerscheme\\workspace\\scripts",
+        "-out={run_dir}\\compiled"
+      ],
+      "cwd": "H:\\SteamLibrary\\steamapps\\common\\The Witcher 3 REDkit\\bin\\x64_RedKit",
+      "timeout": 180,
+      "pass_regex": "Success! Patch scripts blob saved",
+      "fail_regex": "Could not compile patch|Could not finalize|\\[Error\\]",
+      "artifacts": ["{run_dir}\\compiled\\blob.rsblob"]
+    }
+  ],
+  "evidence_files": []
+}

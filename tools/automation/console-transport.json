@@ -1,0 +1,4 @@
+{
+  "name": "Read-only console transport calibration",
+  "steps": [{"kind": "console", "command": "ccProbeLoaded()"}]
+}

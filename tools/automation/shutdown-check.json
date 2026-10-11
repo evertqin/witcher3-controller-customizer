@@ -1,0 +1,4 @@
+{
+  "name": "Read-only shutdown observation",
+  "steps": [{"kind": "console", "command": "ccProbeRideStatus()"}]
+}

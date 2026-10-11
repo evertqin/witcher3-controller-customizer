@@ -1,0 +1,11 @@
+{
+  "name": "Current riding preset; inspect mounted state and select Current before running",
+  "steps": [
+    {"kind": "console", "command": "ccProbeContextMode(true)"},
+    {"kind": "settings_cycle"},
+    {"kind": "console", "command": "ccProbeRideReset()"},
+    {"kind": "gesture", "button": "A", "gesture": "hold"},
+    {"kind": "gesture", "button": "A", "gesture": "double_hold"},
+    {"kind": "console", "command": "ccProbeRideStatus()", "expected_context": "CC_PROBE_Current_Horse"}
+  ]
+}

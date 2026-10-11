@@ -1,0 +1,12 @@
+{
+  "name": "Native routing control: two menu cycles with native L3 gestures between",
+  "steps": [
+    {"kind": "console", "command": "ccProbeContextMode(false)"},
+    {"kind": "console", "command": "ccProbeRideStart()"},
+    {"kind": "settings_cycle"},
+    {"kind": "gesture", "button": "L3", "gesture": "hold"},
+    {"kind": "gesture", "button": "L3", "gesture": "double_hold"},
+    {"kind": "console", "command": "ccProbeRideStatus()"},
+    {"kind": "settings_cycle"}
+  ]
+}

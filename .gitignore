@@ -1,0 +1,22 @@
+# Local/runtime data must never become installation payloads.
+/build/
+/dist/
+/work/
+/backups/
+/game-src/
+/compiler-cache/
+*.log
+*.bak
+*.sav
+*.cache
+user.settings
+mods.settings
+input.settings
+!fixtures/legacy/Current/input.settings
+!fixtures/legacy/Alt1/input.settings
+
+# Generated automation evidence and Python caches.
+__pycache__/
+*.pyc
+/tools/automation/evidence/
+/tools/automation/runs/

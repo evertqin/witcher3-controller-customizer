@@ -1,0 +1,58 @@
+{
+  "SchemaVersion": 1,
+  "Id": "alt1",
+  "DisplayName": "Alt1",
+  "ConfigValue": 1,
+  "FixturePath": "fixtures/legacy/Alt1/input.settings",
+  "FixtureSha256": "5ff4f02a0873bf63e6bbc9a9209cb89fd6f269332399418e2a3a290dd3779beb",
+  "Bindings": [
+    {
+      "BindingId": "mounted-base.follow",
+      "ButtonId": "l3"
+    },
+    {
+      "BindingId": "geralt-horse.follow",
+      "ButtonId": "l3"
+    },
+    {
+      "BindingId": "geralt-horse.canter",
+      "ButtonId": "l3"
+    },
+    {
+      "BindingId": "geralt-horse.gallop",
+      "ButtonId": "l3"
+    },
+    {
+      "BindingId": "geralt-horse.container",
+      "ButtonId": "a"
+    },
+    {
+      "BindingId": "geralt-horse.gather-herbs",
+      "ButtonId": "a"
+    },
+    {
+      "BindingId": "geralt-horse.fast-travel",
+      "ButtonId": "a"
+    },
+    {
+      "BindingId": "geralt-horse.use",
+      "ButtonId": "a"
+    },
+    {
+      "BindingId": "ciri-horse.follow",
+      "ButtonId": "l3"
+    },
+    {
+      "BindingId": "ciri-horse.canter",
+      "ButtonId": "l3"
+    },
+    {
+      "BindingId": "ciri-horse.gallop",
+      "ButtonId": "l3"
+    },
+    {
+      "BindingId": "scripted.gallop",
+      "ButtonId": "l3"
+    }
+  ]
+}

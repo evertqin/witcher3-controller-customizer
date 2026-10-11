@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Native persistence; apply riding selection when Settings closes. -->
+<UserConfig>
+  <Group id="ControllerCustomizer" displayName="controller_customizer" tags="customDisplayName">
+    <VisibleVars>
+      <Var id="Preset" displayName="Hold: canter; double-press + hold: gallop" displayType="OPTIONS" tags="nonLocalized;nonLocalizedName;customNames" value="0">
+        <OptionsArray>
+          <Option id="0" displayName="Current: A to ride, L3 to interact">
+            <Entry varId="Preset" value="0"/>
+          </Option>
+          <Option id="1" displayName="Alt1: L3 to ride, A to interact">
+            <Entry varId="Preset" value="1"/>
+          </Option>
+        </OptionsArray>
+      </Var>
+      <Var id="DiagramProbe" displayName="Diagram probe" displayType="TOGGLE" visibilityCondition="hideAlways" value="false"/>
+      <Var id="ContextProbe" displayName="Context probe" displayType="TOGGLE" visibilityCondition="hideAlways" value="false"/>
+    </VisibleVars>
+  </Group>
+</UserConfig>

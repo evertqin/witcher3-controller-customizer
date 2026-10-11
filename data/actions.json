@@ -1,0 +1,267 @@
+{
+  "SchemaVersion": 1,
+  "Scope": "Exact twelve preset deltas; immutable full profiles remain pinned golden fixtures. No arbitrary editor or full gameplay inventory.",
+  "AliasPrefix": "CC_PROBE_",
+  "Contexts": [
+    {
+      "Id": "mounted-base",
+      "NativeName": "BASE_INTERACTIONS_HORSE",
+      "Availability": "native-mounted-interactions"
+    },
+    {
+      "Id": "geralt-horse",
+      "NativeName": "Horse",
+      "Availability": "Geralt",
+      "DiagramRow": 3
+    },
+    {
+      "Id": "ciri-horse",
+      "NativeName": "Horse_Replacer_Ciri",
+      "Availability": "Ciri",
+      "DiagramRow": 3
+    },
+    {
+      "Id": "scripted",
+      "NativeName": "ScriptedAction",
+      "Availability": "native-scripted-actions"
+    }
+  ],
+  "Actions": [
+    {
+      "Id": "follow",
+      "NativeName": "Follow",
+      "LabelKey": null
+    },
+    {
+      "Id": "canter",
+      "NativeName": "Canter",
+      "LabelKey": "ControlLayout_Canter"
+    },
+    {
+      "Id": "gallop",
+      "NativeName": "Gallop",
+      "LabelKey": "ControlLayout_Gallop"
+    },
+    {
+      "Id": "container",
+      "NativeName": "Container",
+      "LabelKey": null
+    },
+    {
+      "Id": "gather-herbs",
+      "NativeName": "GatherHerbs",
+      "LabelKey": null
+    },
+    {
+      "Id": "fast-travel",
+      "NativeName": "FastTravel",
+      "LabelKey": null
+    },
+    {
+      "Id": "use",
+      "NativeName": "Use",
+      "LabelKey": null
+    }
+  ],
+  "Buttons": [
+    {
+      "Id": "a",
+      "NativeKey": "IK_Pad_A_CROSS",
+      "NativeCode": 136,
+      "DiagramMember": "txtAButton"
+    },
+    {
+      "Id": "l3",
+      "NativeKey": "IK_Pad_LeftThumb",
+      "NativeCode": 146,
+      "DiagramMember": "txtLeftJoy"
+    }
+  ],
+  "Gestures": [
+    {
+      "Id": "native-default",
+      "NativeSuffix": ""
+    },
+    {
+      "Id": "native-duration-0.3",
+      "NativeSuffix": ",State=Duration,IdleTime=0.3"
+    }
+  ],
+  "HorseHandlerDoubleTapSeconds": 0.4,
+  "Bindings": [
+    {
+      "Id": "mounted-base.follow",
+      "ContextId": "mounted-base",
+      "ActionId": "follow",
+      "GestureId": "native-default",
+      "NativeValue": "(Action=Follow)",
+      "FixtureLine": 156,
+      "SharedSequence": true
+    },
+    {
+      "Id": "geralt-horse.follow",
+      "ContextId": "geralt-horse",
+      "ActionId": "follow",
+      "GestureId": "native-default",
+      "NativeValue": "(Action=Follow)",
+      "FixtureLine": 2153,
+      "SharedSequence": true
+    },
+    {
+      "Id": "geralt-horse.canter",
+      "ContextId": "geralt-horse",
+      "ActionId": "canter",
+      "GestureId": "native-default",
+      "NativeValue": "(Action=Canter)",
+      "FixtureLine": 2154,
+      "SharedSequence": true,
+      "HorseHandlerGesture": "hold"
+    },
+    {
+      "Id": "geralt-horse.gallop",
+      "ContextId": "geralt-horse",
+      "ActionId": "gallop",
+      "GestureId": "native-duration-0.3",
+      "NativeValue": "(Action=Gallop,State=Duration,IdleTime=0.3)",
+      "FixtureLine": 2155,
+      "SharedSequence": true,
+      "HorseHandlerGesture": "double-press-and-hold"
+    },
+    {
+      "Id": "geralt-horse.container",
+      "ContextId": "geralt-horse",
+      "ActionId": "container",
+      "GestureId": "native-default",
+      "NativeValue": "(Action=Container)",
+      "FixtureLine": 2173,
+      "SharedSequence": false
+    },
+    {
+      "Id": "geralt-horse.gather-herbs",
+      "ContextId": "geralt-horse",
+      "ActionId": "gather-herbs",
+      "GestureId": "native-default",
+      "NativeValue": "(Action=GatherHerbs)",
+      "FixtureLine": 2174,
+      "SharedSequence": false
+    },
+    {
+      "Id": "geralt-horse.fast-travel",
+      "ContextId": "geralt-horse",
+      "ActionId": "fast-travel",
+      "GestureId": "native-default",
+      "NativeValue": "(Action=FastTravel)",
+      "FixtureLine": 2175,
+      "SharedSequence": false
+    },
+    {
+      "Id": "geralt-horse.use",
+      "ContextId": "geralt-horse",
+      "ActionId": "use",
+      "GestureId": "native-default",
+      "NativeValue": "(Action=Use)",
+      "FixtureLine": 2176,
+      "SharedSequence": false
+    },
+    {
+      "Id": "ciri-horse.follow",
+      "ContextId": "ciri-horse",
+      "ActionId": "follow",
+      "GestureId": "native-default",
+      "NativeValue": "(Action=Follow)",
+      "FixtureLine": 2351,
+      "SharedSequence": true
+    },
+    {
+      "Id": "ciri-horse.canter",
+      "ContextId": "ciri-horse",
+      "ActionId": "canter",
+      "GestureId": "native-default",
+      "NativeValue": "(Action=Canter)",
+      "FixtureLine": 2352,
+      "SharedSequence": true,
+      "HorseHandlerGesture": "hold"
+    },
+    {
+      "Id": "ciri-horse.gallop",
+      "ContextId": "ciri-horse",
+      "ActionId": "gallop",
+      "GestureId": "native-duration-0.3",
+      "NativeValue": "(Action=Gallop,State=Duration,IdleTime=0.3)",
+      "FixtureLine": 2353,
+      "SharedSequence": true,
+      "HorseHandlerGesture": "double-press-and-hold"
+    },
+    {
+      "Id": "scripted.gallop",
+      "ContextId": "scripted",
+      "ActionId": "gallop",
+      "GestureId": "native-duration-0.3",
+      "NativeValue": "(Action=Gallop,State=Duration,IdleTime=0.3)",
+      "FixtureLine": 2608,
+      "SharedSequence": true
+    }
+  ],
+  "DiagramGroups": [
+    {
+      "Id": "geralt-horse-speed",
+      "ContextId": "geralt-horse",
+      "BindingIds": [
+        "geralt-horse.canter",
+        "geralt-horse.gallop"
+      ],
+      "Kind": "speed"
+    },
+    {
+      "Id": "ciri-horse-speed",
+      "ContextId": "ciri-horse",
+      "BindingIds": [
+        "ciri-horse.canter",
+        "ciri-horse.gallop"
+      ],
+      "Kind": "speed"
+    },
+    {
+      "Id": "geralt-horse-interaction",
+      "ContextId": "geralt-horse",
+      "Kind": "interaction",
+      "LabelKey": "ControlLayout_Interact",
+      "BindingIds": [
+        "geralt-horse.container",
+        "geralt-horse.gather-herbs",
+        "geralt-horse.fast-travel",
+        "geralt-horse.use"
+      ]
+    }
+  ],
+  "SharedDiagram": {
+    "LegacySha256": "3fbefaddeb72ec7f4efa9e6c425818139858500f0db929a122ca4de194d78409",
+    "Scope": "Six shared Souls slots from pinned legacy profile; preserve current native text and quick-sign branches.",
+    "Slots": [
+      {
+        "Source": "txtXButton",
+        "Target": "txtRightBumper"
+      },
+      {
+        "Source": "txtYButton",
+        "Target": "txtRightTrigger"
+      },
+      {
+        "Source": "txtRightBumper",
+        "Target": "txtLeftTrigger"
+      },
+      {
+        "Source": "txtRightTrigger",
+        "Target": "txtXButton"
+      },
+      {
+        "Source": "txtLeftBumper",
+        "Target": "txtYButton"
+      },
+      {
+        "Source": "txtLeftTrigger",
+        "Target": "txtLeftBumper"
+      }
+    ]
+  }
+}

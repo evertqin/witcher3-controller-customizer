@@ -1,0 +1,10 @@
+{
+  "name": "Selected riding preset; inspect enablement and mounted state before running",
+  "steps": [
+    {"kind": "console", "command": "ccProbeContextMode(true)"},
+    {"kind": "console", "command": "ccProbeRideReset()"},
+    {"kind": "gesture", "button": "L3", "gesture": "hold"},
+    {"kind": "gesture", "button": "L3", "gesture": "double_hold"},
+    {"kind": "console", "command": "ccProbeRideStatus()", "expected_context": "CC_PROBE_Alt1_Horse"}
+  ]
+}

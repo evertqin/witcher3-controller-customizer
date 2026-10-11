@@ -1,0 +1,15 @@
+{
+  "name": "Final Current callbacks, native diagram pages and last-valid fallback",
+  "steps": [
+    {"kind": "horse_stop"},
+    {"kind": "console", "command": "ccProbeRideStart()"},
+    {"kind": "console", "command": "ccProbeRideReset()"},
+    {"kind": "gesture", "button": "A", "gesture": "hold"},
+    {"kind": "horse_stop"},
+    {"kind": "gesture", "button": "A", "gesture": "double_hold"},
+    {"kind": "horse_stop"},
+    {"kind": "console", "command": "ccProbeRideStatus()", "expected_context": "CC_PROBE_Current_Horse"},
+    {"kind": "settings_diagram"},
+    {"kind": "console", "command": "ccProbeFallback()"}
+  ]
+}

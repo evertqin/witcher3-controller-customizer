@@ -1,0 +1,10 @@
+{
+  "name": "Automatic Current routing and native controller diagram inspection",
+  "steps": [
+    {"kind": "console", "command": "ccProbeRideStart()"},
+    {"kind": "gesture", "button": "A", "gesture": "hold"},
+    {"kind": "gesture", "button": "A", "gesture": "double_hold"},
+    {"kind": "console", "command": "ccProbeRideStatus()", "expected_context": "CC_PROBE_Current_Horse"},
+    {"kind": "settings_diagram"}
+  ]
+}

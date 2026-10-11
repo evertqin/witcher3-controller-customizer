@@ -1,0 +1,10 @@
+{
+  "editor_exe": "H:/SteamLibrary/steamapps/common/The Witcher 3 REDkit/bin/x64_RedKit/editor.exe",
+  "project_file": "F:/projects/TheWitcher3/customizecontrollerscheme/customizecontrollerscheme.w3edit",
+  "repo": "I:/OneDrive/Documents/The Witcher 3/github-project/witcher3-controller-customizer",
+  "sdk": "H:/SteamLibrary/steamapps/common/The Witcher 3 REDkit",
+  "game": "F:/Steam/steamapps/common/The Witcher 3",
+  "ffmpeg": "J:/Tools/ffmpeg/bin/ffmpeg.exe",
+  "load_timeout": 300,
+  "cook_timeout": 240
+}

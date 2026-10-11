@@ -1,0 +1,7 @@
+{
+  "name": "Loaded probe and alias availability",
+  "steps": [
+    {"kind": "console", "command": "ccProbeLoaded()"},
+    {"kind": "console", "command": "ccProbeContexts()"}
+  ]
+}

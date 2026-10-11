@@ -1,0 +1,13 @@
+{
+  "SchemaVersion": 1,
+  "SteamBuildId": "25773188",
+  "CompilerSha256": "9f448e0c8b9ea1ea803d0ae543f2fcd6e905088b8b71f54da2bff22c6cf318fc",
+  "BaseScriptSha256": {
+    "game/inputManager.ws": "9aa531cf1642408bfeabeb799fe5170e71e0d5a659983d934c28d52558a113a5",
+    "game/gui/main_menu/ingameMenu.ws": "fe051467b393dc3b0ac15dfdcf1d6064210853600cc254ba3fd20b32b1a6518e",
+    "game/gui/main_menu/ingamemenu/igmUtilities.ws": "4118acdc778c384f059fd75c9967f8f091c70b80a05af782a9591f132b837b9a",
+    "game/vehicles/horse/states/exploration.ws": "824e0c91d05cd3d5027c663d7bf4d47f9124793b265374475d208f5fa17adcd3",
+    "game/r4game.ws": "045cdddff8fff73a68b2c3ea37e8bf6bf2da47c40b2a09dfe82d4fa97548ec9b",
+    "game/gui/main_menu/ingamemenu/igmOptions.ws": "f7cef33c3f12a402af2e7b40c1793a39f8c98fe5848af6b56d1e1c342ceac14f"
+  }
+}

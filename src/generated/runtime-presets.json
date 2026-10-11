@@ -1,0 +1,316 @@
+{
+    "SchemaVersion":  1,
+    "GeneratedBy":  "tools/Generate-Assets.ps1",
+    "SourceSha256":  {
+                         "actions.json":  "fe0575039644633ed0a7d6b3472c60bf38d8c08ed8a8a02b4435da491db6b499",
+                         "presets/current.json":  "1a1e87406b417aaf7a56c6c6ab2fe7b094ad21d35d9471c6e1c51d99e63eac29",
+                         "presets/alt1.json":  "1f5517c3b3c3b7f02141e125b7a1048348f434b5e342f682e7ab608d0fe35a20",
+                         "compatibility.json":  "200557d85e094833e887a9f0f8aad5584a0e72315569280654d0fd0429d90e71"
+                     },
+    "Profiles":  [
+                     {
+                         "Id":  "current",
+                         "DisplayName":  "Current",
+                         "ConfigValue":  0,
+                         "FixtureSha256":  "f337f6595789cf3778def22fabe60ced2f24972efa5ee627c19f77dff04f7def",
+                         "Bindings":  [
+                                          {
+                                              "BindingId":  "mounted-base.follow",
+                                              "ContextId":  "mounted-base",
+                                              "NativeContext":  "BASE_INTERACTIONS_HORSE",
+                                              "Alias":  "CC_PROBE_Current_BASE_INTERACTIONS_HORSE",
+                                              "ActionId":  "follow",
+                                              "NativeAction":  "Follow",
+                                              "ButtonId":  "a",
+                                              "NativeKey":  "IK_Pad_A_CROSS",
+                                              "NativeValue":  "(Action=Follow)",
+                                              "GestureId":  "native-default"
+                                          },
+                                          {
+                                              "BindingId":  "geralt-horse.follow",
+                                              "ContextId":  "geralt-horse",
+                                              "NativeContext":  "Horse",
+                                              "Alias":  "CC_PROBE_Current_Horse",
+                                              "ActionId":  "follow",
+                                              "NativeAction":  "Follow",
+                                              "ButtonId":  "a",
+                                              "NativeKey":  "IK_Pad_A_CROSS",
+                                              "NativeValue":  "(Action=Follow)",
+                                              "GestureId":  "native-default"
+                                          },
+                                          {
+                                              "BindingId":  "geralt-horse.canter",
+                                              "ContextId":  "geralt-horse",
+                                              "NativeContext":  "Horse",
+                                              "Alias":  "CC_PROBE_Current_Horse",
+                                              "ActionId":  "canter",
+                                              "NativeAction":  "Canter",
+                                              "ButtonId":  "a",
+                                              "NativeKey":  "IK_Pad_A_CROSS",
+                                              "NativeValue":  "(Action=Canter)",
+                                              "GestureId":  "native-default"
+                                          },
+                                          {
+                                              "BindingId":  "geralt-horse.gallop",
+                                              "ContextId":  "geralt-horse",
+                                              "NativeContext":  "Horse",
+                                              "Alias":  "CC_PROBE_Current_Horse",
+                                              "ActionId":  "gallop",
+                                              "NativeAction":  "Gallop",
+                                              "ButtonId":  "a",
+                                              "NativeKey":  "IK_Pad_A_CROSS",
+                                              "NativeValue":  "(Action=Gallop,State=Duration,IdleTime=0.3)",
+                                              "GestureId":  "native-duration-0.3"
+                                          },
+                                          {
+                                              "BindingId":  "geralt-horse.container",
+                                              "ContextId":  "geralt-horse",
+                                              "NativeContext":  "Horse",
+                                              "Alias":  "CC_PROBE_Current_Horse",
+                                              "ActionId":  "container",
+                                              "NativeAction":  "Container",
+                                              "ButtonId":  "l3",
+                                              "NativeKey":  "IK_Pad_LeftThumb",
+                                              "NativeValue":  "(Action=Container)",
+                                              "GestureId":  "native-default"
+                                          },
+                                          {
+                                              "BindingId":  "geralt-horse.gather-herbs",
+                                              "ContextId":  "geralt-horse",
+                                              "NativeContext":  "Horse",
+                                              "Alias":  "CC_PROBE_Current_Horse",
+                                              "ActionId":  "gather-herbs",
+                                              "NativeAction":  "GatherHerbs",
+                                              "ButtonId":  "l3",
+                                              "NativeKey":  "IK_Pad_LeftThumb",
+                                              "NativeValue":  "(Action=GatherHerbs)",
+                                              "GestureId":  "native-default"
+                                          },
+                                          {
+                                              "BindingId":  "geralt-horse.fast-travel",
+                                              "ContextId":  "geralt-horse",
+                                              "NativeContext":  "Horse",
+                                              "Alias":  "CC_PROBE_Current_Horse",
+                                              "ActionId":  "fast-travel",
+                                              "NativeAction":  "FastTravel",
+                                              "ButtonId":  "l3",
+                                              "NativeKey":  "IK_Pad_LeftThumb",
+                                              "NativeValue":  "(Action=FastTravel)",
+                                              "GestureId":  "native-default"
+                                          },
+                                          {
+                                              "BindingId":  "geralt-horse.use",
+                                              "ContextId":  "geralt-horse",
+                                              "NativeContext":  "Horse",
+                                              "Alias":  "CC_PROBE_Current_Horse",
+                                              "ActionId":  "use",
+                                              "NativeAction":  "Use",
+                                              "ButtonId":  "l3",
+                                              "NativeKey":  "IK_Pad_LeftThumb",
+                                              "NativeValue":  "(Action=Use)",
+                                              "GestureId":  "native-default"
+                                          },
+                                          {
+                                              "BindingId":  "ciri-horse.follow",
+                                              "ContextId":  "ciri-horse",
+                                              "NativeContext":  "Horse_Replacer_Ciri",
+                                              "Alias":  "CC_PROBE_Current_Horse_Replacer_Ciri",
+                                              "ActionId":  "follow",
+                                              "NativeAction":  "Follow",
+                                              "ButtonId":  "a",
+                                              "NativeKey":  "IK_Pad_A_CROSS",
+                                              "NativeValue":  "(Action=Follow)",
+                                              "GestureId":  "native-default"
+                                          },
+                                          {
+                                              "BindingId":  "ciri-horse.canter",
+                                              "ContextId":  "ciri-horse",
+                                              "NativeContext":  "Horse_Replacer_Ciri",
+                                              "Alias":  "CC_PROBE_Current_Horse_Replacer_Ciri",
+                                              "ActionId":  "canter",
+                                              "NativeAction":  "Canter",
+                                              "ButtonId":  "a",
+                                              "NativeKey":  "IK_Pad_A_CROSS",
+                                              "NativeValue":  "(Action=Canter)",
+                                              "GestureId":  "native-default"
+                                          },
+                                          {
+                                              "BindingId":  "ciri-horse.gallop",
+                                              "ContextId":  "ciri-horse",
+                                              "NativeContext":  "Horse_Replacer_Ciri",
+                                              "Alias":  "CC_PROBE_Current_Horse_Replacer_Ciri",
+                                              "ActionId":  "gallop",
+                                              "NativeAction":  "Gallop",
+                                              "ButtonId":  "a",
+                                              "NativeKey":  "IK_Pad_A_CROSS",
+                                              "NativeValue":  "(Action=Gallop,State=Duration,IdleTime=0.3)",
+                                              "GestureId":  "native-duration-0.3"
+                                          },
+                                          {
+                                              "BindingId":  "scripted.gallop",
+                                              "ContextId":  "scripted",
+                                              "NativeContext":  "ScriptedAction",
+                                              "Alias":  "CC_PROBE_Current_ScriptedAction",
+                                              "ActionId":  "gallop",
+                                              "NativeAction":  "Gallop",
+                                              "ButtonId":  "a",
+                                              "NativeKey":  "IK_Pad_A_CROSS",
+                                              "NativeValue":  "(Action=Gallop,State=Duration,IdleTime=0.3)",
+                                              "GestureId":  "native-duration-0.3"
+                                          }
+                                      ]
+                     },
+                     {
+                         "Id":  "alt1",
+                         "DisplayName":  "Alt1",
+                         "ConfigValue":  1,
+                         "FixtureSha256":  "5ff4f02a0873bf63e6bbc9a9209cb89fd6f269332399418e2a3a290dd3779beb",
+                         "Bindings":  [
+                                          {
+                                              "BindingId":  "mounted-base.follow",
+                                              "ContextId":  "mounted-base",
+                                              "NativeContext":  "BASE_INTERACTIONS_HORSE",
+                                              "Alias":  "CC_PROBE_Alt1_BASE_INTERACTIONS_HORSE",
+                                              "ActionId":  "follow",
+                                              "NativeAction":  "Follow",
+                                              "ButtonId":  "l3",
+                                              "NativeKey":  "IK_Pad_LeftThumb",
+                                              "NativeValue":  "(Action=Follow)",
+                                              "GestureId":  "native-default"
+                                          },
+                                          {
+                                              "BindingId":  "geralt-horse.follow",
+                                              "ContextId":  "geralt-horse",
+                                              "NativeContext":  "Horse",
+                                              "Alias":  "CC_PROBE_Alt1_Horse",
+                                              "ActionId":  "follow",
+                                              "NativeAction":  "Follow",
+                                              "ButtonId":  "l3",
+                                              "NativeKey":  "IK_Pad_LeftThumb",
+                                              "NativeValue":  "(Action=Follow)",
+                                              "GestureId":  "native-default"
+                                          },
+                                          {
+                                              "BindingId":  "geralt-horse.canter",
+                                              "ContextId":  "geralt-horse",
+                                              "NativeContext":  "Horse",
+                                              "Alias":  "CC_PROBE_Alt1_Horse",
+                                              "ActionId":  "canter",
+                                              "NativeAction":  "Canter",
+                                              "ButtonId":  "l3",
+                                              "NativeKey":  "IK_Pad_LeftThumb",
+                                              "NativeValue":  "(Action=Canter)",
+                                              "GestureId":  "native-default"
+                                          },
+                                          {
+                                              "BindingId":  "geralt-horse.gallop",
+                                              "ContextId":  "geralt-horse",
+                                              "NativeContext":  "Horse",
+                                              "Alias":  "CC_PROBE_Alt1_Horse",
+                                              "ActionId":  "gallop",
+                                              "NativeAction":  "Gallop",
+                                              "ButtonId":  "l3",
+                                              "NativeKey":  "IK_Pad_LeftThumb",
+                                              "NativeValue":  "(Action=Gallop,State=Duration,IdleTime=0.3)",
+                                              "GestureId":  "native-duration-0.3"
+                                          },
+                                          {
+                                              "BindingId":  "geralt-horse.container",
+                                              "ContextId":  "geralt-horse",
+                                              "NativeContext":  "Horse",
+                                              "Alias":  "CC_PROBE_Alt1_Horse",
+                                              "ActionId":  "container",
+                                              "NativeAction":  "Container",
+                                              "ButtonId":  "a",
+                                              "NativeKey":  "IK_Pad_A_CROSS",
+                                              "NativeValue":  "(Action=Container)",
+                                              "GestureId":  "native-default"
+                                          },
+                                          {
+                                              "BindingId":  "geralt-horse.gather-herbs",
+                                              "ContextId":  "geralt-horse",
+                                              "NativeContext":  "Horse",
+                                              "Alias":  "CC_PROBE_Alt1_Horse",
+                                              "ActionId":  "gather-herbs",
+                                              "NativeAction":  "GatherHerbs",
+                                              "ButtonId":  "a",
+                                              "NativeKey":  "IK_Pad_A_CROSS",
+                                              "NativeValue":  "(Action=GatherHerbs)",
+                                              "GestureId":  "native-default"
+                                          },
+                                          {
+                                              "BindingId":  "geralt-horse.fast-travel",
+                                              "ContextId":  "geralt-horse",
+                                              "NativeContext":  "Horse",
+                                              "Alias":  "CC_PROBE_Alt1_Horse",
+                                              "ActionId":  "fast-travel",
+                                              "NativeAction":  "FastTravel",
+                                              "ButtonId":  "a",
+                                              "NativeKey":  "IK_Pad_A_CROSS",
+                                              "NativeValue":  "(Action=FastTravel)",
+                                              "GestureId":  "native-default"
+                                          },
+                                          {
+                                              "BindingId":  "geralt-horse.use",
+                                              "ContextId":  "geralt-horse",
+                                              "NativeContext":  "Horse",
+                                              "Alias":  "CC_PROBE_Alt1_Horse",
+                                              "ActionId":  "use",
+                                              "NativeAction":  "Use",
+                                              "ButtonId":  "a",
+                                              "NativeKey":  "IK_Pad_A_CROSS",
+                                              "NativeValue":  "(Action=Use)",
+                                              "GestureId":  "native-default"
+                                          },
+                                          {
+                                              "BindingId":  "ciri-horse.follow",
+                                              "ContextId":  "ciri-horse",
+                                              "NativeContext":  "Horse_Replacer_Ciri",
+                                              "Alias":  "CC_PROBE_Alt1_Horse_Replacer_Ciri",
+                                              "ActionId":  "follow",
+                                              "NativeAction":  "Follow",
+                                              "ButtonId":  "l3",
+                                              "NativeKey":  "IK_Pad_LeftThumb",
+                                              "NativeValue":  "(Action=Follow)",
+                                              "GestureId":  "native-default"
+                                          },
+                                          {
+                                              "BindingId":  "ciri-horse.canter",
+                                              "ContextId":  "ciri-horse",
+                                              "NativeContext":  "Horse_Replacer_Ciri",
+                                              "Alias":  "CC_PROBE_Alt1_Horse_Replacer_Ciri",
+                                              "ActionId":  "canter",
+                                              "NativeAction":  "Canter",
+                                              "ButtonId":  "l3",
+                                              "NativeKey":  "IK_Pad_LeftThumb",
+                                              "NativeValue":  "(Action=Canter)",
+                                              "GestureId":  "native-default"
+                                          },
+                                          {
+                                              "BindingId":  "ciri-horse.gallop",
+                                              "ContextId":  "ciri-horse",
+                                              "NativeContext":  "Horse_Replacer_Ciri",
+                                              "Alias":  "CC_PROBE_Alt1_Horse_Replacer_Ciri",
+                                              "ActionId":  "gallop",
+                                              "NativeAction":  "Gallop",
+                                              "ButtonId":  "l3",
+                                              "NativeKey":  "IK_Pad_LeftThumb",
+                                              "NativeValue":  "(Action=Gallop,State=Duration,IdleTime=0.3)",
+                                              "GestureId":  "native-duration-0.3"
+                                          },
+                                          {
+                                              "BindingId":  "scripted.gallop",
+                                              "ContextId":  "scripted",
+                                              "NativeContext":  "ScriptedAction",
+                                              "Alias":  "CC_PROBE_Alt1_ScriptedAction",
+                                              "ActionId":  "gallop",
+                                              "NativeAction":  "Gallop",
+                                              "ButtonId":  "l3",
+                                              "NativeKey":  "IK_Pad_LeftThumb",
+                                              "NativeValue":  "(Action=Gallop,State=Duration,IdleTime=0.3)",
+                                              "GestureId":  "native-duration-0.3"
+                                          }
+                                      ]
+                     }
+                 ]
+}

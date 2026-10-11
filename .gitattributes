@@ -1,0 +1,8 @@
+* text=auto
+*.ps1 text eol=crlf
+*.psm1 text eol=crlf
+*.ws text eol=lf
+*.xml text eol=lf
+*.md text eol=lf
+# Golden hashes describe original bytes; never normalize these fixtures.
+fixtures/legacy/** -text
