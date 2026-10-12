@@ -27,14 +27,58 @@ explicit `Install-FullSchemeCandidate.ps1` development migration. Preserve its
 parity remains pending; standalone schema-2 transactions now have isolated verification. See
 [Phase 1.1 evidence](docs/phase11-evidence.md).
 
-## Standalone Phase 1.1 delivery
+## Install
 
-Use [schema-2 delivery instructions](docs/phase11-delivery.md) for the new
-`FullScheme-Mod.ps1` install/update/restore and `Package-FullSchemeMod.ps1`.
-They require a matching verified cook and preserve personal bindings/backups.
-Identical Souls banks are shared: 84 logical selections use 60 physical aliases,
-keeping the observed native context map below its 128-context limit.
-This remains a development candidate; native effective parity is not claimed.
+Extract the compiled `controller-customizer-phase11-candidate.zip`, then open
+PowerShell in the extracted folder containing `tools` and `cook.json`.
+GitHub's source ZIP is not a compiled package; developers must cook and package it first.
+Requires Windows PowerShell 5.1 and Python 3 available as `python`.
+REDkit, FFmpeg and ViGEm are only needed for development/testing.
+
+Close the game. Set your game path below; Documents is resolved automatically,
+including OneDrive redirection. If your profile lives elsewhere, set `$profileDir`.
+The backup directory must not already exist.
+
+```powershell
+$gameDir = 'F:\Steam\steamapps\common\The Witcher 3' # Change for your installation.
+$profileDir = Join-Path ([Environment]::GetFolderPath('MyDocuments')) 'The Witcher 3'
+$backupDir = Join-Path $profileDir 'ControllerCustomizer-backup'
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\tools\FullScheme-Mod.ps1 `
+    -Action install -GamePath $gameDir -InputPath (Join-Path $profileDir 'input.settings') `
+    -CookSnapshot (Get-Location).Path -JournalDirectory $backupDir
+```
+
+Wait for `PASS: install completed`, then launch the game and open
+**Settings > Controller Customizer**. Keep the extracted package, backup directory
+and its sibling `ControllerCustomizer-backup-prepared` for updates/uninstall.
+If Python is not on PATH, add `-PythonPath 'C:\path\to\python.exe'` to each command.
+
+Install refuses an existing customizer or conflicting `modDarkSoulsControllerScheme`.
+Existing installations must use their own update/restore journal; the development
+migration uses `Restore-FullSchemeCandidate.ps1`, not this standalone uninstall.
+If `input.settings` is missing, launch the game and initialize controls first.
+
+## Uninstall
+
+Close the game and open PowerShell in the retained extracted package folder.
+Use the **original install** backup directory, including after updates:
+
+```powershell
+$profileDir = Join-Path ([Environment]::GetFolderPath('MyDocuments')) 'The Witcher 3'
+$backupDir = Join-Path $profileDir 'ControllerCustomizer-backup'
+$restoreDir = Join-Path $profileDir ('ControllerCustomizer-uninstall-' + (Get-Date -Format 'yyyyMMdd-HHmmss'))
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\tools\FullScheme-Mod.ps1 `
+    -Action restore -JournalFile (Join-Path $backupDir 'files.json') -JournalDirectory $restoreDir
+```
+
+`PASS: restore completed` confirms uninstall. It removes owned mod files/control
+aliases and preserves unrelated personal bindings, including later edits.
+Keep backups until restoration succeeds; deleting only the mod folder leaves input aliases.
+
+See [delivery details](docs/phase11-delivery.md) for updates and developer packaging.
+The standalone installer checks the observed Remaster 5.01 DX12 target and preserves
+personal bindings/backups. This remains a development candidate; full native
+effective parity is not claimed.
 
 ## Historical Phase 1 delivery
 
@@ -103,8 +147,7 @@ editor remain unimplemented; Phase 1.1 is now the installed development candidat
 
 Active: **Current (original vanilla), DarkSoul, DarkSoul Alt1**, porting the full
 legacy controller schemes before the Phase 2 editor. DarkSoul Alt1 is preferred.
-See [Phase 1.1 scope](docs/phase11-scope.md); native serialization parity and
-standalone delivery remain engineering work.
+See [Phase 1.1 scope](docs/phase11-scope.md); native serialization parity remains engineering work; standalone delivery is implemented.
 
 ### Active Phase 1.1 development candidate
 
@@ -112,6 +155,6 @@ The development installation now offers **Current (original)**, **DarkSoul** and
 **DarkSoul Alt1**, with full gameplay context routing. Old `Preset=0` migrates to
 DarkSoul, preserving behavior. Source generation and the fresh REDkit script phase
 pass; three riding callback traces are recorded. This is an in-progress candidate:
-native serialization parity, on-foot evidence and standalone delivery remain open.
+native serialization parity remains open; on-foot and display evidence and standalone delivery are recorded.
 Historical Phase 1 install/update/package tools refuse the new schema. See
 [Phase 1.1 evidence](docs/phase11-evidence.md) and [scope](docs/phase11-scope.md).

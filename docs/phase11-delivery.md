@@ -10,19 +10,83 @@ parity limitation. Ciri and alternate quick-sign display were statically audited
 but have no live acceptance evidence. No additional manual gate is required.
 
 Use Windows PowerShell 5.1 and Python 3. Package includes a fingerprint-verified
-eight-source REDkit cook and seven native hook fingerprints, not extracted native
+eight-source REDkit cook and eight native hook fingerprints, not extracted native
 scripts or a personal profile/save. Script compilation passed; outer resource
 diagnostics remain in cook.log.
 
-```powershell
-# Repository: create a new output directory using a cook matching current sources.
-.\tools\Package-FullSchemeMod.ps1 -CookSnapshot <cook> -OutputDirectory <new-output> -PythonPath <python>
+## Install
 
-# Repository or extracted package root (package root itself is its cook snapshot):
-.\tools\FullScheme-Mod.ps1 -Action install -GamePath <game> -InputPath <profile/input.settings> -CookSnapshot <cook-or-package> -JournalDirectory <new-backup-directory> -PythonPath <python>
-.\tools\FullScheme-Mod.ps1 -Action update -JournalFile <install-directory/files.json> -CookSnapshot <new-cook-or-package> -JournalDirectory <new-update-directory> -PythonPath <python>
-.\tools\FullScheme-Mod.ps1 -Action restore -JournalFile <install-directory/files.json> -JournalDirectory <new-restore-directory> -PythonPath <python>
+Extract the compiled `controller-customizer-phase11-candidate.zip`, then open
+PowerShell in the extracted folder containing `tools` and `cook.json`.
+GitHub's source ZIP is not a compiled package; developers must cook and package it first.
+Requires Windows PowerShell 5.1 and Python 3 available as `python`.
+REDkit, FFmpeg and ViGEm are only needed for development/testing.
+
+Close the game. Set your game path below; Documents is resolved automatically,
+including OneDrive redirection. If your profile lives elsewhere, set `$profileDir`.
+The backup directory must not already exist.
+
+```powershell
+$gameDir = 'F:\Steam\steamapps\common\The Witcher 3' # Change for your installation.
+$profileDir = Join-Path ([Environment]::GetFolderPath('MyDocuments')) 'The Witcher 3'
+$backupDir = Join-Path $profileDir 'ControllerCustomizer-backup'
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\tools\FullScheme-Mod.ps1 `
+    -Action install -GamePath $gameDir -InputPath (Join-Path $profileDir 'input.settings') `
+    -CookSnapshot (Get-Location).Path -JournalDirectory $backupDir
 ```
+
+Wait for `PASS: install completed`, then launch the game and open
+**Settings > Controller Customizer**. Keep the extracted package, backup directory
+and its sibling `ControllerCustomizer-backup-prepared` for updates/uninstall.
+If Python is not on PATH, add `-PythonPath 'C:\path\to\python.exe'` to each command.
+
+Install refuses an existing customizer or conflicting `modDarkSoulsControllerScheme`.
+Existing installations must use their own update/restore journal; the development
+migration uses `Restore-FullSchemeCandidate.ps1`, not this standalone uninstall.
+If `input.settings` is missing, launch the game and initialize controls first.
+
+## Uninstall
+
+Close the game and open PowerShell in the retained extracted package folder.
+Use the **original install** backup directory, including after updates:
+
+```powershell
+$profileDir = Join-Path ([Environment]::GetFolderPath('MyDocuments')) 'The Witcher 3'
+$backupDir = Join-Path $profileDir 'ControllerCustomizer-backup'
+$restoreDir = Join-Path $profileDir ('ControllerCustomizer-uninstall-' + (Get-Date -Format 'yyyyMMdd-HHmmss'))
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\tools\FullScheme-Mod.ps1 `
+    -Action restore -JournalFile (Join-Path $backupDir 'files.json') -JournalDirectory $restoreDir
+```
+
+`PASS: restore completed` confirms uninstall. It removes owned mod files/control
+aliases and preserves unrelated personal bindings, including later edits.
+Keep backups until restoration succeeds; deleting only the mod folder leaves input aliases.
+
+## Update
+
+Extract the new compiled package and open PowerShell in its root. Close the game.
+Use the original install journal and a new directory for this update:
+
+```powershell
+$profileDir = Join-Path ([Environment]::GetFolderPath('MyDocuments')) 'The Witcher 3'
+$backupDir = Join-Path $profileDir 'ControllerCustomizer-backup'
+$updateDir = Join-Path $profileDir ('ControllerCustomizer-update-' + (Get-Date -Format 'yyyyMMdd-HHmmss'))
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\tools\FullScheme-Mod.ps1 `
+    -Action update -JournalFile (Join-Path $backupDir 'files.json') `
+    -CookSnapshot (Get-Location).Path -JournalDirectory $updateDir
+```
+
+## Developer packaging
+
+Run from the source repository with a verified REDkit cook matching current sources.
+Replace the example paths; the output directory must be new:
+
+```powershell
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\tools\Package-FullSchemeMod.ps1 `
+    -CookSnapshot 'C:\path\to\verified-cook' -OutputDirectory 'C:\path\to\new-package'
+```
+
+## Ownership and compatibility
 
 Keep the install journal, original backups and its sibling `-prepared` directory.
 Install refuses an existing customizer or conflicting legacy mod; use the owned
