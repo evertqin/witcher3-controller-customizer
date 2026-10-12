@@ -59,12 +59,12 @@ def validate_steps(steps):
         elif step['kind'] == 'gesture':
             if step['button'] not in ('A', 'L3', 'X', 'RB') or step['gesture'] not in ('hold', 'double_hold', 'press'):
                 raise ValueError('Unsupported controller gesture')
-        elif step['kind'] in ('settings_cycle', 'settings_inspect', 'settings_diagram', 'horse_stop', 'dismount', 'draw_sword'):
+        elif step['kind'] in ('settings_cycle', 'settings_inspect', 'settings_diagram', 'horse_stop', 'dismount', 'draw_sword', 'hint_capture'):
             if set(step) != {'kind'}:
                 raise ValueError('Settings cycle does not accept extra actions')
         elif step['kind'] == 'scheme_switch':
             from menu_session import SCHEMES
-            if set(step) != {'kind', 'preset'} or step['preset'] not in SCHEMES:
+            if set(step) not in ({'kind', 'preset'}, {'kind', 'preset', 'inspect_diagram'}) or step['preset'] not in SCHEMES or ('inspect_diagram' in step and step['inspect_diagram'] is not True):
                 raise ValueError('Unsupported scheme selection')
         elif step['kind'] == 'preset_switch':
             if set(step) != {'kind', 'preset'} or step['preset'] not in ('Current', 'Alt1'):
@@ -93,7 +93,7 @@ def run(args):
     console_sequence = 0
     try:
         desktop.focus(target)
-        if any(s['kind'] == 'gesture' for s in steps) or (args.pause_input == 'controller' and
+        if any(s['kind'] in ('gesture', 'hint_capture') for s in steps) or (args.pause_input == 'controller' and
                 any(s['kind'] in ('settings_cycle', 'settings_inspect', 'settings_diagram', 'preset_switch', 'scheme_switch') for s in steps)):
             import vgamepad as vg
             from gamepad import read_states
@@ -173,12 +173,32 @@ def run(args):
             if read_states()[slot]['buttons'] != 0:
                 raise RuntimeError('Pause controller release readback mismatch')
 
+        def controller_menu_key(key):
+            from gamepad import press_menu_button
+            press_menu_button(desktop, target, pad, slot, key)
+
         for index, step in enumerate(steps):
             desktop.guard(target)
             if step['kind'] == 'console':
                 if step['command'] == 'ccProbeContextMode(true)':
                     routing_touched = True
                 console(step['command'])
+            elif step['kind'] == 'hint_capture':
+                # Camera-only pad input selects native controller glyphs; never moves Geralt.
+                try:
+                    pad.right_joystick_float(x_value_float=0.25, y_value_float=0.0)
+                    pad.update()
+                    pause(0.15)
+                    state = read_states()[slot]
+                    if state['buttons'] != 0 or not 8000 <= state['rx'] <= 8300 or state['ry'] != 0:
+                        raise RuntimeError('Camera-only controller readback mismatch')
+                finally:
+                    pad.reset()
+                    pad.update()
+                state = read_states()[slot]
+                if state['buttons'] != 0 or state['rx'] != 0 or state['ry'] != 0:
+                    raise RuntimeError('Camera controller release readback mismatch')
+                pause(1.0)
             elif step['kind'] == 'draw_sword':
                 from full_schemes import Record, parse
                 if 'Phase11Candidate' not in journal:
@@ -206,8 +226,9 @@ def run(args):
                                           inspect_preset=step['kind'] == 'settings_inspect',
                                           switch_preset=step.get('preset') if step['kind'] == 'preset_switch' else None,
                                           switch_scheme=step.get('preset') if step['kind'] == 'scheme_switch' else None,
-                                          inspect_diagram=step['kind'] == 'settings_diagram',
-                                          open_pause=open_pause if pad is not None and args.pause_input == 'controller' else None)
+                                          inspect_diagram=step['kind'] == 'settings_diagram' or step.get('inspect_diagram', False),
+                                          open_pause=open_pause if pad is not None and args.pause_input == 'controller' else None,
+                                          menu_input=controller_menu_key if pad is not None and args.pause_input == 'controller' else None)
             else:
                 button = buttons[step['button']]
                 if step['gesture'] == 'double_hold':

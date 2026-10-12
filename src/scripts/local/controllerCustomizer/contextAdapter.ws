@@ -113,5 +113,6 @@ function CCProbeApplyRestoredContext()
     // Deactivation alone is NOT proof of held-button suppression.
     CCProbeReleaseOwnedActions();
     theInput.SetContext(nextContext);
+    CCRefreshControlHints();
     LogChannel('ControllerCustomizer', "experimental context=" + NameToString(theInput.CCProbeRawContext()));
 }

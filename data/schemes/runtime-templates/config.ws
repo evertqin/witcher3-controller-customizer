@@ -86,3 +86,27 @@ exec function ccProbeMenuState()
     }
     theGame.GetGuiManager().ShowNotification("CC menu: any=" + IntToString((int)theGame.GetGuiManager().IsAnyMenu()) + "; root=" + NameToString(rootName) + "; child=" + NameToString(childName) + "; raw=" + NameToString(theInput.CCProbeRawContext()) + "; pending=" + NameToString(theGame.GetMenuToOpen()), 30000);
 }
+
+// Diagrams also exist at the title screen, before gameplay routing starts.
+function CCDisplayPreset() : int
+{
+    var selected : int;
+    var config : CInGameConfigWrapper;
+    var scheme : string;
+    var legacy : string;
+    selected = CCRequestedPreset();
+    if (selected >= 0 && selected <= 2) { return selected; }
+    if (theGame) { config = theGame.GetInGameConfigWrapper(); }
+    if (config)
+    {
+        scheme = config.GetVarValue('ControllerCustomizer', 'Scheme');
+        if (scheme == "" || scheme == "-1")
+        {
+            legacy = config.GetVarValue('ControllerCustomizer', 'Preset');
+            if (legacy == "0") { return 1; }
+            if (legacy == "1" || legacy == "" || legacy == "-1") { return 2; }
+        }
+    }
+    if (theInput) { return theInput.CCAcceptPreset(-1); }
+    return 0;
+}

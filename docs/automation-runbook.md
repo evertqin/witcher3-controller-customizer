@@ -196,3 +196,29 @@ On-foot combat probes require a drawn weapon. Use the guarded `draw_sword` step
 after dismount, before resetting counters. A sheathed first tap can merely draw
 a weapon and return zero combat callbacks; do not reinterpret it as a pass.
 The preferred Alt1 fixture passed one native RB press/release in shared Combat.
+
+### Diagram and HUD regression procedure
+
+Use `display-refresh.json` with `game_test.py --title-only` for title Settings,
+then without that flag for the pinned mounted save. `scheme_switch` accepts
+`inspect_diagram: true` to inspect the diagram before closing that same Settings
+instance. Selection OCR after each arrow also proves the customizer remains open.
+Native title Settings ends with INSTALLED; gameplay Settings ends with BACK.
+Use one ViGEm device for D-pad, A and B throughout each menu flow; mixed keyboard
+and pad navigation can miss transitions. XInput button/axis readback and finally
+reset remain mandatory. `hint_capture` uses only a brief right-stick camera input
+to select controller glyphs, then captures after HUD refresh; it never moves Geralt.
+
+Save loading scans the first eleven visible rows, then uses bounded Down scrolling
+with a confirmed last-row selection and changed row pixels. It loads only after
+the exact manual timestamp is OCR-confirmed again, retaining the original file's
+pinned SHA-256. Do not assume an older fixture remains on the first page.
+Fresh-owned startup waits for exact The Witcher 3 title and may restore focus only
+before the main menu is recognized. Later focus drift stops input. Cleanup uses
+that exact title/executable/PID, including hidden windows, and waits for exit.
+
+Diagram selection uses config directly, independently of gameplay routing/cache.
+Native ControllerHelp regenerates mappings on explicit entry. Do not call
+SendControllerData from customizer option changes: it opens the diagram popup.
+The HUD wraps native feedback key queries with a scoped canonical context and
+forces refresh after a changed gameplay context is restored.

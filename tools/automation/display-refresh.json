@@ -1,0 +1,33 @@
+{
+  "name": "Same Settings diagram and mounted HUD refresh",
+  "title_scheme": "Current (original)",
+  "steps": [
+    {
+      "kind": "horse_stop"
+    },
+    {
+      "kind": "scheme_switch",
+      "preset": "DarkSoul Alt1",
+      "inspect_diagram": true
+    },
+    {
+      "kind": "hint_capture"
+    },
+    {
+      "kind": "scheme_switch",
+      "preset": "Current (original)",
+      "inspect_diagram": true
+    },
+    {
+      "kind": "hint_capture"
+    },
+    {
+      "kind": "scheme_switch",
+      "preset": "DarkSoul Alt1",
+      "inspect_diagram": true
+    },
+    {
+      "kind": "hint_capture"
+    }
+  ]
+}

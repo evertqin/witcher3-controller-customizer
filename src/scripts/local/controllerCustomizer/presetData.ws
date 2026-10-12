@@ -510,6 +510,2264 @@ function CCGeneratedReleaseContextActions(contextName : name)
             return;
     }
 }
+
+function CCGeneratedPadHintKeys(contextName : name, preset : int, actionName : name, out keys : array<EInputKey>) : bool
+{
+    if (preset < 0 || preset > 2) { return false; }
+    switch (CCGeneratedCanonicalContext(contextName))
+    {
+        case 'BASE_ALL_ATTACKS':
+            switch (actionName)
+            {
+                case 'AttackHeavy':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_Y_TRIANGLE);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_RightTrigger);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_RightTrigger);
+                    }
+                    return true;
+                case 'AttackLight':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_X_SQUARE);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_RightShoulder);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_RightShoulder);
+                    }
+                    return true;
+                case 'SpecialAttackHeavy':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_Y_TRIANGLE);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_RightTrigger);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_RightTrigger);
+                    }
+                    return true;
+                case 'SpecialAttackLight':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_X_SQUARE);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_RightShoulder);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_RightShoulder);
+                    }
+                    return true;
+            }
+            return false;
+        case 'BASE_ATTACKS_NO_LIGHT':
+            switch (actionName)
+            {
+                case 'AttackHeavy':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_Y_TRIANGLE);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_RightTrigger);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_RightTrigger);
+                    }
+                    return true;
+                case 'SpecialAttackHeavy':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_Y_TRIANGLE);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_RightTrigger);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_RightTrigger);
+                    }
+                    return true;
+            }
+            return false;
+        case 'BASE_ATTACK_HEAVY':
+            switch (actionName)
+            {
+                case 'AttackHeavy':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_Y_TRIANGLE);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_RightTrigger);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_RightTrigger);
+                    }
+                    return true;
+            }
+            return false;
+        case 'BASE_ATTACK_LIGHT':
+            switch (actionName)
+            {
+                case 'AttackLight':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_X_SQUARE);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_RightShoulder);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_RightShoulder);
+                    }
+                    return true;
+            }
+            return false;
+        case 'BASE_FocusMode':
+            switch (actionName)
+            {
+                case 'Focus':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_LeftTrigger);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_LeftShoulder);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_LeftShoulder);
+                    }
+                    return true;
+            }
+            return false;
+        case 'BASE_INTERACTIONS_HORSE':
+            switch (actionName)
+            {
+                case 'Follow':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_A_CROSS);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_A_CROSS);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_LeftThumb);
+                    }
+                    return true;
+            }
+            return false;
+        case 'BASE_INTERACTIONS_PAD':
+            switch (actionName)
+            {
+                case 'Finish':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_X_SQUARE);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_RightShoulder);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_RightShoulder);
+                    }
+                    return true;
+                case 'Finisher':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_X_SQUARE);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_RightShoulder);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_RightShoulder);
+                    }
+                    return true;
+                case 'Spare':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_RightTrigger);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_X_SQUARE);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_X_SQUARE);
+                    }
+                    return true;
+            }
+            return false;
+        case 'BASE_Interactions':
+            switch (actionName)
+            {
+                case 'Finish':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_X_SQUARE);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_RightShoulder);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_RightShoulder);
+                    }
+                    return true;
+                case 'Finisher':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_X_SQUARE);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_RightShoulder);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_RightShoulder);
+                    }
+                    return true;
+                case 'Spare':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_RightTrigger);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_X_SQUARE);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_X_SQUARE);
+                    }
+                    return true;
+            }
+            return false;
+        case 'BASE_Items':
+            switch (actionName)
+            {
+                case 'ThrowItem':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_RightShoulder);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_LeftTrigger);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_LeftTrigger);
+                    }
+                    return true;
+                case 'ThrowItemHold':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_RightShoulder);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_LeftTrigger);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_LeftTrigger);
+                    }
+                    return true;
+            }
+            return false;
+        case 'BASE_SHOW_RADIAL_MENU':
+            switch (actionName)
+            {
+                case 'RadialMenu':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_LeftShoulder);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_Y_TRIANGLE);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_Y_TRIANGLE);
+                    }
+                    return true;
+            }
+            return false;
+        case 'BASE_SPECIAL_ATTACK_HEAVY':
+            switch (actionName)
+            {
+                case 'SpecialAttackHeavy':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_Y_TRIANGLE);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_RightTrigger);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_RightTrigger);
+                    }
+                    return true;
+            }
+            return false;
+        case 'BASE_SPECIAL_ATTACK_LIGHT':
+            switch (actionName)
+            {
+                case 'SpecialAttackLight':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_X_SQUARE);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_RightShoulder);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_RightShoulder);
+                    }
+                    return true;
+            }
+            return false;
+        case 'BASE_Signs':
+            switch (actionName)
+            {
+                case 'CastSign':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_RightTrigger);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_X_SQUARE);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_X_SQUARE);
+                    }
+                    return true;
+                case 'CastSignHold':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_RightTrigger);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_X_SQUARE);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_X_SQUARE);
+                    }
+                    return true;
+            }
+            return false;
+        case 'Boat':
+            switch (actionName)
+            {
+                case 'Focus':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_LeftTrigger);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_LeftShoulder);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_LeftShoulder);
+                    }
+                    return true;
+                case 'GI_Decelerate':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_X_SQUARE);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_RightShoulder);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_RightShoulder);
+                    }
+                    return true;
+                case 'RadialMenu':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_LeftShoulder);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_Y_TRIANGLE);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_Y_TRIANGLE);
+                    }
+                    return true;
+                case 'VehicleItemAction':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_RightShoulder);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_LeftTrigger);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_LeftTrigger);
+                    }
+                    return true;
+                case 'VehicleItemActionHold':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_RightShoulder);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_LeftTrigger);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_LeftTrigger);
+                    }
+                    return true;
+            }
+            return false;
+        case 'BoatPassenger':
+            switch (actionName)
+            {
+                case 'Focus':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_LeftTrigger);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_LeftShoulder);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_LeftShoulder);
+                    }
+                    return true;
+                case 'RadialMenu':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_LeftShoulder);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_Y_TRIANGLE);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_Y_TRIANGLE);
+                    }
+                    return true;
+            }
+            return false;
+        case 'Combat':
+            switch (actionName)
+            {
+                case 'Alternate':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_LeftTrigger);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_LeftShoulder);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_LeftShoulder);
+                    }
+                    return true;
+                case 'AttackHeavy':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_Y_TRIANGLE);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_RightTrigger);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_RightTrigger);
+                    }
+                    return true;
+                case 'AttackLight':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_X_SQUARE);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_RightShoulder);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_RightShoulder);
+                    }
+                    return true;
+                case 'CastSign':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_RightTrigger);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_X_SQUARE);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_X_SQUARE);
+                    }
+                    return true;
+                case 'CastSignHold':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_RightTrigger);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_X_SQUARE);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_X_SQUARE);
+                    }
+                    return true;
+                case 'Finish':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_X_SQUARE);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_RightShoulder);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_RightShoulder);
+                    }
+                    return true;
+                case 'Finisher':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_X_SQUARE);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_RightShoulder);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_RightShoulder);
+                    }
+                    return true;
+                case 'LockAndGuard':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_LeftTrigger);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_LeftShoulder);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_LeftShoulder);
+                    }
+                    return true;
+                case 'RadialMenu':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_LeftShoulder);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_Y_TRIANGLE);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_Y_TRIANGLE);
+                    }
+                    return true;
+                case 'Spare':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_RightTrigger);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_X_SQUARE);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_X_SQUARE);
+                    }
+                    return true;
+                case 'SpecialAttackHeavy':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_Y_TRIANGLE);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_RightTrigger);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_RightTrigger);
+                    }
+                    return true;
+                case 'SpecialAttackLight':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_X_SQUARE);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_RightShoulder);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_RightShoulder);
+                    }
+                    return true;
+                case 'SwordSheathe':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_DigitLeft);
+                        keys.PushBack(IK_Pad_DigitRight);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_DigitRight);
+                        keys.PushBack(IK_Pad_DigitLeft);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_DigitRight);
+                        keys.PushBack(IK_Pad_DigitLeft);
+                    }
+                    return true;
+                case 'ThrowItem':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_RightShoulder);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_LeftTrigger);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_LeftTrigger);
+                    }
+                    return true;
+                case 'ThrowItemHold':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_RightShoulder);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_LeftTrigger);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_LeftTrigger);
+                    }
+                    return true;
+            }
+            return false;
+        case 'Combat_Replacer_Ciri':
+            switch (actionName)
+            {
+                case 'AttackLight':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_X_SQUARE);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_RightShoulder);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_RightShoulder);
+                    }
+                    return true;
+                case 'CiriAttackHeavy':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_Y_TRIANGLE);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_RightTrigger);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_RightTrigger);
+                    }
+                    return true;
+                case 'CiriDrawWeapon':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_DigitLeft);
+                        keys.PushBack(IK_Pad_DigitRight);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_DigitRight);
+                        keys.PushBack(IK_Pad_DigitLeft);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_DigitRight);
+                        keys.PushBack(IK_Pad_DigitLeft);
+                    }
+                    return true;
+                case 'CiriSpecialAttack':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_RightTrigger);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_X_SQUARE);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_X_SQUARE);
+                    }
+                    return true;
+                case 'CiriSpecialAttackHeavy':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_Y_TRIANGLE);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_RightTrigger);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_RightTrigger);
+                    }
+                    return true;
+                case 'Finish':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_X_SQUARE);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_RightShoulder);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_RightShoulder);
+                    }
+                    return true;
+                case 'Finisher':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_X_SQUARE);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_RightShoulder);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_RightShoulder);
+                    }
+                    return true;
+                case 'LockAndGuard':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_LeftTrigger);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_LeftShoulder);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_LeftShoulder);
+                    }
+                    return true;
+                case 'RadialMenu':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_LeftShoulder);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_Y_TRIANGLE);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_Y_TRIANGLE);
+                    }
+                    return true;
+                case 'Spare':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_RightTrigger);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_X_SQUARE);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_X_SQUARE);
+                    }
+                    return true;
+                case 'ThrowItem':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_RightShoulder);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_LeftTrigger);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_LeftTrigger);
+                    }
+                    return true;
+            }
+            return false;
+        case 'Diving':
+            switch (actionName)
+            {
+                case 'DiveDown':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_X_SQUARE);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_RightShoulder);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_RightShoulder);
+                    }
+                    return true;
+                case 'Finish':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_X_SQUARE);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_RightShoulder);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_RightShoulder);
+                    }
+                    return true;
+                case 'Finisher':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_X_SQUARE);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_RightShoulder);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_RightShoulder);
+                    }
+                    return true;
+                case 'Focus':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_LeftTrigger);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_LeftShoulder);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_LeftShoulder);
+                    }
+                    return true;
+                case 'RadialMenu':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_LeftShoulder);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_Y_TRIANGLE);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_Y_TRIANGLE);
+                    }
+                    return true;
+                case 'Spare':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_RightTrigger);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_X_SQUARE);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_X_SQUARE);
+                    }
+                    return true;
+                case 'ThrowItem':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_RightShoulder);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_LeftTrigger);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_LeftTrigger);
+                    }
+                    return true;
+                case 'ThrowItemHold':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_RightShoulder);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_LeftTrigger);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_LeftTrigger);
+                    }
+                    return true;
+            }
+            return false;
+        case 'Exploration':
+            switch (actionName)
+            {
+                case 'AttackHeavy':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_Y_TRIANGLE);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_RightTrigger);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_RightTrigger);
+                    }
+                    return true;
+                case 'AttackLight':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_X_SQUARE);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_RightShoulder);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_RightShoulder);
+                    }
+                    return true;
+                case 'CastSign':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_RightTrigger);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_X_SQUARE);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_X_SQUARE);
+                    }
+                    return true;
+                case 'CastSignHold':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_RightTrigger);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_X_SQUARE);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_X_SQUARE);
+                    }
+                    return true;
+                case 'Finish':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_X_SQUARE);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_RightShoulder);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_RightShoulder);
+                    }
+                    return true;
+                case 'Finisher':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_X_SQUARE);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_RightShoulder);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_RightShoulder);
+                    }
+                    return true;
+                case 'Focus':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_LeftTrigger);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_LeftShoulder);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_LeftShoulder);
+                    }
+                    return true;
+                case 'RadialMenu':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_LeftShoulder);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_Y_TRIANGLE);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_Y_TRIANGLE);
+                    }
+                    return true;
+                case 'Spare':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_RightTrigger);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_X_SQUARE);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_X_SQUARE);
+                    }
+                    return true;
+                case 'SpecialAttackHeavy':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_Y_TRIANGLE);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_RightTrigger);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_RightTrigger);
+                    }
+                    return true;
+                case 'SpecialAttackLight':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_X_SQUARE);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_RightShoulder);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_RightShoulder);
+                    }
+                    return true;
+                case 'SwordSheathe':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_DigitLeft);
+                        keys.PushBack(IK_Pad_DigitRight);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_DigitRight);
+                        keys.PushBack(IK_Pad_DigitLeft);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_DigitRight);
+                        keys.PushBack(IK_Pad_DigitLeft);
+                    }
+                    return true;
+                case 'ThrowItem':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_RightShoulder);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_LeftTrigger);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_LeftTrigger);
+                    }
+                    return true;
+                case 'ThrowItemHold':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_RightShoulder);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_LeftTrigger);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_LeftTrigger);
+                    }
+                    return true;
+            }
+            return false;
+        case 'Exploration_Replacer_Ciri':
+            switch (actionName)
+            {
+                case 'AttackLight':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_X_SQUARE);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_RightShoulder);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_RightShoulder);
+                    }
+                    return true;
+                case 'CiriAttackHeavy':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_Y_TRIANGLE);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_RightTrigger);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_RightTrigger);
+                    }
+                    return true;
+                case 'CiriDrawWeapon':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_DigitLeft);
+                        keys.PushBack(IK_Pad_DigitRight);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_DigitRight);
+                        keys.PushBack(IK_Pad_DigitLeft);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_DigitRight);
+                        keys.PushBack(IK_Pad_DigitLeft);
+                    }
+                    return true;
+                case 'CiriHolsterWeapon':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_DigitLeft);
+                        keys.PushBack(IK_Pad_DigitRight);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_DigitRight);
+                        keys.PushBack(IK_Pad_DigitLeft);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_DigitRight);
+                        keys.PushBack(IK_Pad_DigitLeft);
+                    }
+                    return true;
+                case 'CiriSpecialAttack':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_RightTrigger);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_X_SQUARE);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_X_SQUARE);
+                    }
+                    return true;
+                case 'CiriSpecialAttackHeavy':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_Y_TRIANGLE);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_RightTrigger);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_RightTrigger);
+                    }
+                    return true;
+                case 'Finish':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_X_SQUARE);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_RightShoulder);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_RightShoulder);
+                    }
+                    return true;
+                case 'Finisher':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_X_SQUARE);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_RightShoulder);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_RightShoulder);
+                    }
+                    return true;
+                case 'Focus':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_LeftTrigger);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_LeftShoulder);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_LeftShoulder);
+                    }
+                    return true;
+                case 'RadialMenu':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_LeftShoulder);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_Y_TRIANGLE);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_Y_TRIANGLE);
+                    }
+                    return true;
+                case 'Spare':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_RightTrigger);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_X_SQUARE);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_X_SQUARE);
+                    }
+                    return true;
+                case 'ThrowItem':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_RightShoulder);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_LeftTrigger);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_LeftTrigger);
+                    }
+                    return true;
+                case 'ThrowItemHold':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_RightShoulder);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_LeftTrigger);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_LeftTrigger);
+                    }
+                    return true;
+            }
+            return false;
+        case 'Horse':
+            switch (actionName)
+            {
+                case 'Canter':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_A_CROSS);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_A_CROSS);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_LeftThumb);
+                    }
+                    return true;
+                case 'Container':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_LeftThumb);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_LeftThumb);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_A_CROSS);
+                    }
+                    return true;
+                case 'FastTravel':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_LeftThumb);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_LeftThumb);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_A_CROSS);
+                    }
+                    return true;
+                case 'Focus':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_LeftTrigger);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_LeftShoulder);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_LeftShoulder);
+                    }
+                    return true;
+                case 'Follow':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_A_CROSS);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_A_CROSS);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_LeftThumb);
+                    }
+                    return true;
+                case 'Gallop':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_A_CROSS);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_A_CROSS);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_LeftThumb);
+                    }
+                    return true;
+                case 'GatherHerbs':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_LeftThumb);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_LeftThumb);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_A_CROSS);
+                    }
+                    return true;
+                case 'HorseKick':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_LeftThumb);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_None);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_None);
+                    }
+                    return true;
+                case 'RadialMenu':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_LeftShoulder);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_Y_TRIANGLE);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_Y_TRIANGLE);
+                    }
+                    return true;
+                case 'SwordSheathe':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_DigitLeft);
+                        keys.PushBack(IK_Pad_DigitRight);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_DigitRight);
+                        keys.PushBack(IK_Pad_DigitLeft);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_DigitRight);
+                        keys.PushBack(IK_Pad_DigitLeft);
+                    }
+                    return true;
+                case 'Use':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_LeftThumb);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_LeftThumb);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_A_CROSS);
+                    }
+                    return true;
+                case 'VehicleAttack':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_X_SQUARE);
+                        keys.PushBack(IK_Pad_Y_TRIANGLE);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_RightTrigger);
+                        keys.PushBack(IK_Pad_RightShoulder);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_RightTrigger);
+                        keys.PushBack(IK_Pad_RightShoulder);
+                    }
+                    return true;
+                case 'VehicleCastSign':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_RightTrigger);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_X_SQUARE);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_X_SQUARE);
+                    }
+                    return true;
+                case 'VehicleItemAction':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_RightShoulder);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_LeftTrigger);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_LeftTrigger);
+                    }
+                    return true;
+                case 'VehicleItemActionHold':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_RightShoulder);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_LeftTrigger);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_LeftTrigger);
+                    }
+                    return true;
+            }
+            return false;
+        case 'Horse_Replacer_Ciri':
+            switch (actionName)
+            {
+                case 'Canter':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_A_CROSS);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_A_CROSS);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_LeftThumb);
+                    }
+                    return true;
+                case 'CiriDrawWeapon':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_DigitLeft);
+                        keys.PushBack(IK_Pad_DigitRight);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_DigitRight);
+                        keys.PushBack(IK_Pad_DigitLeft);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_DigitRight);
+                        keys.PushBack(IK_Pad_DigitLeft);
+                    }
+                    return true;
+                case 'CiriHolsterWeapon':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_DigitLeft);
+                        keys.PushBack(IK_Pad_DigitRight);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_DigitRight);
+                        keys.PushBack(IK_Pad_DigitLeft);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_DigitRight);
+                        keys.PushBack(IK_Pad_DigitLeft);
+                    }
+                    return true;
+                case 'Follow':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_A_CROSS);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_A_CROSS);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_LeftThumb);
+                    }
+                    return true;
+                case 'Gallop':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_A_CROSS);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_A_CROSS);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_LeftThumb);
+                    }
+                    return true;
+                case 'HorseKick':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_A_CROSS);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_None);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_None);
+                    }
+                    return true;
+                case 'RadialMenu':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_LeftShoulder);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_Y_TRIANGLE);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_Y_TRIANGLE);
+                    }
+                    return true;
+                case 'VehicleAttack':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_X_SQUARE);
+                        keys.PushBack(IK_Pad_Y_TRIANGLE);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_RightShoulder);
+                        keys.PushBack(IK_Pad_RightTrigger);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_RightShoulder);
+                        keys.PushBack(IK_Pad_RightTrigger);
+                    }
+                    return true;
+            }
+            return false;
+        case 'JumpClimb':
+            switch (actionName)
+            {
+                case 'DiveDown':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_X_SQUARE);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_RightShoulder);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_RightShoulder);
+                    }
+                    return true;
+                case 'RadialMenu':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_LeftShoulder);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_Y_TRIANGLE);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_Y_TRIANGLE);
+                    }
+                    return true;
+                case 'SwordSheathe':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_DigitLeft);
+                        keys.PushBack(IK_Pad_DigitRight);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_DigitRight);
+                        keys.PushBack(IK_Pad_DigitLeft);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_DigitRight);
+                        keys.PushBack(IK_Pad_DigitLeft);
+                    }
+                    return true;
+            }
+            return false;
+        case 'RadialMenu':
+            switch (actionName)
+            {
+                case 'Alternate':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_LeftTrigger);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_LeftShoulder);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_LeftShoulder);
+                    }
+                    return true;
+                case 'LockAndGuard':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_LeftTrigger);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_LeftShoulder);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_LeftShoulder);
+                    }
+                    return true;
+                case 'OpenMeditation':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_X_SQUARE);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_RightShoulder);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_RightShoulder);
+                    }
+                    return true;
+                case 'RadialMenu':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_LeftShoulder);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_Y_TRIANGLE);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_Y_TRIANGLE);
+                    }
+                    return true;
+            }
+            return false;
+        case 'ScriptedAction':
+            switch (actionName)
+            {
+                case 'Gallop':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_A_CROSS);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_A_CROSS);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_LeftThumb);
+                    }
+                    return true;
+            }
+            return false;
+        case 'Swimming':
+            switch (actionName)
+            {
+                case 'DiveDown':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_X_SQUARE);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_RightShoulder);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_RightShoulder);
+                    }
+                    return true;
+                case 'Finish':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_X_SQUARE);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_RightShoulder);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_RightShoulder);
+                    }
+                    return true;
+                case 'Finisher':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_X_SQUARE);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_RightShoulder);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_RightShoulder);
+                    }
+                    return true;
+                case 'Focus':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_LeftTrigger);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_LeftShoulder);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_LeftShoulder);
+                    }
+                    return true;
+                case 'RadialMenu':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_LeftShoulder);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_Y_TRIANGLE);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_Y_TRIANGLE);
+                    }
+                    return true;
+                case 'Spare':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_RightTrigger);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_X_SQUARE);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_X_SQUARE);
+                    }
+                    return true;
+                case 'ThrowItem':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_RightShoulder);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_LeftTrigger);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_LeftTrigger);
+                    }
+                    return true;
+                case 'ThrowItemHold':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_RightShoulder);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_LeftTrigger);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_LeftTrigger);
+                    }
+                    return true;
+            }
+            return false;
+        case 'ThrowHold':
+            switch (actionName)
+            {
+                case 'SwordSheathe':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_DigitLeft);
+                        keys.PushBack(IK_Pad_DigitRight);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_DigitRight);
+                        keys.PushBack(IK_Pad_DigitLeft);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_DigitRight);
+                        keys.PushBack(IK_Pad_DigitLeft);
+                    }
+                    return true;
+                case 'ThrowItem':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_RightShoulder);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_LeftTrigger);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_LeftTrigger);
+                    }
+                    return true;
+                case 'ThrowItemHold':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_RightShoulder);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_LeftTrigger);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_LeftTrigger);
+                    }
+                    return true;
+            }
+            return false;
+        case 'ThrowHoldChain':
+            switch (actionName)
+            {
+                case 'AttackHeavy':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_Y_TRIANGLE);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_RightTrigger);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_RightTrigger);
+                    }
+                    return true;
+                case 'AttackLight':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_X_SQUARE);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_RightShoulder);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_RightShoulder);
+                    }
+                    return true;
+                case 'SwordSheathe':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_DigitLeft);
+                        keys.PushBack(IK_Pad_DigitRight);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_DigitRight);
+                        keys.PushBack(IK_Pad_DigitLeft);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_DigitRight);
+                        keys.PushBack(IK_Pad_DigitLeft);
+                    }
+                    return true;
+                case 'ThrowItem':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_RightShoulder);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_LeftTrigger);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_LeftTrigger);
+                    }
+                    return true;
+                case 'ThrowItemHold':
+                    keys.Clear();
+                    if (preset == 0)
+                    {
+                        keys.PushBack(IK_Pad_RightShoulder);
+                    }
+                    if (preset == 1)
+                    {
+                        keys.PushBack(IK_Pad_LeftTrigger);
+                    }
+                    if (preset == 2)
+                    {
+                        keys.PushBack(IK_Pad_LeftTrigger);
+                    }
+                    return true;
+            }
+            return false;
+    }
+    return false;
+}
 function CCGeneratedHorseSpeedMember(preset : int, ciri : bool) : string
 {
     if (preset == 1)

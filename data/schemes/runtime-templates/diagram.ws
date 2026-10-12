@@ -36,8 +36,7 @@ function CCProbeMarkHorseRow(data : CScriptedFlashArray, ciri : bool) : CScripte
         data.SetElementFlashObject(3, row);
         return data;
     }
-    if (!theInput || !theInput.CCProbeRoutingActive()) { return data; }
-    preset = CCEffectivePreset();
+    preset = CCDisplayPreset();
     if (preset != 0 && preset != 1) { return data; }
     speedMember = CCGeneratedHorseSpeedMember(preset, ciri);
     if (speedMember == "") { return data; }
@@ -69,7 +68,7 @@ function CCApplySharedDiagram(data : CScriptedFlashArray) : CScriptedFlashArray
 {
     var index : int;
     var row : CScriptedFlashObject;
-    if (!data || !theInput || !theInput.CCProbeRoutingActive()) { return data; }
+    if (!data || !theGame) { return data; }
     for (index = 0; index < data.GetLength(); index += 1)
     {
         row = data.GetElementFlashObject(index);
@@ -91,8 +90,8 @@ function CCApplyCombatDiagram(data : CScriptedFlashArray, ciri : bool) : CScript
     var sprint : string;
     var roll : string;
     var dodge : string;
-    if (!data || !theGame || !theInput || !theInput.CCProbeRoutingActive()) { return data; }
-    if (CCEffectivePreset() == 0 || data.GetLength() < 3) { return data; }
+    if (!data || !theGame) { return data; }
+    if (CCDisplayPreset() == 0 || data.GetLength() < 3) { return data; }
     // Only PC/GDK is supported; retain other native platform branch output.
     if (theGame.GetPlatform() != Platform_PC && theGame.GetPlatform() != Platform_PC_GDK) { return data; }
     row = data.GetElementFlashObject(2);

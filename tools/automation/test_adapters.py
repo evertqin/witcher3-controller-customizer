@@ -13,6 +13,19 @@ from save_fixture import make_fixture
 
 
 class AdapterTests(unittest.TestCase):
+    def test_title_settings_boundary_is_distinct_and_rejects_unknown_rows(self):
+        rows = ['SETTINGS', 'SOUND', 'CONTROLS', 'CONTROLLER SCHEME', 'KEY BINDINGS',
+                'GAMEPLAY', 'VIDEO', 'LANGUAGE', 'ACCESSIBILITY', 'CONTROLLER CUSTOMIZER', 'INSTALLED']
+        self.assertEqual(preset_index(rows, title_screen=True), 8)
+        with self.assertRaises(RuntimeError):
+            preset_index(rows)
+        with self.assertRaises(RuntimeError):
+            preset_index(rows[:-1] + ['UNKNOWN'], title_screen=True)
+        validate_steps([dict(kind='scheme_switch', preset='Current (original)', inspect_diagram=True),
+                        dict(kind='hint_capture')])
+        with self.assertRaises(ValueError):
+            validate_steps([dict(kind='scheme_switch', preset='Current (original)', inspect_diagram='yes')])
+
     def test_editor_encoding_prompt_is_specific_and_preserves_sources(self):
         records = [dict(Name='Your mod project contains files with invalid encoding. Do you want your script and xml files in your mod project to be converted to utf-8 now?'),
                    dict(Name='No', Enabled=True, Offscreen=False)]

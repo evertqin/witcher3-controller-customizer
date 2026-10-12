@@ -32,11 +32,14 @@ def settings_items(lines):
     return items
 
 
-def preset_index(lines):
+def preset_index(lines, title_screen=False):
     items = settings_items(lines)
     allowed = {'SOUND', 'CONTROLS', 'CONTROLLER SCHEME', 'KEY BINDINGS', 'GAMEPLAY',
                'VIDEO', 'ACCESSIBILITY', 'LANGUAGE', 'CONTROLLER CUSTOMIZER', 'BACK'}
-    if not items or items[0] != 'SOUND' or items[-1] != 'BACK' or any(x not in allowed for x in items):
+    if title_screen:
+        allowed.add('INSTALLED')
+    ending = 'INSTALLED' if title_screen else 'BACK'
+    if not items or items[0] != 'SOUND' or items[-1] != ending or any(x not in allowed for x in items):
         raise RuntimeError('Settings ordering cannot be established from OCR')
     if len(items) != len(set(items)) or 'CONTROLLER CUSTOMIZER' not in items:
         raise RuntimeError('Dedicated preset category missing or ambiguous')
@@ -63,7 +66,7 @@ def selected_scheme(text):
     return SCHEMES[2] if 'alt' in normalized else SCHEMES[1]
 
 
-def cycle(desktop, target, directory, ffmpeg, inspect_preset=False, switch_preset=None, open_pause=None, inspect_diagram=False, switch_scheme=None):
+def cycle(desktop, target, directory, ffmpeg, inspect_preset=False, switch_preset=None, open_pause=None, inspect_diagram=False, switch_scheme=None, title_screen=False, menu_input=None):
     observations = []
 
     def capture(name, labels, full=False, validator=None, timeout=8):
@@ -97,25 +100,31 @@ def cycle(desktop, target, directory, ffmpeg, inspect_preset=False, switch_prese
         return raw
 
     def key(name):
-        desktop.key(target, name, 0.05 if name == 'ESC' else 0.15)
+        if menu_input:
+            menu_input(name)
+        else:
+            desktop.key(target, name, 0.05 if name == 'ESC' else 0.15)
         time.sleep(0.5)
         desktop.guard(target)
 
     # Calibrated English pause menu defaults to Resume; no coordinate clicking.
-    if open_pause:
+    if title_screen:
+        capture("title", ["Continue", "New Game", "Load Game", "Settings"])
+    elif open_pause:
         open_pause()
         time.sleep(0.5)
     else:
         desktop.key(target, 'ESC', 0.15)
         time.sleep(0.5)
-    capture('pause', ['Resume', 'Load Game', 'Settings', 'Quit to Main Menu'])
+    if not title_screen:
+        capture('pause', ['Resume', 'Load Game', 'Settings', 'Quit to Main Menu'])
     for _ in range(3):
         key('DOWN')
     key('E')
     settings = capture('settings', ['Sound', 'Video', 'Gameplay'],
-                       validator=lambda raw: preset_index(raw['Lines']), timeout=40)
+                       validator=lambda raw: preset_index(raw['Lines'], title_screen), timeout=40)
     if inspect_preset or switch_preset or switch_scheme:
-        for _ in range(preset_index(settings['Lines'])):
+        for _ in range(preset_index(settings['Lines'], title_screen)):
             key('DOWN')
         key('E')
         capture('preset', ['Controller Customizer', 'Controller scheme' if switch_scheme else 'Hold: canter'], full=True)
@@ -161,11 +170,13 @@ def cycle(desktop, target, directory, ffmpeg, inspect_preset=False, switch_prese
             observations.append(dict(screen='selected-preset', screenshot=image.name, preset=switch_preset))
         key('ESC')
         capture('return-settings', ['Sound', 'Video', 'Gameplay'])
-    elif inspect_diagram:
-        preset_index(settings['Lines'])  # Validate the entire recognized category ordering.
+    if inspect_diagram:
+        preset_index(settings['Lines'], title_screen)  # Validate the entire recognized category ordering.
         items = settings_items(settings['Lines'])
-        for _ in range(items.index('CONTROLLER SCHEME')):
-            key('DOWN')
+        position = preset_index(settings['Lines'], title_screen) if (inspect_preset or switch_preset or switch_scheme) else 0
+        distance = items.index('CONTROLLER SCHEME') - position
+        for _ in range(abs(distance)):
+            key('DOWN' if distance > 0 else 'UP')
         key('E')
         capture('controller-scheme', ['Controller Scheme', 'Exploration', 'Pause Menu'], full=True)
         for name, labels in [('swimming', ['Swimming']), ('combat', ['Combat']),
@@ -175,8 +186,11 @@ def cycle(desktop, target, directory, ffmpeg, inspect_preset=False, switch_prese
         key('ESC')
         capture('return-settings', ['Sound', 'Video', 'Gameplay'])
     key('ESC')
-    capture('return-pause', ['Resume', 'Load Game', 'Settings', 'Quit to Main Menu'])
-    key('ESC')
+    if title_screen:
+        capture('return-title', ['Continue', 'New Game', 'Load Game', 'Settings'])
+    else:
+        capture('return-pause', ['Resume', 'Load Game', 'Settings', 'Quit to Main Menu'])
+        key('ESC')
     return observations
 
 

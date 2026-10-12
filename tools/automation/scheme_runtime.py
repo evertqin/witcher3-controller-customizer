@@ -71,6 +71,7 @@ def generated_helpers(repo, native_input, aliases):
         ws.extend(f"            theInput.ForceDeactivateAction('{action}');" for action in sorted(actions))
         ws.append("            return;")
     ws.extend(["    }", "}", ""])
+    ws.extend(generated_hint_helpers(profiles, contexts))
     old = (repo / "data/schemes/runtime-templates/presetData.ws").read_text(encoding="utf-8")
     tail = old[old.index("function CCGeneratedHorseSpeedMember"):]
     # The two historical Souls helper rows become slots 1 and 2; slot 0 is native.
@@ -79,6 +80,48 @@ def generated_helpers(repo, native_input, aliases):
     tail = replace_once(tail, 'function CCGeneratedPresetName(preset : int) : string\n{',
                         'function CCGeneratedPresetName(preset : int) : string\n{\n    if (preset == 0) { return "Current (original)"; }')
     return "\n".join(ws) + tail, release_actions
+
+
+
+def hint_keys(profiles, context, action):
+    result = []
+    for scheme in profiles:
+        keys = []
+        for row in profiles[scheme][context]:
+            if digital_pad(row) and re.search(r"(?:\(|,)\s*Action=" + re.escape(action) + r"(?:,|\))", row.value):
+                if row.key not in keys:
+                    keys.append(row.key)
+        result.append(keys)
+    return result
+
+
+def generated_hint_helpers(profiles, contexts):
+    ws = ["function CCGeneratedPadHintKeys(contextName : name, preset : int, actionName : name, out keys : array<EInputKey>) : bool",
+          "{", "    if (preset < 0 || preset > 2) { return false; }",
+          "    switch (CCGeneratedCanonicalContext(contextName))", "    {"]
+    for context in contexts:
+        actions = set()
+        for scheme in profiles:
+            for row in profiles[scheme][context]:
+                if digital_pad(row):
+                    match = re.search(r"(?:\(|,)\s*Action=([A-Za-z0-9_]+)(?:,|\))", row.value)
+                    if match:
+                        actions.add(match[1])
+        changed = {action: hint_keys(profiles, context, action) for action in sorted(actions)}
+        changed = {action: keys for action, keys in changed.items() if not all(keys[0] == k for k in keys[1:])}
+        if not changed:
+            continue
+        ws.extend([f"        case '{context}':", "            switch (actionName)", "            {"])
+        for action, schemes in changed.items():
+            ws.extend([f"                case '{action}':", "                    keys.Clear();"])
+            for index, keys in enumerate(schemes):
+                ws.extend([f"                    if (preset == {index})", "                    {"])
+                ws.extend(f"                        keys.PushBack({key});" for key in (keys or ['IK_None']))
+                ws.append("                    }")
+            ws.append("                    return true;")
+        ws.extend(["            }", "            return false;"])
+    ws.extend(["    }", "    return false;", "}", ""])
+    return ws
 
 
 def prepare(repo, native_input, personal_text):
@@ -154,7 +197,7 @@ function CCInitializeSchemeSelection()
     put("config", config)
     diagram = replace_once(get("diagram"), "if (preset != 0 && preset != 1)", "if (preset != 1 && preset != 2)")
     diagram = replace_once(diagram, "    for (index = 0; index < data.GetLength(); index += 1)",
-        "    if (CCEffectivePreset() == 0) { return data; }\n    for (index = 0; index < data.GetLength(); index += 1)")
+        "    if (CCDisplayPreset() == 0) { return data; }\n    for (index = 0; index < data.GetLength(); index += 1)")
     put("diagram", diagram)
     contexts = get("contexts")
     contexts = contexts.replace("CC_PROBE_Current_", "CC_SCHEME_DarkSoul_").replace("CC_PROBE_Alt1_", "CC_SCHEME_DarkSoulAlt1_")

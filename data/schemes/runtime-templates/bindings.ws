@@ -275,3 +275,67 @@ exec function ccProbeFootStatus()
     if (!theGame || !theInput || !theGame.GetGuiManager()) { return; }
     theGame.GetGuiManager().ShowNotification(theInput.CCFootReport(), 30000);
 }
+
+// Native key lookup is global; resolve changed digital hints against the selected
+// gameplay bank. Native keyboard, axes, menus and unsupported actions stay native.
+@addField(CInputManager)
+private var m_ccHintContext : name;
+
+@addMethod(CInputManager)
+function CCHintContext() : name
+{
+    return m_ccHintContext;
+}
+
+@addMethod(CInputManager)
+function CCSetHintContext(contextName : name)
+{
+    m_ccHintContext = contextName;
+}
+
+@wrapMethod(CInputManager)
+function GetPadKeysForAction(actionName : name, out outKeys : array<EInputKey>)
+{
+    var contextName : name;
+    var resolved : array<EInputKey>;
+    wrappedMethod(actionName, outKeys);
+    if (!CCProbeRoutingActive()) { return; }
+    contextName = m_ccHintContext;
+    if (contextName == '') { contextName = CCProbeCanonicalContext(CCProbeReadRawContext()); }
+    if (CCGeneratedPadHintKeys(contextName, CCEffectivePreset(), actionName, resolved))
+    {
+        outKeys = resolved;
+    }
+}
+
+// HUD keeps its canonical context even when the input manager is restoring a
+// menu. Scope its native key queries to that context, retaining nested callers.
+@wrapMethod(CR4HudModuleControlsFeedback)
+function SendInputContextActions(inputContextName : name, optional isForced : bool)
+{
+    var previous : name;
+    var contextName : name;
+    if (theInput)
+    {
+    previous = theInput.CCHintContext();
+    contextName = inputContextName;
+    if (thePlayer && thePlayer.IsCiri())
+    {
+        if (contextName == 'Horse') { contextName = 'Horse_Replacer_Ciri'; }
+    }
+    theInput.CCSetHintContext(contextName);
+    }
+    wrappedMethod(inputContextName, isForced);
+    if (theInput) { theInput.CCSetHintContext(previous); }
+}
+
+function CCRefreshControlHints()
+{
+    var hud : CR4ScriptedHud;
+    var controls : CR4HudModuleControlsFeedback;
+    if (!theGame || !thePlayer) { return; }
+    hud = (CR4ScriptedHud)theGame.GetHud();
+    if (!hud) { return; }
+    controls = (CR4HudModuleControlsFeedback)hud.GetHudModule("ControlsFeedbackModule");
+    if (controls) { controls.ForceModuleUpdate(); }
+}

@@ -259,3 +259,41 @@ Delivery audit: C:\Users\evert\Documents\Codex\2026-10-10\referenced-chatgpt-con
 Native effective-default parity remains open; Ciri/display variants remain
 unexecuted. The three-choice development candidate is ready for a branch push,
 with those limits retained in the original plan and delivery documentation.
+
+### Display refresh follow-up (2026-10-11)
+
+- [x] Title-screen Alt1 -> Current (original) changes the explicitly opened controller diagram.
+- [x] Loaded-save Current -> Alt1 -> Current -> Alt1 updates diagrams within the same Settings instance as each selection.
+- [x] Mounted Canter/Gallop HUD glyphs update A -> L3 -> A -> L3; Dismount remains B.
+- [x] Changing the option stays in Controller Customizer; no automatic diagram popup.
+- [x] Paged selection found the unchanged pinned 11:15:54 AM manual save after two scrolls.
+
+Display creators read the requested setting directly, including title screens and
+open Settings before gameplay context restoration. Native ControllerHelp already
+calls SendControllerData on explicit diagram entry. Calling it from the option
+callback opens the diagram unexpectedly; that callback hook was removed.
+HUD key queries resolve changed digital actions against the selected canonical
+context, with native fallback for other queries. Context restoration forces the
+cached controls feedback to refresh. Keyboard and axis bindings remain native.
+
+Verified cook: C:\Users\evert\Documents\Codex\2026-10-10\referenced-chatgpt-conversation-this-is-an\outputs\phase11\display-refresh-editor-no-popup\cooks\20261011-203355-fd5fdd64.
+49,459-byte blob SHA-256: 64e6f830fe8ded3b746b434abbbcc1c36beb8b91e4fc39714da0b1ba02e42a0e.
+Zero script errors; 51 pre-existing outer packaging/resource diagnostics retained.
+Eight authored sources and eight fingerprint-pinned native hooks verified.
+Forty-four Python checks pass (35 Phase 1.1 checks plus nine preserved Phase 2
+draft checks); generated assets match. Template hashes now follow Git's enforced
+LF format without changing cooked canonical sources.
+
+Title receipt: C:\Users\evert\Documents\Codex\2026-10-10\referenced-chatgpt-conversation-this-is-an\outputs\phase11\display-refresh-title-no-popup\20261012T033440Z-9b4022b9\result.json.
+Loaded receipt: C:\Users\evert\Documents\Codex\2026-10-10\referenced-chatgpt-conversation-this-is-an\outputs\phase11\display-refresh-loaded-no-popup\20261012T033733Z-a236bbb0\result.json.
+Glyph/connector inspection: C:\Users\evert\Documents\Codex\2026-10-10\referenced-chatgpt-conversation-this-is-an\work\phase11\display-verification.json.
+Both owned game processes closed, the save hash stayed unchanged, and preferred
+Scheme=2 was restored. Previous compile/navigation/startup failures remain failed
+receipts, including the temporary popup build. No repetition quota was added.
+Live Ciri and alternate quick-sign hint variants remain unexecuted coverage.
+The earlier standalone archive describes the preceding build, not this fix.
+
+Current display-fix standalone archive: C:\Users\evert\Documents\Codex\2026-10-10\referenced-chatgpt-conversation-this-is-an\outputs\phase11\display-refresh-package\controller-customizer-phase11-candidate.zip.
+SHA-256: 58c031f91d8ef6ed772ba726de4bb50210567cffa6d37183f5007d12f0c10d37. Exact archive inventory, all 47
+manifest file hashes and all template pins verified. It remains a candidate with
+native effective-default parity and Ciri/quick-sign coverage limits retained.

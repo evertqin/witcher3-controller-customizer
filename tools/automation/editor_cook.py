@@ -3,6 +3,7 @@ import argparse
 from datetime import datetime, timezone
 import json
 from pathlib import Path
+import shutil
 import subprocess
 import sys
 import time
@@ -99,6 +100,13 @@ def cook(config, output, editor_pid=None):
             main = next((w for w in windows if w['title'].startswith(project.stem + ' - ')), None)
             if main:
                 return main
+            compile_errors = [w for w in windows if w['title'] == 'There were errors compiling scripts. Try again ?']
+            if len(compile_errors) == 1:
+                desktop.screenshot(compile_errors[0], run / 'startup-compilation-errors.png', config['ffmpeg'])
+                native_log = exe.parent.parent / 'editor.log'
+                if native_log.is_file():
+                    shutil.copy2(native_log, run / 'startup-editor.log')
+                raise ValueError('REDkit startup compilation failed; inspect startup-editor.log and screenshot')
             errors = [w for w in windows if w['title'] == 'Error']
             if len(errors) == 1:
                 inspected = subprocess.run(['powershell.exe', '-NoProfile', '-ExecutionPolicy', 'Bypass',

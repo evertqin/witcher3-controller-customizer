@@ -28,6 +28,14 @@ class FullSchemeTests(unittest.TestCase):
         with self.assertRaises(SchemeError):
             parse("[Horse]\nUnknown input\n")
 
+    def test_hint_projection_uses_selected_digital_keys_only(self):
+        from scheme_runtime import hint_keys
+        profiles = {}
+        for scheme, key in [('vanilla', 'IK_Pad_A_CROSS'), ('darksoul', 'IK_Pad_A_CROSS'), ('darksoul-alt1', 'IK_Pad_LeftThumb')]:
+            profiles[scheme] = parse(f"[Horse]\n{key}=(Action=Canter)\n{key}=(Action=Canter,State=Duration,IdleTime=0.3)\nIK_LShift=(Action=Canter)\nIK_Pad_LeftAxisX=(Action=Canter)\nIK_Pattern_HorseAcceleration=(Action=Canter)\n")
+        self.assertEqual(hint_keys(profiles, 'Horse', 'Canter'), [['IK_Pad_A_CROSS'], ['IK_Pad_A_CROSS'], ['IK_Pad_LeftThumb']])
+        self.assertEqual(hint_keys(profiles, 'Horse', 'Gallop'), [[], [], []])
+
     def test_selection_upgrade_preserves_behavior(self):
         self.assertEqual(migrate_selection(0), "darksoul")
         self.assertEqual(migrate_selection("1"), "darksoul-alt1")

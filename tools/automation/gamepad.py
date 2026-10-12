@@ -1,5 +1,6 @@
 """ViGEm Xbox controller adapter with independent XInput verification."""
 import argparse
+from contextlib import contextmanager
 import ctypes as C
 from datetime import datetime, timezone
 import json
@@ -28,8 +29,55 @@ def read_states():
     for index in range(4):
         state = State()
         if dll.XInputGetState(index, C.byref(state)) == 0:
-            result[index] = {'buttons':state.pad.buttons, 'packet':state.packet}
+            result[index] = {'buttons':state.pad.buttons, 'packet':state.packet,
+                             'rx':state.pad.rx, 'ry':state.pad.ry}
     return result
+
+
+
+def press_menu_button(desktop, target, pad, slot, key):
+    import vgamepad as vg
+    names = {'DOWN': 'XUSB_GAMEPAD_DPAD_DOWN', 'UP': 'XUSB_GAMEPAD_DPAD_UP',
+             'LEFT': 'XUSB_GAMEPAD_DPAD_LEFT', 'RIGHT': 'XUSB_GAMEPAD_DPAD_RIGHT',
+             'E': 'XUSB_GAMEPAD_A', 'ESC': 'XUSB_GAMEPAD_B'}
+    button = getattr(vg.XUSB_BUTTON, names[key])
+    try:
+        desktop.guard(target)
+        pad.press_button(button)
+        pad.update()
+        deadline = time.monotonic() + 0.15
+        while time.monotonic() < deadline:
+            desktop.guard(target)
+            time.sleep(0.01)
+        if read_states()[slot]['buttons'] != int(button):
+            raise RuntimeError('Menu controller readback mismatch')
+    finally:
+        pad.release_button(button)
+        pad.update()
+    time.sleep(0.25)
+    desktop.guard(target)
+    if read_states()[slot]['buttons'] != 0:
+        raise RuntimeError('Menu controller release readback mismatch')
+
+
+@contextmanager
+def menu_controller(desktop, target):
+    import vgamepad as vg
+    before = set(read_states())
+    pad = vg.VX360Gamepad()
+    try:
+        deadline = time.monotonic() + 5
+        while len(set(read_states()) - before) != 1:
+            desktop.guard(target)
+            if time.monotonic() > deadline:
+                raise RuntimeError('Menu controller attachment not confirmed')
+            time.sleep(0.05)
+        slot = (set(read_states()) - before).pop()
+        yield pad, slot
+    finally:
+        pad.reset()
+        pad.update()
+        del pad
 
 
 def selftest():
