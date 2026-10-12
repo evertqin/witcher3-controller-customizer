@@ -38,7 +38,7 @@ function CCProbeMarkHorseRow(data : CScriptedFlashArray, ciri : bool) : CScripte
     }
     if (!theInput || !theInput.CCProbeRoutingActive()) { return data; }
     preset = CCEffectivePreset();
-    if (preset != 0 && preset != 1) { return data; }
+    if (preset != 1 && preset != 2) { return data; }
     speedMember = CCGeneratedHorseSpeedMember(preset, ciri);
     if (speedMember == "") { return data; }
     speedText = CCGeneratedHorseSpeedText();
@@ -70,6 +70,7 @@ function CCApplySharedDiagram(data : CScriptedFlashArray) : CScriptedFlashArray
     var index : int;
     var row : CScriptedFlashObject;
     if (!data || !theInput || !theInput.CCProbeRoutingActive()) { return data; }
+    if (CCEffectivePreset() == 0) { return data; }
     for (index = 0; index < data.GetLength(); index += 1)
     {
         row = data.GetElementFlashObject(index);
@@ -80,12 +81,49 @@ function CCApplySharedDiagram(data : CScriptedFlashArray) : CScriptedFlashArray
     return data;
 }
 
+
+// Legacy Combat adds held sprint to Geralt A/B and Ciri B, beyond the six-slot cycle.
+// Native quick-sign labels remain ordered after the new sprint line.
+function CCApplyCombatDiagram(data : CScriptedFlashArray, ciri : bool) : CScriptedFlashArray
+{
+    var row : CScriptedFlashObject;
+    var config : CInGameConfigWrapper;
+    var quickSigns : bool;
+    var sprint : string;
+    var roll : string;
+    var dodge : string;
+    if (!data || !theGame || !theInput || !theInput.CCProbeRoutingActive()) { return data; }
+    if (CCEffectivePreset() == 0 || data.GetLength() < 3) { return data; }
+    // Only PC/GDK is supported; retain other native platform branch output.
+    if (theGame.GetPlatform() != Platform_PC && theGame.GetPlatform() != Platform_PC_GDK) { return data; }
+    row = data.GetElementFlashObject(2);
+    if (!row) { return data; }
+    config = theGame.GetInGameConfigWrapper();
+    if (!config) { return data; }
+    quickSigns = (bool)config.GetVarValue('Gameplay', 'EnableAlternateSignCasting');
+    sprint = "&#10;" + GetLocStringByKeyExt("ControlLayout_hold") + " - " + GetLocStringByKeyExt("ControlLayout_RunSprint");
+    dodge = GetLocStringByKeyExt("ControlLayout_Dodge") + sprint;
+    if (!ciri)
+    {
+        roll = GetLocStringByKeyExt("ControlLayout_Roll") + sprint;
+        if (quickSigns)
+        {
+            roll += "&#10;" + GetLocStringByKeyExt("ControlLayout_press") + " " + GetLocStringByKeyExt("Aard");
+            dodge += "&#10;" + GetLocStringByKeyExt("ControlLayout_press") + " " + GetLocStringByKeyExt("Quen");
+        }
+        row.SetMemberFlashString("txtAButton", roll);
+    }
+    row.SetMemberFlashString("txtBButton", dodge);
+    data.SetElementFlashObject(2, row);
+    return data;
+}
+
 @wrapMethod
 function InGameMenu_CreateControllerData(flashStorageUtility : CScriptedFlashValueStorage) : CScriptedFlashArray
 {
     var data : CScriptedFlashArray;
     data = wrappedMethod(flashStorageUtility);
-    return CCProbeMarkHorseRow(CCApplySharedDiagram(data), false);
+    return CCProbeMarkHorseRow(CCApplyCombatDiagram(CCApplySharedDiagram(data), false), false);
 }
 
 @wrapMethod
@@ -93,5 +131,5 @@ function InGameMenu_CreateControllerDataCiri(flashStorageUtility : CScriptedFlas
 {
     var data : CScriptedFlashArray;
     data = wrappedMethod(flashStorageUtility);
-    return CCProbeMarkHorseRow(CCApplySharedDiagram(data), true);
+    return CCProbeMarkHorseRow(CCApplyCombatDiagram(CCApplySharedDiagram(data), true), true);
 }

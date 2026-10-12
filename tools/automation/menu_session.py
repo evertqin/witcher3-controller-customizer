@@ -50,15 +50,28 @@ def selected_preset(text):
     return 'Current' if names[0] == 'Current' else 'Alt1'
 
 
-def cycle(desktop, target, directory, ffmpeg, inspect_preset=False, switch_preset=None, open_pause=None, inspect_diagram=False):
+SCHEMES = ('Current (original)', 'DarkSoul', 'DarkSoul Alt1')
+
+
+def selected_scheme(text):
+    names = re.findall(r'\bCurrent\s*\(original\)|\bDark\s*Soul\s*Alt\s*[1lI]\b|\bDark\s*Soul\b(?!\s*Alt)', text, re.I)
+    if len(names) != 1:
+        raise RuntimeError('Scheme row missing or ambiguous')
+    normalized = re.sub(r'\s+', '', names[0]).casefold()
+    if normalized == 'current(original)':
+        return SCHEMES[0]
+    return SCHEMES[2] if 'alt' in normalized else SCHEMES[1]
+
+
+def cycle(desktop, target, directory, ffmpeg, inspect_preset=False, switch_preset=None, open_pause=None, inspect_diagram=False, switch_scheme=None):
     observations = []
 
-    def capture(name, labels, full=False):
+    def capture(name, labels, full=False, validator=None, timeout=8):
         image = directory / (name + '.png')
         cropped = directory / (name + '-column.png')
         width, height = target['width'], target['height']
         region = f'crop={round(width * 560 / 2560)}:{round(height * 720 / 1440)}:{round(width * 150 / 2560)}:{round(height * 390 / 1440)}'
-        deadline = time.monotonic() + 8
+        deadline = time.monotonic() + timeout
         attempt = 0
         while True:
             desktop.guard(target)
@@ -70,6 +83,8 @@ def cycle(desktop, target, directory, ffmpeg, inspect_preset=False, switch_prese
             (directory / (name + '-ocr.json')).write_text(json.dumps(raw, indent=2), encoding='utf-8')
             try:
                 require_labels(raw['Text'], labels)
+                if validator:
+                    validator(raw)
                 break
             except RuntimeError:
                 shutil.copy2(image, directory / f'{name}-waiting-{attempt}.png')
@@ -97,12 +112,38 @@ def cycle(desktop, target, directory, ffmpeg, inspect_preset=False, switch_prese
     for _ in range(3):
         key('DOWN')
     key('E')
-    settings = capture('settings', ['Sound', 'Video', 'Gameplay'])
-    if inspect_preset or switch_preset:
+    settings = capture('settings', ['Sound', 'Video', 'Gameplay'],
+                       validator=lambda raw: preset_index(raw['Lines']), timeout=40)
+    if inspect_preset or switch_preset or switch_scheme:
         for _ in range(preset_index(settings['Lines'])):
             key('DOWN')
         key('E')
-        capture('preset', ['Controller Customizer', 'Hold: canter'], full=True)
+        capture('preset', ['Controller Customizer', 'Controller scheme' if switch_scheme else 'Hold: canter'], full=True)
+        def read_selection(name):
+            image = directory / (name + '.png')
+            cropped = directory / (name + '-row.png')
+            desktop.screenshot(target, image, ffmpeg, 'desktop')
+            width, height = target['width'], target['height']
+            region = f'crop={round(width * 1650 / 2560)}:{round(height * 160 / 1440)}:{round(width * 730 / 2560)}:{round(height * 190 / 1440)}'
+            subprocess.run([ffmpeg, '-hide_banner', '-loglevel', 'error', '-y', '-i', str(image),
+                            '-vf', region, '-frames:v', '1', str(cropped)], check=True,
+                           capture_output=True, timeout=20, creationflags=subprocess.CREATE_NO_WINDOW)
+            raw = read_ocr(cropped)
+            (directory / (name + '-ocr.json')).write_text(json.dumps(raw, indent=2), encoding='utf-8')
+            return selected_scheme(raw['Text'])
+
+        if switch_scheme:
+            current = read_selection('initial-scheme')
+            desired = SCHEMES.index(switch_scheme)
+            while SCHEMES.index(current) != desired:
+                position = SCHEMES.index(current)
+                direction = 1 if desired > position else -1
+                key('RIGHT' if direction == 1 else 'LEFT')
+                confirmed = read_selection('selected-scheme-' + str(position + direction))
+                if SCHEMES.index(confirmed) != position + direction:
+                    raise RuntimeError('Scheme row did not confirm exactly one requested step')
+                current = confirmed
+            observations.append(dict(screen='selected-scheme', preset=current))
         if switch_preset:
             key('RIGHT' if switch_preset == 'Alt1' else 'LEFT')
             image = directory / 'selected-preset.png'

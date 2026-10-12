@@ -20,6 +20,14 @@ def fresh_log(directory, before):
     return matches[0] if matches else None
 
 
+def encoding_conversion_prompt(records):
+    text = ' '.join(str(row.get('Name', '')) for row in records).casefold()
+    return ('your mod project contains files with invalid encoding.' in text and
+            'converted to utf-8 now?' in text and
+            any(row.get('Name') == 'No' and row.get('Enabled') and
+                not row.get('Offscreen') for row in records))
+
+
 def wait_for(action, timeout):
     deadline = time.monotonic() + timeout
     last = None
@@ -86,9 +94,26 @@ def cook(config, output, editor_pid=None):
             dialog = wait_for(lambda: window('Select a file'), 30)
             desktop.native_value(dialog, '1148', str(project), script)
             click('Open', '1', 'Select a file')
-        main = wait_for(lambda: next((w for w in desktop.windows(exe, process.pid)
-                                     if w['title'].startswith(project.stem + ' - ')), None),
-                        config.get('load_timeout', 180))
+        def loaded_project():
+            windows = desktop.windows(exe, process.pid)
+            main = next((w for w in windows if w['title'].startswith(project.stem + ' - ')), None)
+            if main:
+                return main
+            errors = [w for w in windows if w['title'] == 'Error']
+            if len(errors) == 1:
+                inspected = subprocess.run(['powershell.exe', '-NoProfile', '-ExecutionPolicy', 'Bypass',
+                    '-File', str(script), '-TargetProcessId', str(process.pid), '-Action', 'Inspect'],
+                    capture_output=True, text=True, encoding='utf-8', timeout=20,
+                    creationflags=subprocess.CREATE_NO_WINDOW)
+                if inspected.returncode == 0 and encoding_conversion_prompt(json.loads(inspected.stdout.lstrip('\ufeff'))):
+                    # Reopened projects may offer to rewrite all UTF-16 script/XML files.
+                    # Decline only this observed prompt; snapshot guards still require unchanged sources.
+                    desktop.screenshot(errors[0], run / 'encoding-prompt.png', config['ffmpeg'])
+                    desktop.uia_click(errors[0], 'No', script, native=True)
+                    report['steps'].append('declined source encoding conversion; preserved owned files')
+            return None
+
+        main = wait_for(loaded_project, config.get('load_timeout', 180))
         desktop.menu_invoke(main, 'Publish/Save and publish mod project')
         click('Next', '6002', '', config.get('load_timeout', 300))
         click('Start cooking', '6009', '')

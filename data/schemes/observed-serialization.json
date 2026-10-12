@@ -1,0 +1,326 @@
+{
+  "schema_version": 1,
+  "source_parity_verified": false,
+  "native_input_sha256": "b234c27862eeb914ee857d118b099d11d7840924d1f7d35a58d30be1d799b0f6",
+  "changes": [
+    {
+      "alias": "CC_SCHEME_Vanilla_BASE_FocusMode",
+      "removed": [
+        [
+          [
+            "IK_Pad_LeftTrigger",
+            [
+              [
+                "Action",
+                "Focus"
+              ]
+            ]
+          ],
+          1
+        ]
+      ],
+      "added": [
+        [
+          [
+            "IK_Pad_LeftTrigger",
+            [
+              [
+                "Action",
+                "Focus"
+              ],
+              [
+                "Reprocess",
+                null
+              ]
+            ]
+          ],
+          1
+        ]
+      ]
+    },
+    {
+      "alias": "CC_SCHEME_Vanilla_Boat",
+      "removed": [
+        [
+          [
+            "IK_Pad_LeftTrigger",
+            [
+              [
+                "Action",
+                "Focus"
+              ]
+            ]
+          ],
+          1
+        ]
+      ],
+      "added": [
+        [
+          [
+            "IK_Pad_LeftTrigger",
+            [
+              [
+                "Action",
+                "Focus"
+              ],
+              [
+                "Reprocess",
+                null
+              ]
+            ]
+          ],
+          1
+        ]
+      ]
+    },
+    {
+      "alias": "CC_SCHEME_Vanilla_BoatPassenger",
+      "removed": [
+        [
+          [
+            "IK_Pad_LeftTrigger",
+            [
+              [
+                "Action",
+                "Focus"
+              ]
+            ]
+          ],
+          1
+        ]
+      ],
+      "added": [
+        [
+          [
+            "IK_Pad_LeftTrigger",
+            [
+              [
+                "Action",
+                "Focus"
+              ],
+              [
+                "Reprocess",
+                null
+              ]
+            ]
+          ],
+          1
+        ]
+      ]
+    },
+    {
+      "alias": "CC_SCHEME_Vanilla_Diving",
+      "removed": [
+        [
+          [
+            "IK_Pad_LeftTrigger",
+            [
+              [
+                "Action",
+                "Focus"
+              ]
+            ]
+          ],
+          1
+        ]
+      ],
+      "added": [
+        [
+          [
+            "IK_Pad_LeftTrigger",
+            [
+              [
+                "Action",
+                "Focus"
+              ],
+              [
+                "Reprocess",
+                null
+              ]
+            ]
+          ],
+          1
+        ]
+      ]
+    },
+    {
+      "alias": "CC_SCHEME_Vanilla_Exploration",
+      "removed": [
+        [
+          [
+            "IK_Pad_LeftTrigger",
+            [
+              [
+                "Action",
+                "Focus"
+              ]
+            ]
+          ],
+          1
+        ]
+      ],
+      "added": [
+        [
+          [
+            "IK_Pad_LeftTrigger",
+            [
+              [
+                "Action",
+                "Focus"
+              ],
+              [
+                "Reprocess",
+                null
+              ]
+            ]
+          ],
+          1
+        ]
+      ]
+    },
+    {
+      "alias": "CC_SCHEME_Vanilla_Exploration_Replacer_Ciri",
+      "removed": [
+        [
+          [
+            "IK_Pad_LeftTrigger",
+            [
+              [
+                "Action",
+                "Focus"
+              ]
+            ]
+          ],
+          1
+        ]
+      ],
+      "added": [
+        [
+          [
+            "IK_Pad_LeftTrigger",
+            [
+              [
+                "Action",
+                "Focus"
+              ],
+              [
+                "Reprocess",
+                null
+              ]
+            ]
+          ],
+          1
+        ]
+      ]
+    },
+    {
+      "alias": "CC_SCHEME_Vanilla_Horse",
+      "removed": [
+        [
+          [
+            "IK_Pad_LeftTrigger",
+            [
+              [
+                "Action",
+                "Focus"
+              ]
+            ]
+          ],
+          1
+        ],
+        [
+          [
+            "IK_Pad_LeftThumb",
+            [
+              [
+                "Action",
+                "HorseKick"
+              ],
+              [
+                "IdleTime",
+                "0.3"
+              ]
+            ]
+          ],
+          1
+        ]
+      ],
+      "added": [
+        [
+          [
+            "IK_Pad_LeftTrigger",
+            [
+              [
+                "Action",
+                "Focus"
+              ],
+              [
+                "Reprocess",
+                null
+              ]
+            ]
+          ],
+          1
+        ]
+      ]
+    },
+    {
+      "alias": "CC_SCHEME_Vanilla_Horse_Replacer_Ciri",
+      "removed": [
+        [
+          [
+            "IK_Pad_A_CROSS",
+            [
+              [
+                "Action",
+                "HorseKick"
+              ],
+              [
+                "IdleTime",
+                "0.3"
+              ]
+            ]
+          ],
+          1
+        ]
+      ],
+      "added": []
+    },
+    {
+      "alias": "CC_SCHEME_Vanilla_Swimming",
+      "removed": [
+        [
+          [
+            "IK_Pad_LeftTrigger",
+            [
+              [
+                "Action",
+                "Focus"
+              ]
+            ]
+          ],
+          1
+        ]
+      ],
+      "added": [
+        [
+          [
+            "IK_Pad_LeftTrigger",
+            [
+              [
+                "Action",
+                "Focus"
+              ],
+              [
+                "Reprocess",
+                null
+              ]
+            ]
+          ],
+          1
+        ]
+      ]
+    }
+  ],
+  "limitation": "Eight vanilla Focus records gained Reprocess; two vanilla HorseKick records were dropped. Native effective-default parity remains pending. This freezes ownership only, not gameplay acceptance."
+}

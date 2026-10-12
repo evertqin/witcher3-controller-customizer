@@ -8,6 +8,7 @@
     "game/gui/main_menu/ingamemenu/igmUtilities.ws": "4118acdc778c384f059fd75c9967f8f091c70b80a05af782a9591f132b837b9a",
     "game/vehicles/horse/states/exploration.ws": "824e0c91d05cd3d5027c663d7bf4d47f9124793b265374475d208f5fa17adcd3",
     "game/r4game.ws": "045cdddff8fff73a68b2c3ea37e8bf6bf2da47c40b2a09dfe82d4fa97548ec9b",
-    "game/gui/main_menu/ingamemenu/igmOptions.ws": "f7cef33c3f12a402af2e7b40c1793a39f8c98fe5848af6b56d1e1c342ceac14f"
+    "game/gui/main_menu/ingamemenu/igmOptions.ws": "f7cef33c3f12a402af2e7b40c1793a39f8c98fe5848af6b56d1e1c342ceac14f",
+    "game/player/playerInput.ws": "ecfe93c188dc140c2a650353ddd5fdda7d7d50b59e7957d167dcd1f5fedf2b13"
   }
 }

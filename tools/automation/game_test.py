@@ -56,7 +56,7 @@ def highlighted(ffmpeg, image, index):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('scenario', type=Path, nargs='?', default=Path(__file__).with_name('phase1-smoke.json'))
+    parser.add_argument('scenario', type=Path, nargs='?')
     parser.add_argument('--journal', type=Path, required=True)
     parser.add_argument('--exe', type=Path, required=True)
     parser.add_argument('--save', type=Path, required=True)
@@ -65,6 +65,10 @@ def main():
     parser.add_argument('--pause-input', choices=('controller', 'keyboard'), default='controller')
     parser.add_argument('--output', type=Path, default=Path(__file__).parent / 'evidence/game-tests')
     args = parser.parse_args()
+    installed = verify_journal(args.journal)
+    if args.scenario is None:
+        filename = 'phase11-smoke.json' if 'Phase11Candidate' in installed else 'phase1-smoke.json'
+        args.scenario = Path(__file__).with_name(filename)
     scenario = json.loads(args.scenario.read_text(encoding='utf-8'))
     validate_steps(scenario['steps'])
     verify_journal(args.journal)
@@ -96,9 +100,14 @@ def main():
                 continue
             try:
                 target = desktop.target(args.exe, process.pid)
-                desktop.focus(target)
-            except RuntimeError:
-                # Startup window may still be transitioning; no input sent yet.
+                desktop.focus(target, owned_startup=True)
+            except RuntimeError as error:
+                # Keep actual window/focus diagnostics; do not turn missing frames into a gameplay verdict.
+                event = dict(error=str(error), windows=windows,
+                             minimized=[bool(desktop.user.IsIconic(w['hwnd'])) for w in windows])
+                report.setdefault('startup_window_events', []).append(event)
+                (directory / 'startup-window-events.json').write_text(
+                    json.dumps(report['startup_window_events'], indent=2), encoding='utf-8')
                 time.sleep(1)
                 continue
             desktop.screenshot(target, directory / 'startup.png', args.ffmpeg, 'desktop')

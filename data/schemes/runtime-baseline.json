@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "selection_schema_version": 2,
+  "templates_sha256": {
+    "bindings.ws": "7a55d88fd3558d8336539d9ed8835093dd510661e80bd94fb228c1b5e40f5a03",
+    "bootstrap.ws": "9743f9d20dc1af72434e0c62753aef18333c1102b71b995766d89de03cbc8485",
+    "config.ws": "7a11818853fc56ad049e0b4edbb3b52efe8dbf639c8587f39cac069818a854df",
+    "contextAdapter.ws": "19da330f3572ae55acd87de9e2da081d0d089ba69709395ec606eaffca42f436",
+    "contexts.ws": "a3f306cafd3f9b38bcf448c506b3ad75a4aa86bd1c4840b8e2511e22b6f58cee",
+    "diagram.ws": "1bb4eebb84250114c7bf0a9543b1ec1fc1ac317861c2870f13c41e1a5b5479c5",
+    "menuHooks.ws": "1750811ea9a1dc5bc052dde07bc73efef27b9af569d9603a0ebec5956a2eaf1d",
+    "presetData.ws": "4de9a80103d0de5308a03b3fa7280a7727b83be346d0f04c35c780231adb6643",
+    "modControllerCustomizer.xml": "2fbf405dbd8af5d17ca6a870e0b73049f24d6748476b358f313e39186ed272f5"
+  }
+}

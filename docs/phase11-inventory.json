@@ -1,0 +1,39 @@
+{
+  "source_commit": "5f84ee7d3a5adc93ecd17e6003ba5868044d9fbb",
+  "legacy_profiles": {
+    "Current": {
+      "sha256": "f337f6595789cf3778def22fabe60ced2f24972efa5ee627c19f77dff04f7def",
+      "sections": 48,
+      "controller_pattern_records": 1295,
+      "contexts_with_controller_pattern_records": 41
+    },
+    "Alt1": {
+      "sha256": "5ff4f02a0873bf63e6bbc9a9209cb89fd6f269332399418e2a3a290dd3779beb",
+      "sections": 48,
+      "controller_pattern_records": 1295,
+      "contexts_with_controller_pattern_records": 41
+    }
+  },
+  "legacy_current_to_alt1_removed_records": 12,
+  "legacy_current_to_alt1_added_records": 12,
+  "legacy_changed_contexts": [
+    "BASE_INTERACTIONS_HORSE",
+    "Horse",
+    "Horse_Replacer_Ciri",
+    "ScriptedAction"
+  ],
+  "legacy_diagrams": {
+    "Current": {
+      "sha256": "0c187a5ac9c35b64ba647b485fb26afdf7f6c74fe65c69609713aac062b46ebe",
+      "label_assignment_count": 311
+    },
+    "Alt1": {
+      "sha256": "3fbefaddeb72ec7f4efa9e6c425818139858500f0db929a122ca4de194d78409",
+      "label_assignment_count": 311
+    }
+  },
+  "native_input_sha256": "b234c27862eeb914ee857d118b099d11d7840924d1f7d35a58d30be1d799b0f6",
+  "native_input_sections": 48,
+  "native_inheritance_records": 136,
+  "native_source_comparison_limit": "Raw native sections use inheritance; flattened legacy profiles cannot be compared by matching section rows alone."
+}

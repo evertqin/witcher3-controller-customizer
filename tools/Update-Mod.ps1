@@ -4,6 +4,7 @@ param([Parameter(Mandatory)][string]$JournalFile, [Parameter(Mandatory)][string]
 $ErrorActionPreference = 'Stop'
 Set-StrictMode -Version Latest
 $projectRoot = Split-Path $PSScriptRoot -Parent
+if (Test-Path -LiteralPath (Join-Path $projectRoot 'data/schemes/runtime-baseline.json')) { throw 'This historical Phase 1 tool cannot install/package selection schema 2; use the Phase 1.1 candidate workflow.' }
 Import-Module (Join-Path $PSScriptRoot 'FileTransaction.psm1') -Force
 Assert-CCGameClosed
 $journalPath = (Resolve-Path -LiteralPath $JournalFile).ProviderPath

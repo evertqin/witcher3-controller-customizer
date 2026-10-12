@@ -26,7 +26,7 @@ def parse_ride(text, expected_context):
     canter = tuple(map(int, required(r'Canter press/release[=-](\d+)/(\d+);').groups()))
     gallop = tuple(map(int, required(r'Gallop press/release[=-](\d+)/(\d+);').groups()))
     mismatches = int(required(r'query mismatches[=-](\d+);').group(1))
-    context = required(r'last[=-]([A-Za-z0-9_]+)/').group(1)
+    context = required(r'last[=-]([A-Za-z0-9_\s]+)/').group(1)
     if callbacks <= 0 or not canter[0] or not gallop[0]:
         raise RuntimeError('No useful Canter/Gallop callback evidence')
     if canter[0] != canter[1] or gallop[0] != gallop[1]:
@@ -36,11 +36,12 @@ def parse_ride(text, expected_context):
     # Calibrated hold + double-hold fixture: balanced duplicates must also fail.
     if callbacks != 10 or canter != (3, 3) or gallop != (2, 2):
         raise RuntimeError('Unexpected callback multiplicity for calibrated gestures')
-    if context != expected_context:
+    normalize_context = lambda value: re.sub(r'[\s_]', '', value)
+    if normalize_context(context) != normalize_context(expected_context):
         raise RuntimeError('Wrong riding callback context: ' + context)
     return dict(scope='native_callback_and_query_only', callbacks=callbacks,
                 canter_edges=canter, gallop_edges=gallop, query_mismatches=mismatches,
-                last_context=context, gameplay_release_verified=False)
+                last_context=expected_context, observed_context=context, gameplay_release_verified=False)
 
 
 def read_ocr(path):
@@ -70,3 +71,24 @@ def parse_fallback(text):
 def check_screenshot(path, expected_context):
     raw = read_ocr(path)
     return parse_ride(raw['Text'], expected_context), raw
+
+
+def parse_foot(text, scheme):
+    if scheme not in ('Vanilla', 'DarkSoul', 'DarkSoulAlt1'):
+        raise RuntimeError('Unsupported foot scheme')
+    match = re.findall(r'CC foot:\s*press/release[=-]([0-9lI]+)/([0-9lI]+)\s*;\s*mismatch[=-](\d+);\s*foreign[=-](\d+);\s*last[=-]([A-Za-z0-9_\s]+)', text)
+    if len(match) != 1:
+        raise RuntimeError('Notification assertion missing/ambiguous: foot counters')
+    press, release, mismatch, foreign, raw = match[0]
+    # This UI font's unit digit is read as l/I; normalize only edge-count fields.
+    press = press.translate(str.maketrans({'l': '1', 'I': '1'}))
+    release = release.translate(str.maketrans({'l': '1', 'I': '1'}))
+    context = re.sub(r'[\s_]', '', raw)
+    # Only the known Alt1 suffix permits the same unit-digit glyph ambiguity.
+    context = re.sub(r'DarkSoulAlt[lI](?=Combat$|Exploration$)', 'DarkSoulAlt1', context)
+    bank = 'DarkSoul' if scheme == 'DarkSoulAlt1' else scheme
+    valid = [re.sub('_', '', f'CC_SCHEME_{label}_{kind}') for label in {scheme, bank} for kind in ('Exploration', 'Combat')]
+    if tuple(map(int, (press, release, mismatch, foreign))) != (1, 1, 0, 0) or context not in valid:
+        raise RuntimeError('On-foot native callback counts, queries or context disagree')
+    return dict(scope='native_light_attack_dispatch_and_query_only', press=1, release=1,
+                mismatches=0, foreign=0, context=raw.strip(), animation_verified=False)

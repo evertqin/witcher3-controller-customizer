@@ -61,8 +61,8 @@ exec function ccProbeContextDetails()
     if (!CCProbeInspectionAllowed()) { return; }
     original = CCProbeReadRawContext();
     report = CCProbeContextDetailRow("Horse", 'Horse');
-    report += " | " + CCProbeContextDetailRow("Current", 'CC_PROBE_Current_Horse');
-    report += " | " + CCProbeContextDetailRow("Alt1", 'CC_PROBE_Alt1_Horse');
+    report += " | " + CCProbeContextDetailRow("Current", 'CC_SCHEME_DarkSoul_Horse');
+    report += " | " + CCProbeContextDetailRow("Alt1", 'CC_SCHEME_DarkSoulAlt1_Horse');
     report += " | " + CCProbeContextDetailRow("Missing", 'CC_PROBE_Unregistered_NegativeControl');
     theInput.CCProbeSetInspectionContext(original);
     if (CCProbeReadRawContext() != original)
@@ -111,14 +111,14 @@ function CCProbeInspectContexts() : int
     matchedKeys = 0;
     passed = 0;
     failures = "";
-    passed += CCProbeInspectOneContext('CC_PROBE_Current_BASE_INTERACTIONS_HORSE', 'Follow', IK_Pad_A_CROSS, checked, selected, matchedKeys, failures);
-    passed += CCProbeInspectOneContext('CC_PROBE_Current_Horse', 'Canter', IK_Pad_A_CROSS, checked, selected, matchedKeys, failures);
-    passed += CCProbeInspectOneContext('CC_PROBE_Current_Horse_Replacer_Ciri', 'Canter', IK_Pad_A_CROSS, checked, selected, matchedKeys, failures);
-    passed += CCProbeInspectOneContext('CC_PROBE_Current_ScriptedAction', 'Gallop', IK_Pad_A_CROSS, checked, selected, matchedKeys, failures);
-    passed += CCProbeInspectOneContext('CC_PROBE_Alt1_BASE_INTERACTIONS_HORSE', 'Follow', IK_Pad_LeftThumb, checked, selected, matchedKeys, failures);
-    passed += CCProbeInspectOneContext('CC_PROBE_Alt1_Horse', 'Canter', IK_Pad_LeftThumb, checked, selected, matchedKeys, failures);
-    passed += CCProbeInspectOneContext('CC_PROBE_Alt1_Horse_Replacer_Ciri', 'Canter', IK_Pad_LeftThumb, checked, selected, matchedKeys, failures);
-    passed += CCProbeInspectOneContext('CC_PROBE_Alt1_ScriptedAction', 'Gallop', IK_Pad_LeftThumb, checked, selected, matchedKeys, failures);
+    passed += CCProbeInspectOneContext('CC_SCHEME_DarkSoul_BASE_INTERACTIONS_HORSE', 'Follow', IK_Pad_A_CROSS, checked, selected, matchedKeys, failures);
+    passed += CCProbeInspectOneContext('CC_SCHEME_DarkSoul_Horse', 'Canter', IK_Pad_A_CROSS, checked, selected, matchedKeys, failures);
+    passed += CCProbeInspectOneContext('CC_SCHEME_DarkSoul_Horse_Replacer_Ciri', 'Canter', IK_Pad_A_CROSS, checked, selected, matchedKeys, failures);
+    passed += CCProbeInspectOneContext('CC_SCHEME_DarkSoul_ScriptedAction', 'Gallop', IK_Pad_A_CROSS, checked, selected, matchedKeys, failures);
+    passed += CCProbeInspectOneContext('CC_SCHEME_DarkSoulAlt1_BASE_INTERACTIONS_HORSE', 'Follow', IK_Pad_LeftThumb, checked, selected, matchedKeys, failures);
+    passed += CCProbeInspectOneContext('CC_SCHEME_DarkSoulAlt1_Horse', 'Canter', IK_Pad_LeftThumb, checked, selected, matchedKeys, failures);
+    passed += CCProbeInspectOneContext('CC_SCHEME_DarkSoulAlt1_Horse_Replacer_Ciri', 'Canter', IK_Pad_LeftThumb, checked, selected, matchedKeys, failures);
+    passed += CCProbeInspectOneContext('CC_SCHEME_DarkSoulAlt1_ScriptedAction', 'Gallop', IK_Pad_LeftThumb, checked, selected, matchedKeys, failures);
     theInput.CCProbeSetInspectionContext('CC_PROBE_Unregistered_NegativeControl');
     missingSelected = CCProbeReadRawContext() == 'CC_PROBE_Unregistered_NegativeControl';
     theInput.CCProbeSetInspectionContext(original);

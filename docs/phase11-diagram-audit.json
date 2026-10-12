@@ -1,0 +1,66 @@
+{
+  "scope": "Static label-expression/control-flow comparison; PC combat overrides and previously implemented horse overlay",
+  "legacy_revision": "5f84ee7d3a5adc93ecd17e6003ba5868044d9fbb",
+  "native_sha256": "4118acdc778c384f059fd75c9967f8f091c70b80a05af782a9591f132b837b9a",
+  "schemes": {
+    "Current": {
+      "legacy_sha256": "0c187a5ac9c35b64ba647b485fb26afdf7f6c74fe65c69609713aac062b46ebe",
+      "creator_control_flow_identical": true,
+      "shared_permutation_matched_rows": [
+        "Ciri-0",
+        "Ciri-1",
+        "Ciri-4",
+        "Ciri-5",
+        "Ciri-6",
+        "Ciri-7",
+        "Geralt-0",
+        "Geralt-1",
+        "Geralt-10",
+        "Geralt-4",
+        "Geralt-5",
+        "Geralt-6",
+        "Geralt-7",
+        "Geralt-8",
+        "Geralt-9"
+      ],
+      "combat_rows": [
+        "Geralt-2",
+        "Ciri-2"
+      ],
+      "horse_overlay_rows": [
+        "Geralt-3",
+        "Ciri-3"
+      ]
+    },
+    "Alt1": {
+      "legacy_sha256": "3fbefaddeb72ec7f4efa9e6c425818139858500f0db929a122ca4de194d78409",
+      "creator_control_flow_identical": true,
+      "shared_permutation_matched_rows": [
+        "Ciri-0",
+        "Ciri-1",
+        "Ciri-4",
+        "Ciri-5",
+        "Ciri-6",
+        "Ciri-7",
+        "Geralt-0",
+        "Geralt-1",
+        "Geralt-10",
+        "Geralt-4",
+        "Geralt-5",
+        "Geralt-6",
+        "Geralt-7",
+        "Geralt-8",
+        "Geralt-9"
+      ],
+      "combat_rows": [
+        "Geralt-2",
+        "Ciri-2"
+      ],
+      "horse_overlay_rows": [
+        "Geralt-3",
+        "Ciri-3"
+      ]
+    }
+  },
+  "runtime_ciri_or_quick_sign_variants_verified": false
+}

@@ -4,6 +4,7 @@ param([Parameter(Mandatory)][string]$CookSnapshot, [string]$OutputDirectory)
 $ErrorActionPreference='Stop'
 Set-StrictMode -Version Latest
 $repo=Split-Path $PSScriptRoot -Parent
+if (Test-Path -LiteralPath (Join-Path $repo 'data/schemes/runtime-baseline.json')) { throw 'This historical Phase 1 packager cannot package selection schema 2; use the Phase 1.1 candidate workflow.' }
 $snapshot=(Resolve-Path -LiteralPath $CookSnapshot).ProviderPath
 $cook=Get-Content -LiteralPath (Join-Path $snapshot 'cook.json') -Raw | ConvertFrom-Json
 $toolchain=Get-Content -LiteralPath (Join-Path $PSScriptRoot 'compiler-toolchain.json') -Raw | ConvertFrom-Json

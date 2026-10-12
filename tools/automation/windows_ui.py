@@ -182,8 +182,36 @@ class Desktop:
             raise RuntimeError("Target minimized or empty")
         return window
 
-    def focus(self, window):
+    def focus(self, window, owned_startup=False):
+        self.identity_guard(window)
         self.user.SetForegroundWindow(window["hwnd"])
+        if owned_startup and self.user.GetForegroundWindow() != window["hwnd"]:
+            # Only the freshly launched owned process may request this fallback.
+            # Share input queues briefly to perform the native focus transfer;
+            # no keystrokes are sent to the previous foreground application.
+            own_thread = C.WinDLL("kernel32", use_last_error=True).GetCurrentThreadId()
+            foreground_thread = self.user.GetWindowThreadProcessId(self.user.GetForegroundWindow(), None)
+            target_thread = self.user.GetWindowThreadProcessId(window["hwnd"], None)
+            self.user.AttachThreadInput.argtypes = [W.DWORD, W.DWORD, W.BOOL]
+            self.user.AttachThreadInput.restype = W.BOOL
+            self.user.ShowWindow.argtypes = [W.HWND, C.c_int]
+            self.user.BringWindowToTop.argtypes = [W.HWND]
+            attached = []
+            try:
+                for thread in dict.fromkeys((foreground_thread, target_thread)):
+                    if thread and thread != own_thread and self.user.AttachThreadInput(own_thread, thread, True):
+                        attached.append(thread)
+                self.identity_guard(window)
+                self.user.ShowWindow(window["hwnd"], 9)  # SW_RESTORE, owned window only.
+                self.user.BringWindowToTop(window["hwnd"])
+                self.user.SetForegroundWindow(window["hwnd"])
+            finally:
+                failed = False
+                for thread in reversed(attached):
+                    if not self.user.AttachThreadInput(own_thread, thread, False):
+                        failed = True
+                if failed:
+                    raise RuntimeError("Startup input queue detach failed; input refused")
         deadline = time.monotonic() + 2
         while self.user.GetForegroundWindow() != window["hwnd"]:
             if time.monotonic() > deadline:

@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "selection_schema_version": 2,
+  "default_scheme": "darksoul-alt1",
+  "schemes": [
+    {
+      "id": "vanilla",
+      "display_name": "Current (original)",
+      "source_kind": "installed-native-input",
+      "source_sha256": "b234c27862eeb914ee857d118b099d11d7840924d1f7d35a58d30be1d799b0f6"
+    },
+    {
+      "id": "darksoul",
+      "display_name": "DarkSoul",
+      "source_kind": "pinned-legacy-fixture",
+      "fixture": "fixtures/legacy/Current/input.settings",
+      "source_sha256": "f337f6595789cf3778def22fabe60ced2f24972efa5ee627c19f77dff04f7def"
+    },
+    {
+      "id": "darksoul-alt1",
+      "display_name": "DarkSoul Alt1",
+      "source_kind": "pinned-legacy-fixture",
+      "fixture": "fixtures/legacy/Alt1/input.settings",
+      "source_sha256": "5ff4f02a0873bf63e6bbc9a9209cb89fd6f269332399418e2a3a290dd3779beb"
+    }
+  ],
+  "legacy_selection_migration": {
+    "0": "darksoul",
+    "1": "darksoul-alt1"
+  }
+}

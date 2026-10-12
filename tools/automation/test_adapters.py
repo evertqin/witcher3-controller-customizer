@@ -4,15 +4,58 @@ import tempfile
 import unittest
 import os
 
-from editor_cook import fresh_log
+from editor_cook import fresh_log, encoding_conversion_prompt
 from probe_session import validate_steps, verify_journal
-from assertions import parse_ride, parse_fallback, parse_console_prompt
-from menu_session import require_labels, preset_index, selected_preset
+from assertions import parse_ride, parse_fallback, parse_console_prompt, parse_foot
+from menu_session import require_labels, preset_index, selected_preset, selected_scheme
 from game_test import matches_fixture, load_fixture
 from save_fixture import make_fixture
 
 
 class AdapterTests(unittest.TestCase):
+    def test_editor_encoding_prompt_is_specific_and_preserves_sources(self):
+        records = [dict(Name='Your mod project contains files with invalid encoding. Do you want your script and xml files in your mod project to be converted to utf-8 now?'),
+                   dict(Name='No', Enabled=True, Offscreen=False)]
+        self.assertTrue(encoding_conversion_prompt(records))
+        self.assertFalse(encoding_conversion_prompt([dict(Name='Unknown project error'), records[1]]))
+        self.assertFalse(encoding_conversion_prompt([records[0], dict(Name='No', Enabled=False)]))
+        self.assertFalse(encoding_conversion_prompt([records[0], dict(Name='No', Enabled=True, Offscreen=True)]))
+
+    def test_foot_native_counts_and_scheme_are_exact(self):
+        text = 'CC foot: press/release=1/1; mismatch=0; foreign=0; last=CC SCHEME DarkSoulAlt1 Exploration'
+        self.assertEqual(parse_foot(text, 'DarkSoulAlt1')['press'], 1)
+        self.assertEqual(parse_foot(text.replace('DarkSoulAlt1', 'DarkSoul'), 'DarkSoulAlt1')['press'], 1)
+        self.assertEqual(parse_foot(text.replace('1/1;', 'l/I ;'), 'DarkSoulAlt1')['release'], 1)
+        self.assertEqual(parse_foot(text.replace('Alt1', 'Altl'), 'DarkSoulAlt1')['press'], 1)
+        self.assertEqual(parse_foot(text.replace('Alt1', 'AltI'), 'DarkSoulAlt1')['press'], 1)
+        for wrong in [text.replace('1/1', '2/2'), text.replace('mismatch=0', 'mismatch=1'),
+                      text.replace('foreign=0', 'foreign=1'), text.replace('Alt1', 'Alt2')]:
+            with self.assertRaises(RuntimeError):
+                parse_foot(wrong, 'DarkSoulAlt1')
+        with self.assertRaises(RuntimeError):
+            parse_foot(text, 'Vanilla')
+        validate_steps([dict(kind='dismount'), dict(kind='draw_sword'), dict(kind='gesture', button='RB', gesture='press')])
+        with self.assertRaises(ValueError):
+            validate_steps([dict(kind='dismount', key='DELETE')])
+
+    def test_context_ocr_spacing_preserves_exact_alias_letters_and_digits(self):
+        text = 'source=horse handlers; callbacks=10; Canter press/release=3/3; Gallop press/release=2/2; query mismatches=0; last=CC SCHEME _DarkSoulAlt1_Horse/Canter/None'
+        self.assertEqual(parse_ride(text, 'CC_SCHEME_DarkSoulAlt1_Horse')['last_context'], 'CC_SCHEME_DarkSoulAlt1_Horse')
+        for wrong in ['CC_SCHEME_DarkSoulAlt2_Horse', 'CC_SCHEME_DarkSoul_Horse', 'CC_SCHEME_DarkSoulAlt1_Boat']:
+            with self.assertRaises(RuntimeError):
+                parse_ride(text, wrong)
+
+    def test_three_scheme_selection_refuses_ambiguous_or_unknown_rows(self):
+        for caption, expected in [('Controller scheme Current (original)', 'Current (original)'),
+                                  ('DarkSoul', 'DarkSoul'), ('Dark Soul Altl', 'DarkSoul Alt1'), ('DarkSoul Alt I', 'DarkSoul Alt1')]:
+            self.assertEqual(selected_scheme(caption), expected)
+            validate_steps([dict(kind='scheme_switch', preset=expected)])
+        for caption in ['DarkSoul DarkSoul Alt1', 'DarkSoul Alt2', 'Current', 'No selection']:
+            with self.assertRaises(RuntimeError):
+                selected_scheme(caption)
+        with self.assertRaises(ValueError):
+            validate_steps([dict(kind='scheme_switch', preset='Alt1')])
+
     def test_generated_fixture_pins_exact_date_and_rejects_other_save_types(self):
         with tempfile.TemporaryDirectory(dir=os.environ.get('W3_TEST_TMP')) as scratch:
             root = Path(scratch)

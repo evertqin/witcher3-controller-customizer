@@ -6,10 +6,10 @@ function CCRequestedPreset() : int
     if (!theGame) { return -1; }
     config = theGame.GetInGameConfigWrapper();
     if (!config) { return -1; }
-    value = config.GetVarValue('ControllerCustomizer', 'Preset');
-    if (value == "") { return 0; }
+    value = config.GetVarValue('ControllerCustomizer', 'Scheme');
     if (value == "0") { return 0; }
     if (value == "1") { return 1; }
+    if (value == "2") { return 2; }
     return -1;
 }
 
@@ -28,7 +28,7 @@ function CCRefreshPreset() : int
 @addMethod(CInputManager)
 function CCAcceptPreset(requested : int) : int
 {
-    if (requested == 0 || requested == 1)
+    if (requested == 0 || requested == 1 || requested == 2)
     {
         m_ccLastValidPreset = requested;
         m_ccInvalidPresetReported = false;
@@ -59,7 +59,7 @@ exec function ccProbeFallback()
     var restoreText : string;
     if (!theGame || !theInput || !theGame.GetGuiManager()) { return; }
     original = CCEffectivePreset();
-    alt = theInput.CCAcceptPreset(1);
+    alt = theInput.CCAcceptPreset(2);
     altInvalid = theInput.CCAcceptPreset(-1);
     current = theInput.CCAcceptPreset(0);
     currentInvalid = theInput.CCAcceptPreset(-1);
@@ -85,4 +85,23 @@ exec function ccProbeMenuState()
         if (child) { childName = child.GetMenuName(); }
     }
     theGame.GetGuiManager().ShowNotification("CC menu: any=" + IntToString((int)theGame.GetGuiManager().IsAnyMenu()) + "; root=" + NameToString(rootName) + "; child=" + NameToString(childName) + "; raw=" + NameToString(theInput.CCProbeRawContext()) + "; pending=" + NameToString(theGame.GetMenuToOpen()), 30000);
+}
+
+function CCInitializeSchemeSelection()
+{
+    var config : CInGameConfigWrapper;
+    var scheme : string;
+    var legacy : string;
+    if (!theGame || !theInput) { return; }
+    config = theGame.GetInGameConfigWrapper();
+    if (!config) { return; }
+    // Initialize the unsaved fallback to the user's preferred scheme.
+    theInput.CCAcceptPreset(2);
+    scheme = config.GetVarValue('ControllerCustomizer', 'Scheme');
+    if (scheme != "" && scheme != "-1") { return; }
+    legacy = config.GetVarValue('ControllerCustomizer', 'Preset');
+    if (legacy == "0") { scheme = "1"; }
+    else if (legacy == "1" || legacy == "" || legacy == "-1") { scheme = "2"; }
+    else { return; }
+    config.SetVarValue('ControllerCustomizer', 'Scheme', scheme);
 }

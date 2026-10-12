@@ -1,13 +1,7 @@
 // Native observations, not synthetic SInputAction events or action remapping.
 function CCProbeReleaseOwnedActions()
 {
-    theInput.ForceDeactivateAction('Follow');
-    theInput.ForceDeactivateAction('Canter');
-    theInput.ForceDeactivateAction('Gallop');
-    theInput.ForceDeactivateAction('Container');
-    theInput.ForceDeactivateAction('GatherHerbs');
-    theInput.ForceDeactivateAction('FastTravel');
-    theInput.ForceDeactivateAction('Use');
+    if (theInput) { CCGeneratedReleaseContextActions(CCProbeReadRawContext()); }
 }
 
 exec function ccProbeAction(action : name)
@@ -197,4 +191,81 @@ exec function ccProbeRideStatus()
 {
     if (!theGame || !theInput || !theGame.GetGuiManager()) { return; }
     theGame.GetGuiManager().ShowNotification("routing=" + IntToString((int)theInput.CCProbeRoutingActive()) + "; desired=" + IntToString(CCProbeDesiredPreset()) + "; " + theInput.CCProbeRideReport(), 30000);
+}
+
+// Passive observation after the original light-attack handler, never a listener.
+@addField(CInputManager)
+private var m_ccFootActive : bool;
+@addField(CInputManager)
+private var m_ccFootPress : int;
+@addField(CInputManager)
+private var m_ccFootRelease : int;
+@addField(CInputManager)
+private var m_ccFootMismatch : int;
+@addField(CInputManager)
+private var m_ccFootForeign : int;
+@addField(CInputManager)
+private var m_ccFootLast : name;
+
+@addMethod(CInputManager)
+function CCObserveFootAttack(action : SInputAction)
+{
+    var canonical : name;
+    var queried : SInputAction;
+    if (!m_ccFootActive) { return; }
+    m_ccFootLast = CCProbeReadRawContext();
+    canonical = CCProbeCanonicalContext(m_ccFootLast);
+    if (canonical != 'Exploration' && canonical != 'Combat')
+    {
+        m_ccFootForeign += 1;
+        return;
+    }
+    if (IsPressed(action)) { m_ccFootPress += 1; }
+    if (IsReleased(action)) { m_ccFootRelease += 1; }
+    queried = theInput.GetAction('AttackLight');
+    if (action.aName != 'AttackLight' || AbsF(queried.value - action.value) > 0.001f ||
+        AbsF(queried.lastFrameValue - action.lastFrameValue) > 0.001f ||
+        AbsF(theInput.GetActionValue('AttackLight') - action.value) > 0.001f)
+    {
+        m_ccFootMismatch += 1;
+    }
+}
+
+@wrapMethod(CPlayerInput)
+function OnCbtAttackLight(action : SInputAction)
+{
+    wrappedMethod(action);
+    if (theInput) { theInput.CCObserveFootAttack(action); }
+}
+
+@addMethod(CInputManager)
+function CCStartFootObservation()
+{
+    m_ccFootPress = 0;
+    m_ccFootRelease = 0;
+    m_ccFootMismatch = 0;
+    m_ccFootForeign = 0;
+    m_ccFootLast = '';
+    m_ccFootActive = true;
+}
+
+@addMethod(CInputManager)
+function CCFootReport() : string
+{
+    return "CC foot: press/release=" + IntToString(m_ccFootPress) + "/" + IntToString(m_ccFootRelease) +
+        "; mismatch=" + IntToString(m_ccFootMismatch) + "; foreign=" + IntToString(m_ccFootForeign) +
+        "; last=" + NameToString(m_ccFootLast);
+}
+
+exec function ccProbeFootStart()
+{
+    if (!theGame || !theInput || !theGame.GetGuiManager()) { return; }
+    theInput.CCStartFootObservation();
+    theGame.GetGuiManager().ShowNotification("CC foot counters reset; raw=" + NameToString(CCProbeReadRawContext()), 9000);
+}
+
+exec function ccProbeFootStatus()
+{
+    if (!theGame || !theInput || !theGame.GetGuiManager()) { return; }
+    theGame.GetGuiManager().ShowNotification(theInput.CCFootReport(), 30000);
 }

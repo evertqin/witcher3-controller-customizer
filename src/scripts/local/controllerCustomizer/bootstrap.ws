@@ -12,14 +12,7 @@ function CCInitializePresets()
     if (!theGame || !theInput) { return; }
     original = CCProbeReadRawContext();
     theInput.CCProbeSetRoutingActive(false);
-    available = CCRegisteredContext('CC_PROBE_Current_BASE_INTERACTIONS_HORSE');
-    available = CCRegisteredContext('CC_PROBE_Current_Horse') && available;
-    available = CCRegisteredContext('CC_PROBE_Current_Horse_Replacer_Ciri') && available;
-    available = CCRegisteredContext('CC_PROBE_Current_ScriptedAction') && available;
-    available = CCRegisteredContext('CC_PROBE_Alt1_BASE_INTERACTIONS_HORSE') && available;
-    available = CCRegisteredContext('CC_PROBE_Alt1_Horse') && available;
-    available = CCRegisteredContext('CC_PROBE_Alt1_Horse_Replacer_Ciri') && available;
-    available = CCRegisteredContext('CC_PROBE_Alt1_ScriptedAction') && available;
+    available = CCGeneratedCheckContexts();
     theInput.CCProbeSetInspectionContext(original);
     if (CCProbeReadRawContext() != original || !available)
     {
@@ -29,6 +22,7 @@ function CCInitializePresets()
         }
         return;
     }
+    CCInitializeSchemeSelection();
     theInput.CCRefreshPreset();
     theInput.CCProbeSetRoutingActive(true);
     CCProbeApplyRestoredContext();

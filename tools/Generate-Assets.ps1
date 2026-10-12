@@ -1,6 +1,6 @@
 #Requires -Version 5.1
 [CmdletBinding()]
-param([string]$DataDirectory, [string]$OutputDirectory, [switch]$Check)
+param([string]$DataDirectory, [string]$OutputDirectory, [switch]$Check, [string]$NativeInputPath, [string]$PythonPath="python")
 $ErrorActionPreference = 'Stop'
 Set-StrictMode -Version Latest
 $projectRoot = Split-Path $PSScriptRoot -Parent
@@ -218,7 +218,21 @@ foreach ($name in $outputs.Keys) {
         [IO.File]::WriteAllText($target, $outputs[$name], [Text.UTF8Encoding]::new($false))
     }
 }
-if ($stageSource) {
+if ($stageSource -and (Test-Path -LiteralPath (Join-Path $DataDirectory 'schemes/runtime-baseline.json'))) {
+    if (-not $NativeInputPath -and $env:WITCHER3_HOME) { $NativeInputPath=Join-Path $env:WITCHER3_HOME 'bin/config/r4game/legacy/base/input_qwerty.ini' }
+    if (-not $NativeInputPath) {
+        $machineConfig=Join-Path $PSScriptRoot 'automation/editor.json'
+        if (Test-Path -LiteralPath $machineConfig) {
+            $machine=Get-Content -LiteralPath $machineConfig -Raw | ConvertFrom-Json
+            $NativeInputPath=Join-Path $machine.game 'bin/config/r4game/legacy/base/input_qwerty.ini'
+        }
+    }
+    if (-not $NativeInputPath -or -not (Test-Path -LiteralPath $NativeInputPath -PathType Leaf)) { throw 'Supply -NativeInputPath for full-scheme runtime generation.' }
+    $mode=if ($Check) { '--check-runtime' } else { '--sync-runtime' }
+    & $PythonPath (Join-Path $PSScriptRoot 'automation/scheme_runtime.py') --repo $projectRoot --native-input $NativeInputPath $mode
+    if ($LASTEXITCODE -ne 0) { throw 'Full-scheme runtime generation failed.' }
+}
+elseif ($stageSource) {
     $target = Join-Path $projectRoot 'src\scripts\local\controllerCustomizer\presetData.ws'
     if ($Check) {
         if (-not (Test-Path -LiteralPath $target -PathType Leaf) -or [IO.File]::ReadAllText($target) -cne $ws) { throw 'Missing or stale staged catalog source.' }

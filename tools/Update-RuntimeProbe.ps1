@@ -51,6 +51,48 @@ foreach ($name in @('precompiled.rsblob','info.json','metadata.store')) {
     $item = @($journal.Items | Where-Object RelativePath -CEQ $relative)[0]
     $changes += [pscustomobject]@{ Name=$name; RelativePath=$relative; Source=$source; Target=(Join-Path $gameRoot $relative); OldHash=$item.InstalledSha256; NewHash=$newHash }
 }
+# Schema-2 development updates keep the original six-target rollback current.
+if ($journal.PSObject.Properties.Name -contains 'Phase11Candidate') {
+    Import-Module (Join-Path $PSScriptRoot 'FileTransaction.psm1') -Force
+    $migrationPath=Join-Path $journal.Phase11Candidate.TransactionDirectory 'files.json'
+    $migrationHash=Get-CCFileHash $migrationPath
+    $migration=Get-Content -LiteralPath $migrationPath -Raw | ConvertFrom-Json
+    if ($migration.Purpose -cne 'ControllerCustomizerPhase11DevelopmentMigration' -or
+        -not $migration.InstallationComplete -or $migration.Restored -or $migration.RolledBack -or
+        $migration.PreviousRuntimeJournal -ine $journalPath -or $migration.GamePath -ine $gameRoot -or
+        $migration.CandidateDirectory -ine $journal.Phase11Candidate.CandidateDirectory -or
+        @($migration.Items).Count -ne 6) { throw 'Invalid schema-2 migration ownership.' }
+    $journalItem=@($migration.Items | Where-Object Target -IEQ $journalPath)
+    if ($journalItem.Count -ne 1 -or $journalItem[0].InstalledSha256 -cne $journalHash.ToLowerInvariant()) { throw 'Migration runtime journal changed.' }
+    $entries=@()
+    foreach ($change in $changes) {
+        $owned=@($migration.Items | Where-Object Target -IEQ $change.Target)
+        if ($owned.Count -ne 1 -or $owned[0].InstalledSha256 -cne $change.OldHash) { throw 'Migration payload ownership disagrees.' }
+        $owned[0].InstalledSha256=$change.NewHash
+        @($journal.Items | Where-Object RelativePath -CEQ $change.RelativePath)[0].InstalledSha256=$change.NewHash
+        $entries += [pscustomobject]@{Target=$change.Target;BeforeSha256=$change.OldHash;Bytes=[IO.File]::ReadAllBytes($change.Source)}
+    }
+    $run=Join-Path $journalRoot ('updates/artifacts-' + (Get-Date -Format yyyyMMdd-HHmmss) + '-' + [guid]::NewGuid().ToString('N').Substring(0,8))
+    $history=[pscustomobject]@{CookSnapshot=$snapshot;BackupDirectory=$run;PreviousCookSnapshot=$journal.CookSnapshot;Changes=@($changes | Select-Object RelativePath,OldHash,NewHash);RuntimeVerified=$false}
+    if ($journal.PSObject.Properties.Name -contains 'ArtifactUpdates') { $journal.ArtifactUpdates=@($journal.ArtifactUpdates) + $history }
+    else { $journal | Add-Member -NotePropertyName ArtifactUpdates -NotePropertyValue @($history) }
+    $journal.CookSnapshot=$snapshot
+    $journal.RuntimeLoadVerified=$false
+    $journal.Phase11Candidate.RuntimeLoadVerified=$false
+    $journal.Phase11Candidate.GameplayVerified=$false
+    $journal | Add-Member -NotePropertyName RuntimeEvidence -NotePropertyValue ([pscustomobject]@{CompiledProbeLoadVerified=$false;GameplayContextCorrectnessVerified=$false}) -Force
+    $utf8=[Text.UTF8Encoding]::new($false)
+    $newJournal=$utf8.GetBytes(($journal | ConvertTo-Json -Depth 20))
+    $journalItem[0].InstalledSha256=([BitConverter]::ToString([Security.Cryptography.SHA256]::Create().ComputeHash($newJournal))).Replace('-','').ToLowerInvariant()
+    $migration.CookSnapshot=$snapshot
+    $migration.RuntimeLoadVerified=$false
+    $migration.GameplayVerified=$false
+    $entries += [pscustomobject]@{Target=$journalPath;BeforeSha256=$journalHash.ToLowerInvariant();Bytes=$newJournal}
+    $entries += [pscustomobject]@{Target=$migrationPath;BeforeSha256=$migrationHash;Bytes=$utf8.GetBytes(($migration | ConvertTo-Json -Depth 20))}
+    Invoke-CCFileTransaction -Entries $entries -JournalDirectory $run -Metadata @{Purpose='ControllerCustomizerPhase11DevelopmentUpdate'} | Out-Null
+    Write-Output "PASS: compiled files and both ownership journals updated atomically; original migration rollback preserved. Backup: $run"
+    return
+}
 $run = Join-Path $journalRoot ('updates\artifacts-' + (Get-Date -Format yyyyMMdd-HHmmss) + '-' + [Guid]::NewGuid().ToString('N').Substring(0,8))
 New-Item -ItemType Directory -Path (Join-Path $run 'backups'),(Join-Path $run 'payload') -Force | Out-Null
 [IO.File]::WriteAllBytes((Join-Path $run 'journal.before.json'),$journalBytes)

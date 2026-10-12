@@ -27,7 +27,7 @@ def execute(argv, directory, name, timeout):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('config', type=Path)
-    parser.add_argument('scenario', type=Path, nargs='?', default=Path(__file__).with_name('phase1-smoke.json'))
+    parser.add_argument('scenario', type=Path, nargs='?')
     parser.add_argument('--sync-sources', action='store_true', help='Back up and sync only owned editor scripts before cooking')
     parser.add_argument('--journal', type=Path, required=True)
     parser.add_argument('--save', type=Path, required=True)
@@ -35,6 +35,10 @@ def main():
     parser.add_argument('--editor-pid', type=int)
     parser.add_argument('--output', type=Path, default=Path(__file__).parent / 'evidence/development')
     args = parser.parse_args()
+    installed = verify_journal(args.journal)
+    if args.scenario is None:
+        filename = 'phase11-smoke.json' if 'Phase11Candidate' in installed else 'phase1-smoke.json'
+        args.scenario = Path(__file__).with_name(filename)
     config = json.loads(args.config.read_text(encoding='utf-8'))
     verify_journal(args.journal)
     args.output.mkdir(parents=True, exist_ok=True)

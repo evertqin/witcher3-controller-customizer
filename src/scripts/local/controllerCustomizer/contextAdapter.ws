@@ -16,7 +16,7 @@ function CCProbeResolveContext(contextName : name) : name
         return baseContext;
     }
     preset = CCEffectivePreset();
-    if (preset != 0 && preset != 1) { return contextName; }
+    if (preset < 0 || preset > 2) { return contextName; }
     return CCGeneratedResolveContext(baseContext, preset);
 }
 

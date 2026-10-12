@@ -118,3 +118,81 @@ User waived remaining Phase 1 manual gates on October 11, 2026; continue impleme
 
 Final self-contained updater candidate: C:\Users\evert\Documents\Codex\2026-10-10\referenced-chatgpt-conversation-this-is-an\outputs\phase1-packages\20261011-123344-47d256d1\controller-customizer-phase1-candidate.zip
 SHA-256: d1e569c4a9d80e08074f35a00dcdb3cb2a19a90cfe8e10d869347e2722b7ce16. Packaged updater checks pass; 36 manifest file hashes and exact archive inventory verified. Receipt: C:\Users\evert\Documents\Codex\2026-10-10\referenced-chatgpt-conversation-this-is-an\work\phase1\updater-delivery.json
+
+## Phase 1.1 continuation
+
+Read `docs/phase11-evidence.md` first; it supersedes the historical two-preset
+baseline above. The eight canonical sources now match the full-scheme cook.
+Generate-Assets checks both historical fixture assets and the full runtime.
+Use explicit native input/Python paths or the existing machine configuration.
+The development journal now identifies `Phase11Candidate`; default replay chooses
+the three-choice smoke and verifies all registered alias multisets before launch.
+The separate old eight-alias journal remains historical; it does not own the new
+bank. The Phase 1.1 six-target migration journal owns that migration and rollback.
+Use `Restore-FullSchemeCandidate.ps1 -JournalFile <migration/files.json>` for this
+candidate, never the standalone Phase 1 restorer. Preserve the candidate directory
+and its registered-alias receipt for ownership checks. Current native serialization
+differences are explicitly pending parity, not silently counted as source matches.
+No standalone schema-2 package has been created; old packaging tools refuse it.
+
+
+## On-foot replay and crash continuation
+
+Use `tools/automation/phase11-onfoot.json` explicitly; its mounted fixture loads
+unchanged, stops the horse, initializes the console, holds native E to dismount,
+then verifies one light-attack tap per scheme (vanilla X, both Souls RB).
+The console whitelist includes ccProbeFootStart() and ccProbeFootStatus(). Reset
+acknowledgement, native callback counts, query equality and selected raw Combat
+or Exploration alias are required. The 0.15-second tap stays below the legacy
+special-attack hold threshold. Keep the final preferred Alt1 selection.
+
+After a reboot, rediscover processes; old editor/game PIDs are invalid. Verify
+installed ownership and the pinned save before replay. Preserve partial passing
+assertions and failed parent receipts separately; replay only missing cases when
+artifact/scenario conditions agree. Do not infer crash causation from old queued
+Windows Error Reporting dumps. Normal foreground drift stops all input.
+
+For schema-2 development cooks use Update-RuntimeProbe.ps1: it keeps both the
+active runtime and original migration rollback journals current in one file
+transaction. Continue to use Restore-FullSchemeCandidate.ps1 for this migration.
+The registered alias bank and original backups remain required ownership evidence.
+
+
+REDkit cold reopen can ask to convert existing script/XML files to UTF-8. Select
+No for the specifically observed encoding question; it preserves owned UTF-16
+sources. The startup runner recognizes that prompt and leaves unrelated errors
+untouched. Attached-editor cooks did not encounter it. After reboot rediscover
+the editor PID; the old session's PID cannot be reused.
+
+If game startup has no captured frames, consult startup-window-events.json.
+Repeated Cannot focus target with a non-minimized owned window is a Windows
+foreground-transfer failure, not gameplay evidence. Fresh owned startup permits
+a brief native input-queue attachment to transfer focus, always detaching before
+input. The ordinary replay guard still refuses all input on foreground drift.
+
+
+## Current schema-2 standalone delivery and shared banks
+
+The newer workflow supersedes the earlier standalone-unfinished notes above.
+See docs/phase11-delivery.md. Use FullScheme-Mod.ps1 and Package-FullSchemeMod.ps1;
+old Phase 1 tools still refuse schema 2. Keep installation original backups and
+the sibling prepared/candidate directory. Standalone journals and development
+journals are separate contracts; the game replay runner currently uses the owned
+development journal, not a standalone journal.
+
+84 logical selection entries now share 60 physical aliases; Alt1 uses DarkSoul's
+identical non-riding contexts. Foot assertions allow that shared bank only for
+Alt1; selected native Scheme is verified separately. Budget includes all personal
+and existing probe contexts, and generation refuses more than 128 total contexts.
+Do not mistake identical context sharing for losing a scheme's records.
+
+For owned cleanup, select exact title/executable/PID and include hidden windows;
+filter out hidden zero-size IME helpers. Wait for process exit, not only window
+disappearance, before invoking a file transaction. Startup alone did not serialize
+missing input.settings; retain that failed baseline evidence rather than guessing.
+
+
+On-foot combat probes require a drawn weapon. Use the guarded `draw_sword` step
+after dismount, before resetting counters. A sheathed first tap can merely draw
+a weapon and return zero combat callbacks; do not reinterpret it as a pass.
+The preferred Alt1 fixture passed one native RB press/release in shared Combat.

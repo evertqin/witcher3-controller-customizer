@@ -1,0 +1,110 @@
+{
+  "name": "Three complete schemes: one cycle, three native riding assertions, preferred Alt1 finish",
+  "steps": [
+    {
+      "kind": "horse_stop"
+    },
+    {
+      "kind": "console",
+      "command": "ccProbeRideStart()"
+    },
+    {
+      "kind": "scheme_switch",
+      "preset": "Current (original)"
+    },
+    {
+      "kind": "console",
+      "command": "ccProbeRideReset()"
+    },
+    {
+      "kind": "gesture",
+      "button": "A",
+      "gesture": "hold"
+    },
+    {
+      "kind": "horse_stop"
+    },
+    {
+      "kind": "gesture",
+      "button": "A",
+      "gesture": "double_hold"
+    },
+    {
+      "kind": "horse_stop"
+    },
+    {
+      "kind": "console",
+      "command": "ccProbeRideStatus()",
+      "expected_context": "CC_SCHEME_Vanilla_Horse"
+    },
+    {
+      "kind": "scheme_switch",
+      "preset": "DarkSoul"
+    },
+    {
+      "kind": "console",
+      "command": "ccProbeRideReset()"
+    },
+    {
+      "kind": "gesture",
+      "button": "A",
+      "gesture": "hold"
+    },
+    {
+      "kind": "horse_stop"
+    },
+    {
+      "kind": "gesture",
+      "button": "A",
+      "gesture": "double_hold"
+    },
+    {
+      "kind": "horse_stop"
+    },
+    {
+      "kind": "console",
+      "command": "ccProbeRideStatus()",
+      "expected_context": "CC_SCHEME_DarkSoul_Horse"
+    },
+    {
+      "kind": "scheme_switch",
+      "preset": "DarkSoul Alt1"
+    },
+    {
+      "kind": "console",
+      "command": "ccProbeRideReset()"
+    },
+    {
+      "kind": "gesture",
+      "button": "L3",
+      "gesture": "hold"
+    },
+    {
+      "kind": "horse_stop"
+    },
+    {
+      "kind": "gesture",
+      "button": "L3",
+      "gesture": "double_hold"
+    },
+    {
+      "kind": "horse_stop"
+    },
+    {
+      "kind": "console",
+      "command": "ccProbeRideStatus()",
+      "expected_context": "CC_SCHEME_DarkSoulAlt1_Horse"
+    },
+    {
+      "kind": "scheme_switch",
+      "preset": "Current (original)"
+    },
+    {
+      "kind": "scheme_switch",
+      "preset": "DarkSoul Alt1"
+    },
+    {
+      "kind": "settings_diagram"
+    }
+  ]
+}

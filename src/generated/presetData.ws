@@ -2,7 +2,7 @@
 // actions.json SHA256 fe0575039644633ed0a7d6b3472c60bf38d8c08ed8a8a02b4435da491db6b499
 // presets/current.json SHA256 1a1e87406b417aaf7a56c6c6ab2fe7b094ad21d35d9471c6e1c51d99e63eac29
 // presets/alt1.json SHA256 1f5517c3b3c3b7f02141e125b7a1048348f434b5e342f682e7ab608d0fe35a20
-// compatibility.json SHA256 200557d85e094833e887a9f0f8aad5584a0e72315569280654d0fd0429d90e71
+// compatibility.json SHA256 8d11514d0446712328d7b2a32651c1564bde01d932b17866ef9d8fee2b5ba19b
 function CCGeneratedCanonicalContext(contextName : name) : name
 {
     switch (contextName)

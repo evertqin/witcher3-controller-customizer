@@ -1,0 +1,72 @@
+{
+  "description": "One native light-attack press/release per scheme after native keyboard dismount; no save writes.",
+  "steps": [
+    {
+      "kind": "horse_stop"
+    },
+    {
+      "kind": "console",
+      "command": "ccProbeLoaded()"
+    },
+    {
+      "kind": "dismount"
+    },
+    {
+      "kind": "draw_sword"
+    },
+    {
+      "kind": "scheme_switch",
+      "preset": "Current (original)"
+    },
+    {
+      "kind": "console",
+      "command": "ccProbeFootStart()"
+    },
+    {
+      "kind": "gesture",
+      "button": "X",
+      "gesture": "press"
+    },
+    {
+      "kind": "console",
+      "command": "ccProbeFootStatus()",
+      "expected_foot_scheme": "Vanilla"
+    },
+    {
+      "kind": "scheme_switch",
+      "preset": "DarkSoul"
+    },
+    {
+      "kind": "console",
+      "command": "ccProbeFootStart()"
+    },
+    {
+      "kind": "gesture",
+      "button": "RB",
+      "gesture": "press"
+    },
+    {
+      "kind": "console",
+      "command": "ccProbeFootStatus()",
+      "expected_foot_scheme": "DarkSoul"
+    },
+    {
+      "kind": "scheme_switch",
+      "preset": "DarkSoul Alt1"
+    },
+    {
+      "kind": "console",
+      "command": "ccProbeFootStart()"
+    },
+    {
+      "kind": "gesture",
+      "button": "RB",
+      "gesture": "press"
+    },
+    {
+      "kind": "console",
+      "command": "ccProbeFootStatus()",
+      "expected_foot_scheme": "DarkSoulAlt1"
+    }
+  ]
+}
