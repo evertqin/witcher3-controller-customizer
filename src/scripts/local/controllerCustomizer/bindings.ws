@@ -333,3 +333,162 @@ function CCRefreshControlHints()
     controls = (CR4HudModuleControlsFeedback)hud.GetHudModule("ControlsFeedbackModule");
     if (controls) { controls.ForceModuleUpdate(); }
 }
+
+// Disabled by default: observe native primitives without remapping horse actions.
+class CCPrimitiveObserver extends IScriptable
+{
+    private var running : bool;
+    private var pDown : int;
+    private var pUp : int;
+    private var d3Down : int;
+    private var d3Up : int;
+    private var d5Down : int;
+    private var d5Up : int;
+    private var mismatches : int;
+
+    public function Active() : bool { return running; }
+
+    public function Reset()
+    {
+        pDown = 0; pUp = 0; d3Down = 0; d3Up = 0;
+        d5Down = 0; d5Up = 0; mismatches = 0;
+    }
+
+    public function Start()
+    {
+        if (!running)
+        {
+            theInput.RegisterListener(this, 'OnPress', 'CCP_X_PRESS');
+            theInput.RegisterListener(this, 'OnDuration3', 'CCP_X_D3');
+            theInput.RegisterListener(this, 'OnDuration5', 'CCP_X_D5');
+            running = true;
+        }
+        Reset();
+    }
+
+    public function Stop()
+    {
+        if (!running) { return; }
+        theInput.UnregisterListener(this, 'CCP_X_PRESS');
+        theInput.UnregisterListener(this, 'CCP_X_D3');
+        theInput.UnregisterListener(this, 'CCP_X_D5');
+        theInput.ForceDeactivateAction('CCP_X_PRESS');
+        theInput.ForceDeactivateAction('CCP_X_D3');
+        theInput.ForceDeactivateAction('CCP_X_D5');
+        running = false;
+    }
+
+    private function Record(action : SInputAction, index : int)
+    {
+        var queried : SInputAction;
+        var expected : name;
+        if (!running) { return; }
+        if (index == 0) { expected = 'CCP_X_PRESS'; }
+        else if (index == 3) { expected = 'CCP_X_D3'; }
+        else { expected = 'CCP_X_D5'; }
+        queried = theInput.GetAction(expected);
+        if (action.aName != expected || AbsF(action.value - queried.value) > 0.001f ||
+            action.isActivatedWithPattern != queried.isActivatedWithPattern ||
+            action.patternName != queried.patternName ||
+            CCProbeReadRawContext() != 'CC_PRIMITIVE_Horse') { mismatches += 1; }
+        if (index == 0)
+        {
+            if (IsPressed(action)) { pDown += 1; }
+            if (IsReleased(action)) { pUp += 1; }
+        }
+        else if (index == 3)
+        {
+            if (IsPressed(action)) { d3Down += 1; }
+            if (IsReleased(action)) { d3Up += 1; }
+        }
+        else
+        {
+            if (IsPressed(action)) { d5Down += 1; }
+            if (IsReleased(action)) { d5Up += 1; }
+        }
+    }
+
+    event OnPress(action : SInputAction) { Record(action, 0); }
+    event OnDuration3(action : SInputAction) { Record(action, 3); }
+    event OnDuration5(action : SInputAction) { Record(action, 5); }
+
+    private function HasXKey(actionName : name) : bool
+    {
+        var keys : array<EInputKey>;
+        theInput.GetPadKeysForAction(actionName, keys);
+        return keys.Size() == 1 && keys[0] == IK_Pad_X_SQUARE;
+    }
+
+    public function Report() : string
+    {
+        var keys : int;
+        keys = (int)HasXKey('CCP_X_PRESS') + (int)HasXKey('CCP_X_D3') + (int)HasXKey('CCP_X_D5');
+        return "CC primitives: P=" + IntToString(pDown) + "/" + IntToString(pUp) +
+            "; D3=" + IntToString(d3Down) + "/" + IntToString(d3Up) +
+            "; D5=" + IntToString(d5Down) + "/" + IntToString(d5Up) +
+            "; mismatch=" + IntToString(mismatches) + "; keys=" + IntToString(keys) +
+            "; context=" + IntToString((int)(CCProbeReadRawContext() == 'CC_PRIMITIVE_Horse'));
+    }
+}
+
+@addField(CInputManager)
+private var m_ccPrimitiveObserver : CCPrimitiveObserver;
+
+@addMethod(CInputManager)
+function CCPrimitiveActive() : bool
+{
+    return m_ccPrimitiveObserver && m_ccPrimitiveObserver.Active();
+}
+
+@addMethod(CInputManager)
+function CCPrimitiveStart() : bool
+{
+    var original : name;
+    var available : bool;
+    original = CCProbeReadRawContext();
+    available = CCRegisteredContext('CC_PRIMITIVE_Horse');
+    CCProbeSetInspectionContext(original);
+    if (!available || CCProbeReadRawContext() != original) { return false; }
+    if (!m_ccPrimitiveObserver) { m_ccPrimitiveObserver = new CCPrimitiveObserver; }
+    m_ccPrimitiveObserver.Start();
+    CCProbeApplyRestoredContext();
+    return true;
+}
+
+@addMethod(CInputManager)
+function CCPrimitiveStop()
+{
+    if (m_ccPrimitiveObserver) { m_ccPrimitiveObserver.Stop(); }
+    CCProbeApplyRestoredContext();
+}
+
+@addMethod(CInputManager)
+function CCPrimitiveReport() : string
+{
+    if (!m_ccPrimitiveObserver) { return "CC primitives not started"; }
+    return m_ccPrimitiveObserver.Report();
+}
+
+exec function ccPrimitiveStart()
+{
+    if (!theInput || !theGame || !theGame.GetGuiManager()) { return; }
+    if (!theInput.CCPrimitiveStart())
+    {
+        theGame.GetGuiManager().ShowNotification("CC primitive bank unavailable", 12000);
+        return;
+    }
+    theGame.GetGuiManager().ShowNotification("CC primitive counters reset", 12000);
+}
+
+exec function ccPrimitiveStatus()
+{
+    if (theInput && theGame && theGame.GetGuiManager())
+    { theGame.GetGuiManager().ShowNotification(theInput.CCPrimitiveReport(), 15000); }
+}
+
+exec function ccPrimitiveStop()
+{
+    if (!theInput || !theGame || !theGame.GetGuiManager()) { return; }
+    theInput.CCPrimitiveStop();
+    theGame.GetGuiManager().ShowNotification("CC primitive probe stopped", 12000);
+}

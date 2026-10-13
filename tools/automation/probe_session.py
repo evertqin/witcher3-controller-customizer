@@ -49,16 +49,23 @@ def verify_journal(path):
 def validate_steps(steps):
     allowed = {'ccProbeLoaded()', 'ccProbeContexts()', 'ccProbeRideReset()', 'ccProbeRideStart()', 'ccProbeFallback()',
                'ccProbeRideStatus()', 'ccProbeFootStart()', 'ccProbeFootStatus()', 'ccProbeContextMode(true)',
-               'ccProbeContextMode(false)', 'ccProbeDiagram(false)'}
+               'ccProbeContextMode(false)', 'ccProbeDiagram(false)',
+               'ccPrimitiveStart()', 'ccPrimitiveStatus()', 'ccPrimitiveStop()'}
     if not steps:
         raise ValueError('No probe steps')
     for step in steps:
         if step['kind'] == 'console':
+            if 'expected_primitives' in step and (step['command'] != 'ccPrimitiveStatus()' or
+                    not isinstance(step['expected_primitives'], list) or len(step['expected_primitives']) != 3 or
+                    any(not isinstance(pair, list) or len(pair) != 2 or any(type(v) is not int or v < 0 for v in pair) for pair in step['expected_primitives'])):
+                raise ValueError('Invalid primitive counter assertion')
             if step['command'] not in allowed:
                 raise ValueError('Unsupported probe command')
         elif step['kind'] == 'gesture':
             if step['button'] not in ('A', 'L3', 'X', 'RB') or step['gesture'] not in ('hold', 'double_hold', 'press'):
                 raise ValueError('Unsupported controller gesture')
+            if 'seconds' in step and (step['gesture'] != 'hold' or type(step['seconds']) not in (int, float) or step['seconds'] not in (0.4, 0.8)):
+                raise ValueError('Unsupported calibrated hold duration')
         elif step['kind'] in ('settings_cycle', 'settings_inspect', 'settings_diagram', 'horse_stop', 'dismount', 'draw_sword', 'hint_capture'):
             if set(step) != {'kind'}:
                 raise ValueError('Settings cycle does not accept extra actions')
@@ -90,6 +97,7 @@ def run(args):
     pad = None
     console_open = False
     routing_touched = False
+    primitive_touched = False
     console_sequence = 0
     try:
         desktop.focus(target)
@@ -182,7 +190,11 @@ def run(args):
             if step['kind'] == 'console':
                 if step['command'] == 'ccProbeContextMode(true)':
                     routing_touched = True
+                if step['command'] == 'ccPrimitiveStart()':
+                    primitive_touched = True
                 console(step['command'])
+                if step['command'] == 'ccPrimitiveStop()':
+                    primitive_touched = False
             elif step['kind'] == 'hint_capture':
                 # Camera-only pad input selects native controller glyphs; never moves Geralt.
                 try:
@@ -240,7 +252,7 @@ def run(args):
                     pause(0.10)
                 pad.press_button(button)
                 pad.update()
-                pause(0.15 if step['gesture'] == 'press' else 1.0)
+                pause(0.15 if step['gesture'] == 'press' else step.get('seconds', 1.0))
                 pressed = read_states()[slot]['buttons']
                 if pressed != int(button):
                     raise RuntimeError('Controller readback mismatch')
@@ -251,10 +263,11 @@ def run(args):
                     raise RuntimeError('Controller release readback mismatch')
             screenshot = directory / f'{index:02d}-{step["kind"]}.png'
             desktop.screenshot(target, screenshot, args.ffmpeg, "desktop")
-            if step.get('command') in ('ccProbeRideReset()', 'ccProbeFootStart()'):
+            if step.get('command') in ('ccProbeRideReset()', 'ccProbeFootStart()', 'ccPrimitiveStart()'):
                 from assertions import read_ocr
                 deadline = time.monotonic() + 8
-                ack = 'cc foot counters reset' if step['command'] == 'ccProbeFootStart()' else 'cc ride counters reset'
+                ack = ('cc primitive counters reset' if step['command'] == 'ccPrimitiveStart()' else
+                       'cc foot counters reset' if step['command'] == 'ccProbeFootStart()' else 'cc ride counters reset')
                 while ack not in read_ocr(screenshot)['Text'].casefold():
                     if time.monotonic() > deadline:
                         raise RuntimeError('Counter reset acknowledgement missing; gestures refused')
@@ -294,6 +307,17 @@ def run(args):
                     attempt += 1
                     pause(0.25)
                     desktop.screenshot(target, screenshot, args.ffmpeg, 'desktop')
+            if 'expected_primitives' in step:
+                from assertions import read_ocr, parse_primitives
+                cropped = directory / f'{index:02d}-primitive-crop.png'
+                width, height = target['width'], target['height']
+                region = f'crop={round(width * 1150 / 2560)}:{round(height * 180 / 1440)}:{round(width * 90 / 2560)}:{round(height * 1220 / 1440)},scale=2300:360'
+                subprocess.run([args.ffmpeg, '-hide_banner', '-loglevel', 'error', '-y', '-i', str(screenshot),
+                                '-vf', region, '-frames:v', '1', str(cropped)], check=True,
+                               capture_output=True, timeout=20, creationflags=subprocess.CREATE_NO_WINDOW)
+                ocr = read_ocr(cropped)
+                (directory / f'{index:02d}-ocr.json').write_text(json.dumps(ocr, indent=2), encoding='utf-8')
+                entry['assertion'] = parse_primitives(ocr['Text'], step['expected_primitives'])
             if step.get('command') == 'ccProbeFallback()':
                 from assertions import read_ocr, parse_fallback
                 cropped = directory / f'{index:02d}-fallback-crop.png'
@@ -330,6 +354,9 @@ def run(args):
             desktop.guard(target)
             if console_open:
                 desktop.key(target, 'BACKTICK')
+            if primitive_touched:
+                console('ccPrimitiveStop()')
+                report['primitive_disable_command_delivered'] = True
             if routing_touched:
                 console('ccProbeContextMode(false)')
                 report['routing_disable_command_delivered'] = True

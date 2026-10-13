@@ -2,6 +2,7 @@
 // Bootstrap verifies registration on game/save startup. No file writes.
 function CCProbeCanonicalContext(contextName : name) : name
 {
+    if (contextName == 'CC_PRIMITIVE_Horse') { return 'Horse'; }
     return CCGeneratedCanonicalContext(contextName);
 }
 
@@ -17,6 +18,7 @@ function CCProbeResolveContext(contextName : name) : name
     }
     preset = CCEffectivePreset();
     if (preset < 0 || preset > 2) { return contextName; }
+    if (baseContext == 'Horse' && theInput.CCPrimitiveActive()) { return 'CC_PRIMITIVE_Horse'; }
     return CCGeneratedResolveContext(baseContext, preset);
 }
 

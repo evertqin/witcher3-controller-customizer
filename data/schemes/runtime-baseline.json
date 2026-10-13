@@ -2,10 +2,10 @@
   "schema_version": 1,
   "selection_schema_version": 2,
   "templates_sha256": {
-    "bindings.ws": "aff9631a15732f83afec6dedf23cd3307ac3944cf10bd996c7717f0f390d4cd3",
+    "bindings.ws": "8c7f9f3cda72e111548fe0ac66e8a2a13cb19ff4ec2ba9a748fcb75baff38e93",
     "bootstrap.ws": "7f36e7c0eab12fb8986112a0873042f001948324b98a56de6175dab867e6d9da",
     "config.ws": "33c595d769181cc910c799fd9588f74ebd6960461e6162476fe456ad02fec15f",
-    "contextAdapter.ws": "ede97e8cd7cda6b4f56f5857cc25ed301e52573022079dd67ea84ca2632265ad",
+    "contextAdapter.ws": "eac3587e22711a5740acd34c9d2d1089b5a2be92bdf746afedb4c58670ca02cb",
     "contexts.ws": "8ff7c20ababc41c29c2f61a37bb32117071aee9d03cbed01e6ca60759fcdad8f",
     "diagram.ws": "4441cb806b1627139986ec70f111810ba4fc9143c7471c45a08d197f0f50decf",
     "menuHooks.ws": "03480721cbc07d104e4259cb083bfba682340cfe8f879adcec0d322677794709",

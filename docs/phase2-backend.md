@@ -87,3 +87,78 @@ old-button suppression, key lookup, persistence and keyboard coexistence.
 No per-frame file polling, native DLL injection or exponential context inventory.
 One representative positive mapping/gesture and its old-button negative case
 are initial automated acceptance; no ten-switch quota or new manual sign-off.
+
+
+## Native primitive bank proof — October 12, 2026
+
+- [x] Bounded startup-loaded bank: one additional context (116 → 117), three
+  native X actions (press, duration 0.3, duration 0.5), no profile enumeration.
+- [x] Fresh REDkit script compilation and source/editor equivalence.
+- [x] Real isolated PowerShell install/restore, changed-owned-file refusal,
+  original journal restoration and preservation of a later F3 binding.
+- [x] Live native primitive callback/value-query/key-lookup checks below/above
+  both thresholds, plus an L3 negative case for these primitive actions.
+- [ ] Route original Canter/Gallop consumers through a selected primitive and
+  prove gameplay old-button suppression with keyboard/pattern coexistence.
+
+| Input | Press callbacks | Duration 0.3 | Duration 0.5 |
+| --- | --- | --- | --- |
+| X, 0.15 seconds | 1/1 | 0/0 | 0/0 |
+| X, 0.4 seconds | 1/1 | 1/1 | 0/0 |
+| X, 0.8 seconds | 1/1 | 1/1 | 1/1 |
+| L3, 0.15 seconds | 0/0 | 0/0 | 0/0 |
+
+Each pair is press/release. All four assertions reported zero value/pattern-query
+mismatches, three exact native X key lookups and the experimental raw context.
+The original horse handlers and existing bindings remain unchanged in this
+observer experiment: X still casts its existing Sign, and L3 still controls
+native riding. The negative case proves primitive isolation, **not** gameplay
+old-button suppression. No synthetic/renamed SInputAction event is used.
+
+The experiment is disabled by default and uses unsaved observer fields. Explicit
+`ccPrimitiveStart()` validates the extra context, attaches listeners only to
+three owned primitive names, and resets counters. `ccPrimitiveStop()` unregisters
+those listeners/deactivates their actions and restores normal preset context.
+Probe cleanup attempts Stop only against the same foreground-owned process;
+full process exit clears unsaved state. Existing controls/duplicate records are
+copied without replacement. The experimental bank is installed separately from
+normal delivery and removed after verification.
+
+Verified cook: `outputs/phase2/primitive-editor/cooks/20261012-180640-1a22ccde`.
+Eight authored sources and eight pinned native hooks; 52,564-byte compiled blob,
+SHA-256 `21a93d3cc3ba606f2ee4e15eaf3d22b6816859992295044db20bbcaebc940176`.
+Zero script errors; 51 outer resource diagnostics retained. Native startup logged
+a CName collision involving two native names before loading completed; no assert
+dialog was dismissed, and compilation subsequently passed. Keep that startup
+observation separate from the verified script phase.
+
+Automation workspace receipts:
+
+- `outputs/phase2/primitive-integration-v3/result.json`: isolated transactions.
+- `outputs/phase2/primitive-live-v2/result.json`: live experiment and restoration.
+- `outputs/phase2/primitive-live-v2/game/20261013T011257Z-0027dff6/result.json`:
+  owned game closed; pinned save unchanged; exact save selected after four scrolls.
+- Nested `probes/20261013T011356Z-dcbb4253/result.json`: four strict assertions.
+
+All eight tracked live files (five existing game files, two ownership journals
+and personal input) returned byte-for-byte to their pre-experiment hashes.
+The installed game uses the released Phase 1.1 artifact; the editor/canonical
+sources retain this Phase 2 prototype for the next cook. Use the new cook above
+as the editor-sync ownership baseline, not the earlier Phase 1.1 cook.
+
+Thirty-two focused checks pass (18 automation adapters, nine custom draft/audit,
+five primitive/rollback/assertion checks); generated sources match. The first
+live replay remains failed: visually correct counts were rejected because OCR
+read 1/l and 0/O. Numeric-field-only normalization fixed the parser; exact counts,
+source, context, key count and duplicate-field rejection remain mandatory.
+Earlier isolated attempts failed on inherited PowerShell module-path/temp
+environment details; the successful fixture used the documented process-local
+Windows PowerShell module path. Sandbox adapter tests also required a writable
+workspace temp directory. Those failures are not runtime gameplay evidence.
+
+Next implementation: capture/rebind original horse listeners, route queries and
+key hints consistently, and preserve native keyboard/pattern events/releases.
+Every Xbox horse button is already occupied; any third-button proposal must
+explicitly relocate its existing action bank instead of silently removing it.
+The full in-game editor, persistent custom configuration and atomic gameplay
+Apply remain unimplemented.

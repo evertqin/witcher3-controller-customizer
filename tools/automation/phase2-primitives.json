@@ -1,0 +1,138 @@
+{
+  "description": "Native primitive loader/query/listener thresholds only; no gameplay remapping claim.",
+  "steps": [
+    {
+      "kind": "horse_stop"
+    },
+    {
+      "kind": "scheme_switch",
+      "preset": "DarkSoul Alt1"
+    },
+    {
+      "kind": "console",
+      "command": "ccPrimitiveStart()"
+    },
+    {
+      "kind": "gesture",
+      "button": "X",
+      "gesture": "press"
+    },
+    {
+      "kind": "console",
+      "command": "ccPrimitiveStatus()",
+      "expected_primitives": [
+        [
+          1,
+          1
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "kind": "horse_stop"
+    },
+    {
+      "kind": "console",
+      "command": "ccPrimitiveStart()"
+    },
+    {
+      "kind": "gesture",
+      "button": "X",
+      "gesture": "hold",
+      "seconds": 0.4
+    },
+    {
+      "kind": "console",
+      "command": "ccPrimitiveStatus()",
+      "expected_primitives": [
+        [
+          1,
+          1
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "kind": "horse_stop"
+    },
+    {
+      "kind": "console",
+      "command": "ccPrimitiveStart()"
+    },
+    {
+      "kind": "gesture",
+      "button": "X",
+      "gesture": "hold",
+      "seconds": 0.8
+    },
+    {
+      "kind": "console",
+      "command": "ccPrimitiveStatus()",
+      "expected_primitives": [
+        [
+          1,
+          1
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "kind": "horse_stop"
+    },
+    {
+      "kind": "console",
+      "command": "ccPrimitiveStart()"
+    },
+    {
+      "kind": "gesture",
+      "button": "L3",
+      "gesture": "press"
+    },
+    {
+      "kind": "console",
+      "command": "ccPrimitiveStatus()",
+      "expected_primitives": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "kind": "horse_stop"
+    },
+    {
+      "kind": "console",
+      "command": "ccPrimitiveStop()"
+    }
+  ]
+}

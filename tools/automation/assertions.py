@@ -92,3 +92,25 @@ def parse_foot(text, scheme):
         raise RuntimeError('On-foot native callback counts, queries or context disagree')
     return dict(scope='native_light_attack_dispatch_and_query_only', press=1, release=1,
                 mismatches=0, foreign=0, context=raw.strip(), animation_verified=False)
+
+
+def parse_primitives(text, expected):
+    if len(re.findall(r'CC primitives:', text, re.I)) != 1:
+        raise RuntimeError('Notification assertion missing/ambiguous: primitive source')
+    number = lambda value: int(value.translate(str.maketrans({'O': '0', 'o': '0', 'I': '1', 'l': '1', 'i': '1'})))
+    counters = []
+    for label in ('P', 'D3', 'D5'):
+        matches = re.findall(r'(?:^|;)\s*' + label + r'[=-]([0-9OoIli]+)/([0-9OoIli]+)', text.split(':', 1)[-1], re.I)
+        if len(matches) != 1:
+            raise RuntimeError('Notification assertion missing/ambiguous: primitive ' + label)
+        counters.append([number(value) for value in matches[0]])
+    for label, required in (('mismatch', 0), ('keys', 3), ('context', 1)):
+        matches = re.findall(r';\s*' + label + r'[=-]([0-9OoIli]+)', text, re.I)
+        if len(matches) != 1:
+            raise RuntimeError('Notification assertion missing/ambiguous: primitive ' + label)
+        if number(matches[0]) != required:
+            raise RuntimeError('Primitive query/key/context mismatch: ' + label)
+    if counters != expected:
+        raise RuntimeError('Unexpected primitive callback counts: ' + str(counters))
+    return {'press': counters[0], 'duration_0_3': counters[1], 'duration_0_5': counters[2],
+            'query_mismatches': 0, 'keys': 3, 'context_verified': True}
