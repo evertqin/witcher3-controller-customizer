@@ -162,3 +162,111 @@ Every Xbox horse button is already occupied; any third-button proposal must
 explicitly relocate its existing action bank instead of silently removing it.
 The full in-game editor, persistent custom configuration and atomic gameplay
 Apply remain unimplemented.
+
+
+## Explicit occupied-button bank experiment — October 12, 2026
+
+`primitive_bank.py --mode horse-swap` stages a single, startup-loaded Xbox horse
+context. It exchanges the **entire** occupied X/L3 digital banks: VehicleCastSign
+moves to L3; Follow, Canter, Gallop and EnablePhotoMode_Step1 move to X. Only the
+Xbox Gallop duration changes from 0.3 to 0.5 seconds. Every original context stays
+unchanged; keyboard, axes, patterns and meaningful duplicates in the added bank
+remain intact. Unknown/changed X/L3 occupants refuse before installation.
+The observer-only mode remains the default. A unique CCP_SWAP_SIGN marker
+identifies the relocated bank for native primitive-based key hint lookup.
+
+This is a **fixed startup-loaded proof**, not the arbitrary live Apply backend.
+It uses the original logical Canter/Gallop names and unchanged native horse
+listeners/handlers, with no fabricated SInputAction or query multiplexing.
+Selecting the bank demonstrates dispatch and query agreement; it does not solve
+dynamic keyboard/primitive aggregation or justify enumerating custom profiles.
+Full custom persistence, menu editor and diagrams remain unimplemented.
+Apply while held, focus/disconnect recovery, gait animations, Sign/PhotoMode
+gameplay and live pattern combinations were not accepted by this replay.
+
+Explicit Start now refuses unless mounted in Horse with effective Scheme=2.
+The transaction reconstructs the declared bank from the verified current input,
+so changing hashes/metadata cannot authorize arbitrary input changes. Restoration
+uses the existing six-target experiment journal, retaining original rollback
+backups and later unrelated personal edits.
+
+`phase2-horse-bank.json` runs direct guarded probes, avoiding an unnecessary
+Settings cycle when the persisted preferred scheme already matches.
+Keyboard riding checks both preserved native Shift bindings before sending input.
+Strict counters require balanced releases, zero query/foreign-context mismatches,
+the exact experimental raw context, and exact X/X/L3 native key lookups.
+
+| Input | Native Canter press/release | Native Gallop press/release |
+| --- | --- | --- |
+| X hold 0.4 seconds | 1/1 | 0/0 |
+| X hold 0.8 seconds | 1/1 | 1/1 |
+| Old L3 hold 0.8 seconds | 0/0 | 0/0 |
+| Native left Shift hold 0.4 seconds | 1/1 | 1/1 |
+
+All four assertions passed with three exact key lookups and zero query/foreign
+mismatches. The keyboard retains its original 0.3-second threshold. This proves
+the old Xbox speed button is suppressed for the native horse consumers while
+keyboard dispatch/releases coexist with the changed Xbox duration.
+
+Verified cook: `outputs/phase2/horse-bank-hints-editor-v2/cooks/20261012-190318-7f789ec6`.
+Eight authored scripts and eight pinned native hooks; 53,883-byte
+blob SHA-256 `6b5ee300c9917e19c771c2d662b9d5c939cee12d41ea4390b3ee3a00384a26ef`.
+Zero script errors; 51 outer resource diagnostics retained.
+
+Workspace evidence:
+
+- `outputs/phase2/horse-bank-hints-integration/result.json`: real isolated install,
+  owned drift refusal, original journal restoration and later F3 preservation.
+- `outputs/phase2/horse-bank-hints-live/result.json`: full replay plus byte-exact
+  restoration of all eight tracked live files.
+- `outputs/phase2/horse-bank-hints-live/game/20261013T020359Z-8072e2e3/result.json`:
+  owned game closed, exact save selected after 4 scrolls, pinned SHA unchanged.
+- `outputs/phase2/horse-bank-hints-live/game/20261013T020359Z-8072e2e3/probes/20261013T020501Z-2b5629e9/result.json`:
+  four assertions and screenshots; final controller hint capture is retained.
+
+Earlier receipts remain failed: `horse-bank-live` stopped at controller pause
+entry, and `horse-bank-live-direct` reached correct Canter edges but failed all
+three native logical key expectations. Primitive-based hint routing corrected
+that failure. `horse-bank-hints-editor` failed script compilation because this
+native wrapper expansion rejected repeated wrappedMethod calls. The correction
+uses one wrappedMethod call and guarded recursion for unique primitive names;
+the successful cook above verifies it. The failed editor source was repaired
+only after its hash matched the preceding ownership sync journal, with UTF-16
+backup retained; the specific owned error dialog was closed through resolved
+native control geometry. No unknown dialog was bypassed.
+
+Thirty-six focused Python checks, Generate-Assets -Check and Git whitespace checks
+pass. Released Phase 1.1 remains installed. The successful cook above becomes
+the next editor-source ownership baseline. No new manual gate or repetition
+quota was added.
+
+Next: route selected primitives to original consumers while preserving aggregate
+keyboard/pattern queries and releases; prove atomic custom Apply/Cancel/Restore
+before exposing an in-game editor. This fixed bank does not complete those gates.
+
+
+### Controller HUD supplement
+
+The initial final hint screenshot still showed keyboard labels: quarter-stick
+camera input did not select controller UI in this fixture. The camera-only hint
+step now sends half-stick for 0.4 seconds and verifies independent XInput
+readback (16000–16500), then releases it. Geralt movement is unaffected.
+One separate short replay of the unchanged cooked artifact was visually checked:
+Canter X, Gallop X and Dismount B appear together. The native Gallop instruction
+still says Press Twice; this is consistent with the unchanged horse double-tap
+logic, not proof of a new standalone hold-to-gallop gameplay gesture.
+Do not infer gait animation or general custom gesture acceptance from callbacks.
+
+Receipt: `outputs/phase2/horse-bank-hud-live/result.json`.
+Image: `outputs/phase2/horse-bank-hud-live/game/20261013T020908Z-d29c4a1e/probes/20261013T021018Z-7eb3096f/02-hint_capture.png`.
+Owned game closed, pinned save unchanged and all eight tracked files restored
+byte-for-byte. The four earlier native consumer assertions remain the evidence
+for the identical cooked source and bank; they were not repeated for this capture.
+
+Candidate next backend experiment: duplicate each logical action's preserved
+keyboard/pattern records into its physical primitive candidate, allowing the
+engine to aggregate both devices into one immutable native SInputAction. Then
+select that candidate for native listeners and queries together. This avoids
+trying to fabricate an aggregate const struct from two independent events.
+The approach is uncompiled/unverified; action-name-sensitive consumers and held
+Apply still require explicit audit before widening beyond the horse prototype.

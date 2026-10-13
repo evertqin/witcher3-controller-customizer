@@ -222,3 +222,31 @@ Native ControllerHelp regenerates mappings on explicit entry. Do not call
 SendControllerData from customizer option changes: it opens the diagram popup.
 The HUD wraps native feedback key queries with a scoped canonical context and
 forces refresh after a changed gameplay context is restored.
+
+
+## Phase 2 prototype continuation
+
+See `docs/phase2-backend.md` for the read-only primitive and explicit X/L3 bank
+experiments. Released Phase 1.1 is restored after their temporary transactions;
+prototype sources remain only in the editor/repository. The latest verified
+editor ownership baseline is
+`outputs/phase2/horse-bank-hints-editor-v2/cooks/20261012-190318-7f789ec6`
+in the automation workspace. Source sync uses that cook, not the release cook.
+The `phase2-horse-bank.json` replay requires mounted Alt1 and Start enforces it;
+no redundant Settings cycle is required when Scheme=2 is already persisted.
+The bounded fixed bank does not establish arbitrary live Apply.
+
+For camera-only controller hint captures, quarter-stick was below the effective
+device-switch threshold in the mounted fixture. Half-stick for 0.4 seconds with
+XInput readback 16000–16500 selects the controller HUD; release the stick before
+capturing. This changes the camera only. A captured keyboard HUD is not evidence
+for controller glyphs.
+
+Native GetPadKeysForAction fallback did not produce the relocated logical key
+expectations; derive prototype hints from uniquely owned physical primitive keys.
+The native wrapper expansion rejected repeated wrappedMethod calls in one method.
+Use one native wrapped call, then scoped queries of owned primitive names with
+an explicit recursion termination guard. Retain failed compilation receipts.
+If a failed cook lacks a new ownership baseline, verify the last source-sync
+journal's installed hash before repairing that editor source as UTF-16 in a new
+backed transaction; never disable the independent-edit guard.

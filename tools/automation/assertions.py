@@ -114,3 +114,27 @@ def parse_primitives(text, expected):
         raise RuntimeError('Unexpected primitive callback counts: ' + str(counters))
     return {'press': counters[0], 'duration_0_3': counters[1], 'duration_0_5': counters[2],
             'query_mismatches': 0, 'keys': 3, 'context_verified': True}
+
+
+def parse_horse_bank(text, expected):
+    if len(re.findall(r'CC horsebank:', text, re.I)) != 1:
+        raise RuntimeError('Notification assertion missing/ambiguous: horse bank source')
+    number = lambda value: int(value.translate(str.maketrans({'O': '0', 'o': '0', 'I': '1', 'l': '1', 'i': '1'})))
+    body = re.split(r'CC horsebank:', text, flags=re.I)[1]
+    counters = []
+    for label in ('Canter', 'Gallop'):
+        matches = re.findall(r'(?:^|;)\s*' + label + r'[=-]([0-9OoIli]+)/([0-9OoIli]+)(?=\s*;)', body, re.I)
+        if len(matches) != 1:
+            raise RuntimeError('Notification assertion missing/ambiguous: horse bank ' + label)
+        counters.append([number(value) for value in matches[0]])
+    for label, required in (('mismatch', 0), ('foreign', 0), ('keys', 3), ('context', 1)):
+        matches = re.findall(r';\s*' + label + r'[=-]([0-9OoIli]+)(?=\s*;|\s*$)', body, re.I)
+        if len(matches) != 1 or number(matches[0]) != required:
+            raise RuntimeError('Horse bank query/key/context assertion failed: ' + label)
+    if any(pair[0] != pair[1] for pair in counters):
+        raise RuntimeError('Unbalanced native horse press/release edges')
+    if counters != expected:
+        raise RuntimeError('Unexpected native horse callback counts: ' + str(counters))
+    return {'scope': 'startup_loaded_native_bank_dispatch_and_queries', 'canter': counters[0],
+            'gallop': counters[1], 'query_mismatches': 0, 'foreign': 0, 'keys': 3,
+            'context_verified': True, 'arbitrary_live_apply_verified': False}

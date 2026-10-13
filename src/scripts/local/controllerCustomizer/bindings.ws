@@ -109,6 +109,25 @@ class CCProbeRideObserver extends IScriptable
         }
     }
 
+    public function BankReport() : string
+    {
+        var keys : array<EInputKey>;
+        var correctKeys : int;
+        theInput.GetPadKeysForAction('Canter', keys);
+        if (keys.Size() == 1 && keys[0] == IK_Pad_X_SQUARE) { correctKeys += 1; }
+        keys.Clear();
+        theInput.GetPadKeysForAction('Gallop', keys);
+        if (keys.Size() == 1 && keys[0] == IK_Pad_X_SQUARE) { correctKeys += 1; }
+        keys.Clear();
+        theInput.GetPadKeysForAction('VehicleCastSign', keys);
+        if (keys.Size() == 1 && keys[0] == IK_Pad_LeftThumb) { correctKeys += 1; }
+        return "CC horsebank: Canter=" + IntToString(canterPress) + "/" + IntToString(canterRelease) +
+            "; Gallop=" + IntToString(gallopPress) + "/" + IntToString(gallopRelease) +
+            "; mismatch=" + IntToString(queryMismatches) + "; foreign=" + IntToString(otherContextCallbacks) +
+            "; keys=" + IntToString(correctKeys) +
+            "; context=" + IntToString((int)(CCProbeReadRawContext() == 'CC_PRIMITIVE_Horse'));
+    }
+
     public function Report() : string
     {
         return "CC ride: source=horse handlers; active=" + IntToString((int)active) + "; starts/stops=" + IntToString(starts) + "/" + IntToString(stops) +
@@ -292,8 +311,32 @@ function GetPadKeysForAction(actionName : name, out outKeys : array<EInputKey>)
 {
     var contextName : name;
     var resolved : array<EInputKey>;
+    var relocatedSign : array<EInputKey>;
     wrappedMethod(actionName, outKeys);
     if (!CCProbeRoutingActive()) { return; }
+    // Native logical key lookup does not reflect this loaded alias. Derive the
+    // relocated hints from unique physical primitives, guarded by its marker.
+    if (CCProbeReadRawContext() == 'CC_PRIMITIVE_Horse')
+    {
+        if (actionName != 'VehicleCastSign' && actionName != 'Canter' && actionName != 'Gallop' &&
+            actionName != 'Follow' && actionName != 'EnablePhotoMode_Step1') { return; }
+        GetPadKeysForAction('CCP_SWAP_SIGN', relocatedSign);
+        if (relocatedSign.Size() == 1 && relocatedSign[0] == IK_Pad_LeftThumb)
+        {
+            if (actionName == 'VehicleCastSign') { outKeys = relocatedSign; }
+            else if (actionName == 'Canter' || actionName == 'Follow' || actionName == 'EnablePhotoMode_Step1')
+            {
+                outKeys.Clear();
+                GetPadKeysForAction('CCP_X_PRESS', outKeys);
+            }
+            else if (actionName == 'Gallop')
+            {
+                outKeys.Clear();
+                GetPadKeysForAction('CCP_X_D5', outKeys);
+            }
+        }
+        return;
+    }
     contextName = m_ccHintContext;
     if (contextName == '') { contextName = CCProbeCanonicalContext(CCProbeReadRawContext()); }
     if (CCGeneratedPadHintKeys(contextName, CCEffectivePreset(), actionName, resolved))
@@ -446,6 +489,7 @@ function CCPrimitiveStart() : bool
     var original : name;
     var available : bool;
     original = CCProbeReadRawContext();
+    if (CCProbeCanonicalContext(original) != 'Horse' || CCEffectivePreset() != 2) { return false; }
     available = CCRegisteredContext('CC_PRIMITIVE_Horse');
     CCProbeSetInspectionContext(original);
     if (!available || CCProbeReadRawContext() != original) { return false; }
@@ -491,4 +535,17 @@ exec function ccPrimitiveStop()
     if (!theInput || !theGame || !theGame.GetGuiManager()) { return; }
     theInput.CCPrimitiveStop();
     theGame.GetGuiManager().ShowNotification("CC primitive probe stopped", 12000);
+}
+
+@addMethod(CInputManager)
+function CCHorseBankReport() : string
+{
+    if (!m_ccProbeRideObserver) { return "CC horsebank not started"; }
+    return m_ccProbeRideObserver.BankReport();
+}
+
+exec function ccHorseBankStatus()
+{
+    if (theInput && theGame && theGame.GetGuiManager())
+    { theGame.GetGuiManager().ShowNotification(theInput.CCHorseBankReport(), 15000); }
 }

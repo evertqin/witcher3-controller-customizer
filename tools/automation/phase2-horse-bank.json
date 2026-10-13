@@ -1,0 +1,129 @@
+{
+  "description": "Explicit startup-loaded X/L3 bank relocation with changed native Gallop duration; not arbitrary live Apply. Requires mounted Alt1; native Start refuses other contexts/schemes.",
+  "steps": [
+    {
+      "kind": "horse_stop"
+    },
+    {
+      "kind": "console",
+      "command": "ccPrimitiveStart()"
+    },
+    {
+      "kind": "console",
+      "command": "ccProbeRideStart()"
+    },
+    {
+      "kind": "console",
+      "command": "ccProbeRideReset()"
+    },
+    {
+      "kind": "gesture",
+      "button": "X",
+      "gesture": "hold",
+      "seconds": 0.4
+    },
+    {
+      "kind": "console",
+      "command": "ccHorseBankStatus()",
+      "expected_horse_bank": [
+        [
+          1,
+          1
+        ],
+        [
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "kind": "horse_stop"
+    },
+    {
+      "kind": "console",
+      "command": "ccProbeRideReset()"
+    },
+    {
+      "kind": "gesture",
+      "button": "X",
+      "gesture": "hold",
+      "seconds": 0.8
+    },
+    {
+      "kind": "console",
+      "command": "ccHorseBankStatus()",
+      "expected_horse_bank": [
+        [
+          1,
+          1
+        ],
+        [
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "kind": "horse_stop"
+    },
+    {
+      "kind": "console",
+      "command": "ccProbeRideReset()"
+    },
+    {
+      "kind": "gesture",
+      "button": "L3",
+      "gesture": "hold",
+      "seconds": 0.8
+    },
+    {
+      "kind": "console",
+      "command": "ccHorseBankStatus()",
+      "expected_horse_bank": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "kind": "horse_stop"
+    },
+    {
+      "kind": "console",
+      "command": "ccProbeRideReset()"
+    },
+    {
+      "kind": "keyboard_ride",
+      "seconds": 0.4
+    },
+    {
+      "kind": "console",
+      "command": "ccHorseBankStatus()",
+      "expected_horse_bank": [
+        [
+          1,
+          1
+        ],
+        [
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "kind": "horse_stop"
+    },
+    {
+      "kind": "hint_capture"
+    },
+    {
+      "kind": "console",
+      "command": "ccPrimitiveStop()"
+    }
+  ]
+}

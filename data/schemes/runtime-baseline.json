@@ -2,7 +2,7 @@
   "schema_version": 1,
   "selection_schema_version": 2,
   "templates_sha256": {
-    "bindings.ws": "8c7f9f3cda72e111548fe0ac66e8a2a13cb19ff4ec2ba9a748fcb75baff38e93",
+    "bindings.ws": "61f66afbbc193c7236e8f1f28b5f3394ec8c38e54cd1134f5e91188de7b9dbbd",
     "bootstrap.ws": "7f36e7c0eab12fb8986112a0873042f001948324b98a56de6175dab867e6d9da",
     "config.ws": "33c595d769181cc910c799fd9588f74ebd6960461e6162476fe456ad02fec15f",
     "contextAdapter.ws": "eac3587e22711a5740acd34c9d2d1089b5a2be92bdf746afedb4c58670ca02cb",

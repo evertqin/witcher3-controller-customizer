@@ -50,17 +50,24 @@ def validate_steps(steps):
     allowed = {'ccProbeLoaded()', 'ccProbeContexts()', 'ccProbeRideReset()', 'ccProbeRideStart()', 'ccProbeFallback()',
                'ccProbeRideStatus()', 'ccProbeFootStart()', 'ccProbeFootStatus()', 'ccProbeContextMode(true)',
                'ccProbeContextMode(false)', 'ccProbeDiagram(false)',
-               'ccPrimitiveStart()', 'ccPrimitiveStatus()', 'ccPrimitiveStop()'}
+               'ccPrimitiveStart()', 'ccPrimitiveStatus()', 'ccPrimitiveStop()', 'ccHorseBankStatus()'}
     if not steps:
         raise ValueError('No probe steps')
     for step in steps:
         if step['kind'] == 'console':
+            if 'expected_horse_bank' in step and (step['command'] != 'ccHorseBankStatus()' or
+                    not isinstance(step['expected_horse_bank'], list) or len(step['expected_horse_bank']) != 2 or
+                    any(not isinstance(pair, list) or len(pair) != 2 or any(type(v) is not int or v < 0 for v in pair) for pair in step['expected_horse_bank'])):
+                raise ValueError('Invalid horse bank assertion')
             if 'expected_primitives' in step and (step['command'] != 'ccPrimitiveStatus()' or
                     not isinstance(step['expected_primitives'], list) or len(step['expected_primitives']) != 3 or
                     any(not isinstance(pair, list) or len(pair) != 2 or any(type(v) is not int or v < 0 for v in pair) for pair in step['expected_primitives'])):
                 raise ValueError('Invalid primitive counter assertion')
             if step['command'] not in allowed:
                 raise ValueError('Unsupported probe command')
+        elif step['kind'] == 'keyboard_ride':
+            if set(step) != {'kind', 'seconds'} or type(step['seconds']) not in (int, float) or step['seconds'] not in (0.4, 0.8):
+                raise ValueError('Unsupported calibrated keyboard riding hold')
         elif step['kind'] == 'gesture':
             if step['button'] not in ('A', 'L3', 'X', 'RB') or step['gesture'] not in ('hold', 'double_hold', 'press'):
                 raise ValueError('Unsupported controller gesture')
@@ -198,11 +205,11 @@ def run(args):
             elif step['kind'] == 'hint_capture':
                 # Camera-only pad input selects native controller glyphs; never moves Geralt.
                 try:
-                    pad.right_joystick_float(x_value_float=0.25, y_value_float=0.0)
+                    pad.right_joystick_float(x_value_float=0.5, y_value_float=0.0)
                     pad.update()
-                    pause(0.15)
+                    pause(0.4)
                     state = read_states()[slot]
-                    if state['buttons'] != 0 or not 8000 <= state['rx'] <= 8300 or state['ry'] != 0:
+                    if state['buttons'] != 0 or not 16000 <= state['rx'] <= 16500 or state['ry'] != 0:
                         raise RuntimeError('Camera-only controller readback mismatch')
                 finally:
                     pad.reset()
@@ -226,6 +233,15 @@ def run(args):
                 # Native keyboard hold is preserved across all three scheme aliases.
                 desktop.key(target, 'E', 1.5)
                 pause(2.0)
+            elif step['kind'] == 'keyboard_ride':
+                from full_schemes import Record, parse
+                context = parse(Path(journal['Phase11Candidate']['InputPath']).read_text(encoding='utf-8-sig')).get('CC_PRIMITIVE_Horse', [])
+                required = [Record('IK_LShift', value, 0).signature for value in (
+                    '(Action=Canter)', '(Action=Gallop,State=Duration,IdleTime=0.3)')]
+                if not all(signature in {r.signature for r in context} for signature in required):
+                    raise RuntimeError('Native keyboard riding fixture changed; input refused')
+                desktop.press(target, [0xA0], step['seconds'])
+                pause(0.5)
             elif step['kind'] == 'horse_stop':
                 # Pinned personal Horse aliases retain native IK_X=(Action=Stop).
                 desktop.key(target, 'X', 1.0)
@@ -307,8 +323,8 @@ def run(args):
                     attempt += 1
                     pause(0.25)
                     desktop.screenshot(target, screenshot, args.ffmpeg, 'desktop')
-            if 'expected_primitives' in step:
-                from assertions import read_ocr, parse_primitives
+            if 'expected_primitives' in step or 'expected_horse_bank' in step:
+                from assertions import read_ocr, parse_primitives, parse_horse_bank
                 cropped = directory / f'{index:02d}-primitive-crop.png'
                 width, height = target['width'], target['height']
                 region = f'crop={round(width * 1150 / 2560)}:{round(height * 180 / 1440)}:{round(width * 90 / 2560)}:{round(height * 1220 / 1440)},scale=2300:360'
@@ -317,7 +333,8 @@ def run(args):
                                capture_output=True, timeout=20, creationflags=subprocess.CREATE_NO_WINDOW)
                 ocr = read_ocr(cropped)
                 (directory / f'{index:02d}-ocr.json').write_text(json.dumps(ocr, indent=2), encoding='utf-8')
-                entry['assertion'] = parse_primitives(ocr['Text'], step['expected_primitives'])
+                entry['assertion'] = (parse_horse_bank(ocr['Text'], step['expected_horse_bank']) if 'expected_horse_bank' in step else
+                                      parse_primitives(ocr['Text'], step['expected_primitives']))
             if step.get('command') == 'ccProbeFallback()':
                 from assertions import read_ocr, parse_fallback
                 cropped = directory / f'{index:02d}-fallback-crop.png'

@@ -8,7 +8,7 @@ import re
 
 from full_scheme_delivery import CONTENT, PAYLOADS, digest, validate_cook, write_plan
 from full_schemes import SchemeError, parse
-from primitive_bank import CONTEXT
+from primitive_bank import CONTEXT, bank as prepare_bank
 from probe_session import verify_journal
 
 
@@ -45,6 +45,12 @@ def install(repo, runtime_path, snapshot, bank_dir, output):
             digest(input_path) != bank['input_before_sha256'] or
             hashlib.sha256(data).hexdigest() != bank['input_after_sha256']):
         raise SchemeError('Primitive input preparation changed')
+    # Reconstruct the declared bank; metadata cannot authorize arbitrary input edits.
+    mode = bank.get('mode', 'observer')
+    expected_text, expected_bank = prepare_bank(input_path.read_bytes().decode('utf-8-sig'), mode)
+    if (data.decode('utf-8-sig') != expected_text or
+            bank.get('gameplay_remapping') != expected_bank['gameplay_remapping']):
+        raise SchemeError('Primitive bank payload or declared mode disagrees')
     migration_path = Path(runtime['Phase11Candidate']['TransactionDirectory']) / 'files.json'
     migration = json.loads(migration_path.read_text(encoding='utf-8-sig'))
     if (migration.get('Purpose') != 'ControllerCustomizerPhase11DevelopmentMigration' or
@@ -68,7 +74,7 @@ def install(repo, runtime_path, snapshot, bank_dir, output):
         item['InstalledSha256'] = replacement[str(target.resolve())]
     runtime['CookSnapshot'] = str(snapshot.resolve())
     runtime['RuntimeLoadVerified'] = False
-    runtime['PrimitiveExperiment'] = {'Context': CONTEXT, 'GameplayRemapping': False}
+    runtime['PrimitiveExperiment'] = {'Context': CONTEXT, 'GameplayRemapping': expected_bank['gameplay_remapping'], 'Mode': mode}
     runtime_data = (json.dumps(runtime, indent=2) + '\n').encode('utf-8')
     replacement[str(runtime_path.resolve())] = hashlib.sha256(runtime_data).hexdigest()
     replacement[str(input_path.resolve())] = hashlib.sha256(data).hexdigest()
@@ -82,7 +88,7 @@ def install(repo, runtime_path, snapshot, bank_dir, output):
     write_plan(output, entries, {'Purpose': 'ControllerCustomizerPrimitiveExperiment',
                                 'InputPath': str(input_path.resolve()), 'RuntimeJournal': str(runtime_path.resolve()),
                                 'GamePath': str(game.resolve()), 'MigrationJournal': str(migration_path.resolve()),
-                                'GameplayRemapping': False, 'CookSnapshot': str(snapshot.resolve())})
+                                'GameplayRemapping': expected_bank['gameplay_remapping'], 'Mode': mode, 'CookSnapshot': str(snapshot.resolve())})
 
 
 def restore(journal_path, output):
