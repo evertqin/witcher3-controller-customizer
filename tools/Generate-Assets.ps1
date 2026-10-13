@@ -211,7 +211,7 @@ $outputs['presetData.ws'] = $ws
 foreach ($name in $outputs.Keys) {
     $target = Join-Path $OutputDirectory $name
     if ($Check) {
-        if (-not (Test-Path -LiteralPath $target -PathType Leaf) -or [IO.File]::ReadAllText($target) -cne $outputs[$name]) { throw "Missing or stale generated asset: $name" }
+        if (-not (Test-Path -LiteralPath $target -PathType Leaf) -or [IO.File]::ReadAllText($target).Replace("`r`n", "`n") -cne $outputs[$name].Replace("`r`n", "`n")) { throw "Missing or stale generated asset: $name" }
     }
     else {
         if (-not (Test-Path -LiteralPath $OutputDirectory)) { New-Item -ItemType Directory -Path $OutputDirectory -Force | Out-Null }

@@ -29,7 +29,8 @@ parity remains pending; standalone schema-2 transactions now have isolated verif
 
 ## Install
 
-Extract the compiled `controller-customizer-phase11-candidate.zip`, then open
+Download the compiled ZIP from [Phase 1.1 releases](https://github.com/evertqin/witcher3-controller-customizer/releases/tag/v0.1.1).
+Extract `controller-customizer-phase11-candidate.zip`, then open
 PowerShell in the extracted folder containing `tools` and `cook.json`.
 GitHub's source ZIP is not a compiled package; developers must cook and package it first.
 Requires Windows PowerShell 5.1 and Python 3 available as `python`.
@@ -139,9 +140,9 @@ No new distribution license has been selected for the authored mod.
 
 ## Phase 2 development
 
-The local `phase2-custom-bindings` branch adds the custom draft/validation model.
-See [backend work](docs/phase2-backend.md). Live arbitrary routing and the in-game
-editor remain unimplemented; Phase 1.1 is now the installed development candidate.
+The `phase2-custom-bindings` branch adds three-preset custom drafts and read-only
+full-context conflict auditing. See [backend work](docs/phase2-backend.md).
+Runtime apply and the in-game editor remain unimplemented; Phase 1.1 stays installed.
 
 ## Phase 1.1 scope
 
