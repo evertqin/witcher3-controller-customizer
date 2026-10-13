@@ -1,7 +1,7 @@
 # Witcher 3 Controller Customizer
 
 PC mod development for Current (original), DarkSoul and DarkSoul Alt1 selection
-and matching native controller diagrams. Phase 1.1 is the active development candidate.
+and matching native controller diagrams. Phase 1.1 is the accepted release scope.
 Observed environment: Remaster 5.01, DX12, Xbox controller, input format 60.
 
 | Preset | Canter | Gallop | Mounted interaction |
@@ -15,7 +15,8 @@ The original Souls-controls launcher remains a separate project.
 
 Historical Phase 1 was accepted for continuation: eight successful switches and a later
 two-switch automated smoke are recorded. Additional manual gates were waived;
-untested coverage remains untested. Arbitrary buttons/gestures are Phase 2 work.
+untested coverage remains untested. Phase 2 custom buttons/gestures are deferred;
+committed experiments remain on the [phase2-custom-bindings feature branch](https://github.com/evertqin/witcher3-controller-customizer/tree/phase2-custom-bindings).
 See [evidence](docs/phase1-evidence.md) and [compatibility](docs/compatibility.md).
 
 ## Development build and migration
